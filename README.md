@@ -8,21 +8,21 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 <!-- PROJECT LOGO -->
-![alt text](https://gitlab.com/seba-master-2021/team-43/frontend/blob/master/src/logo.png?raw=true)
+![alt text](https://gitlab.lrz.de/seba-master-2021/team-43/frontend/blob/master/src/logo.png?raw=true)
 
 <h3 align="center">flatMatch</h3>
 
   <p align="center">
     FlatMatch is a community portal for shared apartments helping residential communities to find a suitable roommate by making the application process personal again. 
     <br />
-    <a href="https://gitlab.com/seba-master-2021/team-43/frontend"><strong>Explore the docs »</strong></a>
+    <a href="https://gitlab.lrz.de/seba-master-2021/team-43/frontend"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://gitlab.com/seba-master-2021/team-43/frontend">View Demo</a>
+    <a href="https://gitlab.lrz.de/seba-master-2021/team-43/frontend">View Demo</a>
     ·
-    <a href="https://gitlab.com/seba-master-2021/team-43/frontend/issues">Report Bug</a>
+    <a href="https://gitlab.lrz.de/seba-master-2021/team-43/frontend/issues">Report Bug</a>
     ·
-    <a href="https://gitlab.com/seba-master-2021/team-43/frontend/issues">Request Feature</a>
+    <a href="https://gitlab.lrz.de/seba-master-2021/team-43/frontend/issues">Request Feature</a>
   </p>
 </p>
 
@@ -83,7 +83,7 @@ To get a local copy up and running follow these simple steps.
 
 1. Clone the repo
    ```sh
-   git clone https://gitlab.com/seba-master-2021/team-43/frontend.git
+   git clone https://gitlab.lrz.de/seba-master-2021/team-43/frontend.git
    ```
 2. Install NPM packages
    ```sh
@@ -119,7 +119,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://gitlab.com/seba-master-2021/team-43/frontend/issues) for a list of proposed features (and known issues).
+See the [open issues](https://gitlab.lrz.de/seba-master-2021/team-43/frontend/issues) for a list of proposed features (and known issues).
 
 
 
@@ -148,7 +148,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - tom.wenzel@tum.de
 
-Project Link: [https://gitlab.com/seba-master-2021/team-43/frontend](https://gitlab.com/seba-master-2021/team-43/frontend)
+Project Link: [https://gitlab.lrz.de/seba-master-2021/team-43/frontend](https://gitlab.lrz.de/seba-master-2021/team-43/frontend)
 
 
 
@@ -166,15 +166,15 @@ Project Link: [https://gitlab.com/seba-master-2021/team-43/frontend](https://git
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
 [contributors-shield]: https://img.shields.io/gitlab/contributors/seba-master-2021/team-43/repo.svg?style=for-the-badge
-[contributors-url]: https://gitlab.com/seba-master-2021/team-43/repo/graphs/contributors
+[contributors-url]: https://gitlab.lrz.de/seba-master-2021/team-43/repo/graphs/contributors
 [forks-shield]: https://img.shields.io/gitlab/forks/seba-master-2021/team-43/repo.svg?style=for-the-badge
-[forks-url]: https://gitlab.com/seba-master-2021/team-43/repo/network/members
+[forks-url]: https://gitlab.lrz.de/seba-master-2021/team-43/repo/network/members
 [stars-shield]: https://img.shields.io/gitlab/stars/seba-master-2021/team-43/repo.svg?style=for-the-badge
-[stars-url]: https://gitlab.com/seba-master-2021/team-43/repo/stargazers
+[stars-url]: https://gitlab.lrz.de/seba-master-2021/team-43/repo/stargazers
 [issues-shield]: https://img.shields.io/gitlab/issues/seba-master-2021/team-43/repo.svg?style=for-the-badge
-[issues-url]: https://gitlab.com/seba-master-2021/team-43/repo/issues
+[issues-url]: https://gitlab.lrz.de/seba-master-2021/team-43/repo/issues
 [license-shield]: https://img.shields.io/gitlab/license/seba-master-2021/team-43/repo.svg?style=for-the-badge
-[license-url]: https://gitlab.com/seba-master-2021/team-43/repo/blob/master/LICENSE.txt
+[license-url]: https://gitlab.lrz.de/seba-master-2021/team-43/repo/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/seba-master-2021/team-43
 
