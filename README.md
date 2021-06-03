@@ -8,7 +8,8 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 <!-- PROJECT LOGO -->
-![](src/logo.png)
+<img src="src/logo.png" alt="logo" width="300"/>
+
 
 <h3 align="center">flatMatch</h3>
 
