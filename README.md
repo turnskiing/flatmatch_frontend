@@ -8,7 +8,7 @@
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
 <!-- PROJECT LOGO -->
-![alt text](https://gitlab.lrz.de/seba-master-2021/team-43/frontend/blob/master/src/logo.png?raw=true)
+![alt text](https://gitlab.lrz.de/seba-master-2021/team-43/frontend/blob/master/src/logo.png)
 
 <h3 align="center">flatMatch</h3>
 
