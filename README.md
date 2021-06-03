@@ -21,7 +21,7 @@
 
 <br />
 <p align="center">
-  <a href="https://github.com/tomwenzel/frontend">
+  <a href="https://github.com/seba-master-2021/frontend">
     <img src="https://github.com/seba-master-2021/team-43/backend/blob/master/src/logo.png?raw=true" alt="Logo" width="80" height="80">
   </a>
 
@@ -30,14 +30,14 @@
   <p align="center">
     FlatMatch is a community portal for shared apartments helping residential communities to find a suitable roommate by making the application process personal again. 
     <br />
-    <a href="https://github.com/tomwenzel/frontend"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/seba-master-2021/frontend"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/tomwenzel/frontend">View Demo</a>
+    <a href="https://github.com/seba-master-2021/frontend">View Demo</a>
     ·
-    <a href="https://github.com/tomwenzel/frontend/issues">Report Bug</a>
+    <a href="https://github.com/seba-master-2021/frontend/issues">Report Bug</a>
     ·
-    <a href="https://github.com/tomwenzel/frontend/issues">Request Feature</a>
+    <a href="https://github.com/seba-master-2021/frontend/issues">Request Feature</a>
   </p>
 </p>
 
@@ -78,7 +78,7 @@
 
 Here's a blank template to get started:
 **To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`tomwenzel`, `frontend`, `twitter_handle`, `tom.wenzel@tum.de`, `flatMatch`, `FlatMatch is a community portal for shared apartments helping residential communities to find a suitable roommate by making the application process personal again. `
+`seba-master-2021`, `frontend`, `twitter_handle`, `tom.wenzel@tum.de`, `flatMatch`, `FlatMatch is a community portal for shared apartments helping residential communities to find a suitable roommate by making the application process personal again. `
 
 
 ### Built With
@@ -98,7 +98,7 @@ To get a local copy up and running follow these simple steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/tomwenzel/frontend.git
+   git clone https://github.com/seba-master-2021/frontend.git
    ```
 2. Install NPM packages
    ```sh
@@ -134,7 +134,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/tomwenzel/frontend/issues) for a list of proposed features (and known issues).
+See the [open issues](https://github.com/seba-master-2021/frontend/issues) for a list of proposed features (and known issues).
 
 
 
@@ -163,7 +163,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - tom.wenzel@tum.de
 
-Project Link: [https://github.com/tomwenzel/frontend](https://github.com/tomwenzel/frontend)
+Project Link: [https://github.com/seba-master-2021/frontend](https://github.com/seba-master-2021/frontend)
 
 
 
@@ -180,18 +180,18 @@ Project Link: [https://github.com/tomwenzel/frontend](https://github.com/tomwenz
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/tomwenzel/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/tomwenzel/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/tomwenzel/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/tomwenzel/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/tomwenzel/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/tomwenzel/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/tomwenzel/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/tomwenzel/repo/issues
-[license-shield]: https://img.shields.io/github/license/tomwenzel/repo.svg?style=for-the-badge
-[license-url]: https://github.com/tomwenzel/repo/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/github/contributors/seba-master-2021/repo.svg?style=for-the-badge
+[contributors-url]: https://github.com/seba-master-2021/repo/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/seba-master-2021/repo.svg?style=for-the-badge
+[forks-url]: https://github.com/seba-master-2021/repo/network/members
+[stars-shield]: https://img.shields.io/github/stars/seba-master-2021/repo.svg?style=for-the-badge
+[stars-url]: https://github.com/seba-master-2021/repo/stargazers
+[issues-shield]: https://img.shields.io/github/issues/seba-master-2021/repo.svg?style=for-the-badge
+[issues-url]: https://github.com/seba-master-2021/repo/issues
+[license-shield]: https://img.shields.io/github/license/seba-master-2021/repo.svg?style=for-the-badge
+[license-url]: https://github.com/seba-master-2021/repo/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/tomwenzel
+[linkedin-url]: https://linkedin.com/in/seba-master-2021
 
 
 
