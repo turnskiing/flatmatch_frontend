@@ -6,7 +6,9 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
+// Images
 import Logo from '../images/FlatMatch.png';
+// Styles
 import { SignInStyles } from './SignInView.style'
 
 function Copyright() {
