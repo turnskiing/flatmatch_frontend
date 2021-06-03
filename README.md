@@ -7,37 +7,22 @@
 *** for contributors-url, forks-url, etc. This is an optional, concise syntax you may use.
 *** https://www.markdownguide.org/basic-syntax/#reference-style-links
 -->
-[![Contributors][contributors-shield]][contributors-url]
-[![Forks][forks-shield]][forks-url]
-[![Stargazers][stars-shield]][stars-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
-
-
-
 <!-- PROJECT LOGO -->
-![alt text](https://github.com/seba-master-2021/team-43/backend/blob/master/src/logo.png?raw=true)
-
-<br />
-<p align="center">
-  <a href="https://github.com/seba-master-2021/frontend">
-    <img src="https://github.com/seba-master-2021/team-43/backend/blob/master/src/logo.png?raw=true" alt="Logo" width="80" height="80">
-  </a>
+![alt text](https://gitlab.com/seba-master-2021/team-43/frontend/blob/master/src/logo.png?raw=true)
 
 <h3 align="center">flatMatch</h3>
 
   <p align="center">
     FlatMatch is a community portal for shared apartments helping residential communities to find a suitable roommate by making the application process personal again. 
     <br />
-    <a href="https://github.com/seba-master-2021/frontend"><strong>Explore the docs »</strong></a>
+    <a href="https://gitlab.com/seba-master-2021/team-43/frontend"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/seba-master-2021/frontend">View Demo</a>
+    <a href="https://gitlab.com/seba-master-2021/team-43/frontend">View Demo</a>
     ·
-    <a href="https://github.com/seba-master-2021/frontend/issues">Report Bug</a>
+    <a href="https://gitlab.com/seba-master-2021/team-43/frontend/issues">Report Bug</a>
     ·
-    <a href="https://github.com/seba-master-2021/frontend/issues">Request Feature</a>
+    <a href="https://gitlab.com/seba-master-2021/team-43/frontend/issues">Request Feature</a>
   </p>
 </p>
 
@@ -98,7 +83,7 @@ To get a local copy up and running follow these simple steps.
 
 1. Clone the repo
    ```sh
-   git clone https://github.com/seba-master-2021/frontend.git
+   git clone https://gitlab.com/seba-master-2021/team-43/frontend.git
    ```
 2. Install NPM packages
    ```sh
@@ -134,7 +119,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-See the [open issues](https://github.com/seba-master-2021/frontend/issues) for a list of proposed features (and known issues).
+See the [open issues](https://gitlab.com/seba-master-2021/team-43/frontend/issues) for a list of proposed features (and known issues).
 
 
 
@@ -163,7 +148,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - tom.wenzel@tum.de
 
-Project Link: [https://github.com/seba-master-2021/frontend](https://github.com/seba-master-2021/frontend)
+Project Link: [https://gitlab.com/seba-master-2021/team-43/frontend](https://gitlab.com/seba-master-2021/team-43/frontend)
 
 
 
@@ -180,18 +165,18 @@ Project Link: [https://github.com/seba-master-2021/frontend](https://github.com/
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/seba-master-2021/repo.svg?style=for-the-badge
-[contributors-url]: https://github.com/seba-master-2021/repo/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/seba-master-2021/repo.svg?style=for-the-badge
-[forks-url]: https://github.com/seba-master-2021/repo/network/members
-[stars-shield]: https://img.shields.io/github/stars/seba-master-2021/repo.svg?style=for-the-badge
-[stars-url]: https://github.com/seba-master-2021/repo/stargazers
-[issues-shield]: https://img.shields.io/github/issues/seba-master-2021/repo.svg?style=for-the-badge
-[issues-url]: https://github.com/seba-master-2021/repo/issues
-[license-shield]: https://img.shields.io/github/license/seba-master-2021/repo.svg?style=for-the-badge
-[license-url]: https://github.com/seba-master-2021/repo/blob/master/LICENSE.txt
+[contributors-shield]: https://img.shields.io/gitlab/contributors/seba-master-2021/team-43/repo.svg?style=for-the-badge
+[contributors-url]: https://gitlab.com/seba-master-2021/team-43/repo/graphs/contributors
+[forks-shield]: https://img.shields.io/gitlab/forks/seba-master-2021/team-43/repo.svg?style=for-the-badge
+[forks-url]: https://gitlab.com/seba-master-2021/team-43/repo/network/members
+[stars-shield]: https://img.shields.io/gitlab/stars/seba-master-2021/team-43/repo.svg?style=for-the-badge
+[stars-url]: https://gitlab.com/seba-master-2021/team-43/repo/stargazers
+[issues-shield]: https://img.shields.io/gitlab/issues/seba-master-2021/team-43/repo.svg?style=for-the-badge
+[issues-url]: https://gitlab.com/seba-master-2021/team-43/repo/issues
+[license-shield]: https://img.shields.io/gitlab/license/seba-master-2021/team-43/repo.svg?style=for-the-badge
+[license-url]: https://gitlab.com/seba-master-2021/team-43/repo/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
-[linkedin-url]: https://linkedin.com/in/seba-master-2021
+[linkedin-url]: https://linkedin.com/in/seba-master-2021/team-43
 
 
 
@@ -201,7 +186,7 @@ Project Link: [https://github.com/seba-master-2021/frontend](https://github.com/
 ### `npm test`
 
 Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+See the section about [running tests](https://facebook.gitlab.io/create-react-app/docs/running-tests) for more information.
 
 ### `npm run build`
 
@@ -211,7 +196,7 @@ It correctly bundles React in production mode and optimizes the build for the be
 The build is minified and the filenames include the hashes.\
 Your app is ready to be deployed!
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+See the section about [deployment](https://facebook.gitlab.io/create-react-app/docs/deployment) for more information.
 
 ### `npm run eject`
 
@@ -225,6 +210,6 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 
 ## Learn More
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+You can learn more in the [Create React App documentation](https://facebook.gitlab.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
