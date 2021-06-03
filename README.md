@@ -53,16 +53,6 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
-
-Here's a blank template to get started:
-**To avoid retyping too much info. Do a search and replace with your text editor for the following:**
-`seba-master-2021`, `frontend`, `twitter_handle`, `tom.wenzel@tum.de`, `flatMatch`, `FlatMatch is a community portal for shared apartments helping residential communities to find a suitable roommate by making the application process personal again. `
-
-
 ### Built With
 
 * []() React
@@ -124,9 +114,6 @@ See the [open issues](https://gitlab.lrz.de/seba-master-2021/team-43/frontend/is
 
 <!-- CONTACT -->
 ## Contact
-
-Your Name - [@twitter_handle](https://twitter.com/twitter_handle) - tom.wenzel@tum.de
-
 Project Link: [https://gitlab.lrz.de/seba-master-2021/team-43/frontend](https://gitlab.lrz.de/seba-master-2021/team-43/frontend)
 
 
