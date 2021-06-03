@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 import React from 'react';
 import './App.css';
 import Header from "./Header";
@@ -17,10 +18,15 @@ function App() {
 =======
 import "./App.css";
 import { Counter } from "./Counter";
+=======
+import React from "react";
+import SignInSide  from './views/SignInView'
+>>>>>>> e0f95e6 (Add sign in view)
 
 function App() {
   return (
     <div>
+<<<<<<< HEAD
       <Counter>
         {(count, setCount) => (
           <div>
@@ -30,6 +36,15 @@ function App() {
         )}
       </Counter>
 >>>>>>> a2008a7 (Add basic setup)
+=======
+      <head>
+        <meta
+          name="viewport"
+          content="minimum-scale=1, initial-scale=1, width=device-width"
+        />
+      </head>
+      <SignInSide/>
+>>>>>>> e0f95e6 (Add sign in view)
     </div>
   );
 }
