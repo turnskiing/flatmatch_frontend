@@ -29,7 +29,6 @@ const TinderCards: FC<Props> = ({title}): ReactElement => {
 
     const swiped = (direction: string, nameToDelete: string) => {
         console.log('removing' + nameToDelete);
-        //setLastDirection()
     }
     const outOfFrame = (name: string) => {
         console.log('someone has left the party' + name);
