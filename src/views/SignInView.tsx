@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import validator from 'validator'
 // MaterialUI
 import Button from "@material-ui/core/Button";
 import CssBaseline from "@material-ui/core/CssBaseline";
@@ -19,6 +20,10 @@ import { SignInStyles } from "./SignInView.style";
 export default function SignInSide() {
   const classes = SignInStyles();
   const [signUp, setSignUp] = useState(false);
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [passwordAgain, setPasswordAgain] = useState<string>("");
+
 
   return (
     <Grid container component="main" className={classes.root}>
@@ -52,6 +57,8 @@ export default function SignInSide() {
               name="email"
               autoComplete="email"
               autoFocus
+              value={email}
+              onChange={(ev: React.ChangeEvent<HTMLInputElement>): void => setEmail(ev.target.value)}
             />
             <TextField
               variant="outlined"
@@ -63,6 +70,8 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={password}
+              onChange={(ev: React.ChangeEvent<HTMLInputElement>): void => setPassword(ev.target.value)}
             />
             {signUp ? (
             <TextField
@@ -75,6 +84,8 @@ export default function SignInSide() {
               type="password"
               id="password"
               autoComplete="current-password"
+              value={passwordAgain}
+              onChange={(ev: React.ChangeEvent<HTMLInputElement>): void => setPasswordAgain(ev.target.value)}
             />) : null}
             <Button
               type="submit"
@@ -82,6 +93,7 @@ export default function SignInSide() {
               variant="contained"
               color="primary"
               className={classes.submit}
+              disabled={signUp ? !isSignUpValid(email, password, passwordAgain) : !isSignInValid(email, password)}
             >
               {signUp ? ("Sign Up") : ("Sign In")}
             </Button>
@@ -110,4 +122,16 @@ export default function SignInSide() {
       </Grid>
     </Grid>
   );
+}
+
+function isSignInValid(email: string, password: string): boolean {
+    return isEmailValid(email) && password.length >= 8
+}
+
+function isSignUpValid(email:string, password: string, passwordAgain: string): boolean {
+    return isEmailValid(email) && password.length >= 8 && password === passwordAgain
+}
+
+function isEmailValid(email: string): boolean {
+  return validator.isEmail(email)
 }
