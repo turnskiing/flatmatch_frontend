@@ -1,42 +1,46 @@
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import Link from '@material-ui/core/Link';
-import Paper from '@material-ui/core/Paper';
-import Box from '@material-ui/core/Box';
-import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
+import React, { useState } from "react";
+// MaterialUI
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import Link from "@material-ui/core/Link";
+import Paper from "@material-ui/core/Paper";
+import Box from "@material-ui/core/Box";
+import Grid from "@material-ui/core/Grid";
+import Typography from "@material-ui/core/Typography";
+// Componenets
+import { Copyright } from "../components/Copyright"
 // Images
-import Logo from '../images/FlatMatch.png';
+import Logo from "../images/FlatMatch.png";
 // Styles
-import { SignInStyles } from './SignInView.style'
+import { SignInStyles } from "./SignInView.style";
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        FlatMatch
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 export default function SignInSide() {
   const classes = SignInStyles();
+  const [signUp, setSignUp] = useState(false);
 
   return (
     <Grid container component="main" className={classes.root}>
       <CssBaseline />
-      <Grid item xs={false} sm={4} md={7} className={classes.image} />
+      <Grid item xs={false} sm={4} md={7} className={classes.image}/>
       <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
         <div className={classes.paper}>
-          <img src={Logo} className={classes.logo} alt=""/>
-          <Typography component="h1" variant="h5">
-            Sign in
-          </Typography>
+          <img src={Logo} className={classes.logo} alt="" />
+          <Grid container>
+            <Grid item xs>
+              <Typography component="h1" align="center" variant="h5">
+                Welcome,
+              </Typography>
+            </Grid>
+          </Grid>
+          <Grid container>
+            <Grid item xs>
+              <Typography component="h2" align="center" variant="subtitle1">
+                {signUp ? ("Sign up to get started!") : ("Sign in to continue!")}
+              </Typography>
+            </Grid>
+          </Grid>
           <form className={classes.form} noValidate>
             <TextField
               variant="outlined"
@@ -60,6 +64,18 @@ export default function SignInSide() {
               id="password"
               autoComplete="current-password"
             />
+            {signUp ? (
+            <TextField
+              variant="outlined"
+              margin="normal"
+              required
+              fullWidth
+              name="password again"
+              label="Password again"
+              type="password"
+              id="password"
+              autoComplete="current-password"
+            />) : null}
             <Button
               type="submit"
               fullWidth
@@ -67,7 +83,7 @@ export default function SignInSide() {
               color="primary"
               className={classes.submit}
             >
-              Sign In
+              {signUp ? ("Sign Up") : ("Sign In")}
             </Button>
             <Grid container>
               <Grid item xs>
@@ -76,8 +92,13 @@ export default function SignInSide() {
                 </Link>
               </Grid>
               <Grid item>
-                <Link href="#" variant="body2">
-                  {"Don't have an account? Sign Up"}
+                <Link 
+                href="#" 
+                variant="body2" 
+                align="right"
+                onClick={() => { setSignUp(!signUp) }}
+                >
+                  {signUp ? ("Already a member? Sign In Here") : ("New user? Sign Up Here")}
                 </Link>
               </Grid>
             </Grid>
