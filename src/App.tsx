@@ -1,5 +1,5 @@
 import React from "react";
-import SignInSide  from './views/SignInView'
+import SignInView  from './views/SignInView'
 
 function App() {
   return (
@@ -10,7 +10,7 @@ function App() {
           content="minimum-scale=1, initial-scale=1, width=device-width"
         />
       </head>
-      <SignInSide/>
+      <SignInView/>
     </div>
   );
 }
