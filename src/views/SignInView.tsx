@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useHistory } from "react-router-dom";
 import validator from 'validator'
 // MaterialUI
 import Button from "@material-ui/core/Button";
@@ -23,6 +24,11 @@ export default function SignInSide() {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [passwordAgain, setPasswordAgain] = useState<string>("");
+  const history = useHistory();
+
+  function handleSubmit() {
+    history.push('home/find_room');
+  }
 
 
   return (
@@ -94,6 +100,7 @@ export default function SignInSide() {
               color="primary"
               className={classes.submit}
               disabled={signUp ? !isSignUpValid(email, password, passwordAgain) : !isSignInValid(email, password)}
+              onClick={handleSubmit}
             >
               {signUp ? ("Sign Up") : ("Sign In")}
             </Button>
