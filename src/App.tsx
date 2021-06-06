@@ -1,20 +1,8 @@
-import React from 'react';
-import './App.css';
-import Header from "./Header";
-import TinderCards from "./TinderCards";
-import SwipeButtons from './SwipeButtons'
+import React from "react";
+import Router  from './Router'
 
 function App() {
-  return (
-    <div className="app">
-      <Header title={""}/>
-      <TinderCards/>
-      <SwipeButtons/>
-        {/*Tinder Cards*/}
-        {/*Buttons*/}
-
-    </div>
-  );
+  return <Router />
 }
 
 export default App;
