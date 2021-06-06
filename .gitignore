@@ -5,6 +5,16 @@
 /.pnp
 .pnp.js
 
+# Dependency management
+package-lock.json
+
+# IDE settings
+.vscode
+.idea
+
+# Stores VSCode versions used for testing VSCode extensions
+.vscode-test
+
 # testing
 /coverage
 
