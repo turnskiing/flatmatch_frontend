@@ -1,7 +1,5 @@
 import AppBar from "@material-ui/core/AppBar";
 import { makeStyles } from "@material-ui/core/styles";
-import Typography from "@material-ui/core/Typography";
-import Breadcrumbs from "@material-ui/core/Breadcrumbs";
 import Link from "@material-ui/core/Link";
 import Toolbar from "@material-ui/core/Toolbar";
 import Avatar from "@material-ui/core/Avatar";
@@ -31,7 +29,12 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function DefaultAppBar() {
+export default function DefaultAppBar(
+  name: string,
+  breadcrumb: JSX.Element,
+  profileImageUrl = "",
+  isProfileCreated = true
+) {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
@@ -56,7 +59,12 @@ export default function DefaultAppBar() {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      {isProfileCreated ? (
+        <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+      ) : null}
+      {isProfileCreated ? (
+        <MenuItem onClick={handleMenuClose}>Messages</MenuItem>
+      ) : null}
       <MenuItem onClick={handleMenuClose}>
         <Link color="inherit" href="/signIn">
           Logout
@@ -75,14 +83,7 @@ export default function DefaultAppBar() {
             container
             spacing={0}
           >
-            <Grid item>
-              <Breadcrumbs maxItems={1} aria-label="breadcrumb">
-                <Link color="inherit" href="/">
-                  Home
-                </Link>
-                <Typography color="textPrimary">FindOffering</Typography>
-              </Breadcrumbs>
-            </Grid>
+            <Grid item>{breadcrumb}</Grid>
             <Grid item>
               <img src={Logo} className={classes.logo} alt="" />
             </Grid>
@@ -96,11 +97,11 @@ export default function DefaultAppBar() {
                 color="inherit"
               >
                 <Avatar
-                  src="/broken-image.jpg"
+                  src={profileImageUrl}
                   variant="rounded"
                   className={classes.avatar}
                 >
-                  H
+                  {profileImageUrl === "" ? name[0] : null}
                 </Avatar>
               </IconButton>
             </Grid>
