@@ -27,7 +27,7 @@ export default function SignInSide() {
 	const history = useHistory()
 
 	function handleSubmit() {
-		history.push('home/find_room')
+		history.push('home/create_profile')
 	}
 
 
