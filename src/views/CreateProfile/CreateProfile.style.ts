@@ -39,4 +39,15 @@ export const CreateProfileStyles = makeStyles((theme) => ({
 	cardMedia: {
 		height: 140,
 	},
+    profileImage: {
+		marginTop: theme.spacing(3),
+		marginBottom: theme.spacing(2),
+		padding: 10,
+		backgroundColor: "white",
+	},
+	imageButtons: {
+		backgroundColor: "white",
+		padding: 0,
+		marginLeft: 5,
+	}
 }))

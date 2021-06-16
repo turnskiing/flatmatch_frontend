@@ -1,6 +1,5 @@
 import "date-fns"
 import React from "react"
-import { makeStyles } from '@material-ui/core/styles'
 import {
 	faTransgenderAlt,
 	faVenus,
@@ -23,23 +22,11 @@ import {
 	KeyboardDatePicker,
 } from "@material-ui/pickers"
 import ImageUploading, { ImageListType } from "react-images-uploading"
-
-const useStyles = makeStyles((theme) => ({
-	profileImage: {
-		marginTop: theme.spacing(3),
-		marginBottom: theme.spacing(2),
-		padding: 10,
-		backgroundColor: "white",
-	},
-	imageButtons: {
-		backgroundColor: "white",
-		padding: 0,
-		marginLeft: 5,
-	}
-}))
+// Styles
+import { CreateProfileStyles } from "./CreateProfile.style"
 
 export default function AddressForm() {
-	const classes = useStyles()
+	const classes = CreateProfileStyles()
 	const [images, setImages] = React.useState([])
 	const [selectedDate, setSelectedDate] = React.useState<Date | null>(null)
 	const [gender, setGender] = React.useState<string | null>(null)
