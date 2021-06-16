@@ -1,0 +1,41 @@
+.card {
+    position: relative;
+    background-color: #ffff;
+    width: 600px;
+    padding: 20px;
+    max-width: 85vw;
+    height: 50vh;
+    box-shadow: 0 18px 53px 0 rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    background-size: cover;
+    background-position: center;
+}
+
+.tinderCards_cardContainer {
+    display: flex;
+    justify-content: center;
+    margin-top: 10vh;
+}
+
+.swipe {
+    position: absolute;
+}
+
+.offer__description {
+    position:   absolute;
+    bottom: 1vh;
+    left: 1vh;
+    padding: 1vh 1vw 1vh 1vw ;
+    color: #f5edee;
+    font-family:    Arial, Helvetica, sans-serif;
+    font-size: 2vh;
+    border-radius: 5px;
+    background-color: rgba(55, 54, 48, 0.3);
+}
+
+#listing__title{
+    color: #f7ffff;
+    font-family:    Arial, Helvetica, sans-serif;
+    font-size:      3vh;
+    font-weight:    bold;
+}
