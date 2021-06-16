@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom'
 
-import SignInView from './views/SignInView'
+import SignInView from './views/SignIn/SignInView'
 import FindOfferingView from './views/FindOffering/FindOfferingView'
 import CreateProfileView from './views/CreateProfile/CreateProfileView'
 
