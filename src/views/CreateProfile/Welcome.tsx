@@ -37,10 +37,10 @@ export default function Welcome() {
 					alignItems="center"
 				>
 					<Grid item xs={12} sm={6} justify="center" alignItems="center">
-                    <Card className={classes.card}>
+						<Card className={classes.card}>
 							<CardActionArea onClick={handleClick}>
 								<CardContent>
-									<Typography gutterBottom variant="h5" component="h2" style={{paddingTop: 20, paddingBottom: 20}}>
+									<Typography gutterBottom variant="h5" component="h2" style={{ paddingTop: 20, paddingBottom: 20 }}>
 										Find shared appartments
 									</Typography>
 									<Typography
@@ -58,7 +58,7 @@ export default function Welcome() {
 						<Card className={classes.card}>
 							<CardActionArea onClick={handleClick}>
 								<CardContent>
-									<Typography gutterBottom variant="h5" component="h2" style={{paddingTop: 20, paddingBottom: 20}}>
+									<Typography gutterBottom variant="h5" component="h2" style={{ paddingTop: 20, paddingBottom: 20 }}>
 										Offer shared appartments
 									</Typography>
 									<Typography
