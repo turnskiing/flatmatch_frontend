@@ -1,15 +1,18 @@
 import React from "react"
 import ReactDOM from "react-dom"
 import { createMuiTheme, ThemeProvider } from "@material-ui/core"
+// colors
+import orange from "@material-ui/core/colors/orange"
+
 import App from "./App"
 
 const theme = createMuiTheme({
 	palette: {
 		primary: {
-			main: "#ff8f00", // This is an orange looking color
+			main: orange[600]
 		},
 		secondary: {
-			main: "#ffcc80", // Another orange-ish color
+			main: orange[400]
 		},
 	},
 })

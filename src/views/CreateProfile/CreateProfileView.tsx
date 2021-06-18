@@ -6,6 +6,7 @@ import Step from "@material-ui/core/Step"
 import StepLabel from "@material-ui/core/StepLabel"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
+import StepConnector from '@material-ui/core/StepConnector';
 // Steps
 import PersonalInfromation from "./PersonalInformation"
 import Interests from "./Interests"
@@ -16,8 +17,28 @@ import { CreateProfileBreadCrumb } from "../../components/Breadcrumbs"
 import DefaultAppBar from "../../components/DefaultAppBar"
 // Styles
 import { CreateProfileStyles } from "./CreateProfile.style"
+import { withStyles } from '@material-ui/core/styles';
+import grey from "@material-ui/core/colors/grey"
 
 const steps = ["Personal information", "Interests", "Welcome"]
+
+const ColorStepConnector = withStyles((theme) => ({
+	active: {
+	  '& $line': {
+		borderColor: theme.palette.primary.main,
+	  },
+	},
+	completed: {
+	  '& $line': {
+		borderColor: theme.palette.primary.main,
+	  },
+	},
+	line: {
+	  borderColor: grey[300],
+	  borderTopWidth: 3,
+	  borderRadius: 1,
+	},
+  }))(StepConnector);
 
 function getStepContent(step: number) {
 	switch (step) {
@@ -53,7 +74,7 @@ export default function CreateProfileView() {
 					<Typography component="h1" variant="h4" align="center">
 						Create your Profile
 					</Typography>
-					<Stepper activeStep={activeStep} className={classes.stepper}>
+					<Stepper activeStep={activeStep} connector={<ColorStepConnector />} className={classes.stepper}>
 						{steps.map((label) => (
 							<Step key={label}>
 								<StepLabel>{label}</StepLabel>
