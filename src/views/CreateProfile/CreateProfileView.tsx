@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import Paper from "@material-ui/core/Paper"
 import Stepper from "@material-ui/core/Stepper"
@@ -6,7 +6,7 @@ import Step from "@material-ui/core/Step"
 import StepLabel from "@material-ui/core/StepLabel"
 import Button from "@material-ui/core/Button"
 import Typography from "@material-ui/core/Typography"
-import StepConnector from '@material-ui/core/StepConnector';
+import StepConnector from '@material-ui/core/StepConnector'
 // Steps
 import PersonalInfromation from "./PersonalInformation"
 import Interests from "./Interests"
@@ -17,28 +17,30 @@ import { CreateProfileBreadCrumb } from "../../components/Breadcrumbs"
 import DefaultAppBar from "../../components/DefaultAppBar"
 // Styles
 import { CreateProfileStyles } from "./CreateProfile.style"
-import { withStyles } from '@material-ui/core/styles';
+import { withStyles } from '@material-ui/core/styles'
 import grey from "@material-ui/core/colors/grey"
+// Context
+import { UserContext } from "../../App"
 
 const steps = ["Personal information", "Interests", "Welcome"]
 
 const ColorStepConnector = withStyles((theme) => ({
 	active: {
-	  '& $line': {
-		borderColor: theme.palette.primary.main,
-	  },
+		'& $line': {
+			borderColor: theme.palette.primary.main,
+		},
 	},
 	completed: {
-	  '& $line': {
-		borderColor: theme.palette.primary.main,
-	  },
+		'& $line': {
+			borderColor: theme.palette.primary.main,
+		},
 	},
 	line: {
-	  borderColor: grey[300],
-	  borderTopWidth: 3,
-	  borderRadius: 1,
+		borderColor: grey[300],
+		borderTopWidth: 3,
+		borderRadius: 1,
 	},
-  }))(StepConnector);
+}))(StepConnector)
 
 function getStepContent(step: number) {
 	switch (step) {
@@ -53,7 +55,9 @@ function getStepContent(step: number) {
 	}
 }
 
+
 export default function CreateProfileView() {
+	const userContext = useContext(UserContext)
 	const classes = CreateProfileStyles()
 	const [activeStep, setActiveStep] = React.useState(0)
 
@@ -63,6 +67,25 @@ export default function CreateProfileView() {
 
 	const handleBack = () => {
 		setActiveStep(activeStep - 1)
+	}
+
+	function isFormValid(): boolean {
+		switch (activeStep) {
+			case 0:
+				return isPersonalInformationValid()
+			case 1:
+				return false
+			default:
+				return false
+		}
+	}
+
+	function isPersonalInformationValid(): boolean {
+		const user = userContext.user
+		return user.full_name.trim() !== "" &&
+			user.gender !== null &&
+			user.images.length > 0 &&
+			user.date_of_birth !== null
 	}
 
 	return (
@@ -82,18 +105,19 @@ export default function CreateProfileView() {
 						))}
 					</Stepper>
 					<React.Fragment>
-							<React.Fragment>
-								{getStepContent(activeStep)}
-								<div className={classes.buttons}>
-									{activeStep === 1 && (
-										<Button onClick={handleBack} className={classes.button}>
-											Back
-										</Button>
-									)}
-									{activeStep !== 2 && (
-										<Button
+						<React.Fragment>
+							{getStepContent(activeStep)}
+							<div className={classes.buttons}>
+								{activeStep === 1 && (
+									<Button onClick={handleBack} className={classes.button}>
+										Back
+									</Button>
+								)}
+								{activeStep !== 2 && (
+									<Button
 										variant="contained"
 										color="primary"
+										disabled={!isFormValid()}
 										onClick={handleNext}
 										className={classes.button}
 									>
@@ -101,9 +125,9 @@ export default function CreateProfileView() {
 											? "Create Profile"
 											: "Next"}
 									</Button>
-									)}
-								</div>
-							</React.Fragment>
+								)}
+							</div>
+						</React.Fragment>
 					</React.Fragment>
 				</Paper>
 				<Copyright />

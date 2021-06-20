@@ -1,5 +1,5 @@
 import "date-fns"
-import React from "react"
+import React, { useContext } from "react"
 import {
 	faTransgenderAlt,
 	faVenus,
@@ -7,13 +7,13 @@ import {
 } from "@fortawesome/free-solid-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import AccountCircleIcon from "@material-ui/icons/AccountCircle"
-import DeleteIcon from '@material-ui/icons/Delete'
-import SyncIcon from '@material-ui/icons/Sync'
+import DeleteIcon from "@material-ui/icons/Delete"
+import SyncIcon from "@material-ui/icons/Sync"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
-import IconButton from '@material-ui/core/IconButton'
+import IconButton from "@material-ui/core/IconButton"
 import ToggleButton from "@material-ui/lab/ToggleButton"
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup"
 import DateFnsUtils from "@date-io/date-fns"
@@ -24,30 +24,68 @@ import {
 import ImageUploading, { ImageListType } from "react-images-uploading"
 // Styles
 import { CreateProfileStyles } from "./CreateProfile.style"
+// Context
+import { UserContext } from "../../App"
+// Models
+import { IUser } from "../../models/user"
 
 export default function AddressForm() {
+	const userContext = useContext(UserContext)
 	const classes = CreateProfileStyles()
-	const [images, setImages] = React.useState([])
-	const [selectedDate, setSelectedDate] = React.useState<Date | null>(null)
-	const [gender, setGender] = React.useState<string | null>(null)
 	const maxNumber = 5
 
-	const handleImageChange = (
+	const setImages = (
 		imageList: ImageListType,
 		addUpdateIndex: number[] | undefined
 	) => {
-		setImages(imageList as never[])
+		const newUser: IUser = {
+			...userContext.user,
+			images: imageList as never[]
+		}
+		userContext.setUser(newUser)
 	}
 
-	const handleDateChange = (date: Date | null) => {
-		setSelectedDate(date)
+	const setDate = (date: Date | null) => {
+		const newUser: IUser = {
+			...userContext.user,
+			date_of_birth: date
+		}
+		userContext.setUser(newUser)
 	}
 
-	const handleGender = (
+	const setGender = (
 		event: React.MouseEvent<HTMLElement>,
 		newGender: string | null
 	) => {
-		setGender(newGender)
+		const newUser: IUser = {
+			...userContext.user,
+			gender: newGender
+		}
+		userContext.setUser(newUser)
+	}
+
+	const setUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newUser: IUser = {
+			...userContext.user,
+			full_name: event.target.value,
+		}
+		userContext.setUser(newUser)
+	}
+
+	const setOccupation = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newUser: IUser = {
+			...userContext.user,
+			occupation: event.target.value,
+		}
+		userContext.setUser(newUser)
+	}
+
+	const setPlaceOfResidency = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newUser: IUser = {
+			...userContext.user,
+			place_of_residency: event.target.value,
+		}
+		userContext.setUser(newUser)
 	}
 
 	return (
@@ -59,8 +97,8 @@ export default function AddressForm() {
 				<Grid item xs={12}>
 					<ImageUploading
 						multiple
-						value={images}
-						onChange={handleImageChange}
+						value={userContext.user.images}
+						onChange={setImages}
 						maxNumber={maxNumber}
 					>
 						{({
@@ -112,6 +150,8 @@ export default function AddressForm() {
 						label="Full name"
 						fullWidth
 						autoComplete="full-name"
+						value={userContext.user.full_name}
+						onChange={setUsername}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
@@ -119,19 +159,31 @@ export default function AddressForm() {
 						Gender:{" "}
 					</Typography>
 					<ToggleButtonGroup
-						value={gender}
+						value={userContext.user.gender}
 						size="medium"
 						exclusive
-						onChange={handleGender}
+						onChange={setGender}
 						aria-label="select gender"
 					>
-						<ToggleButton value="female" aria-label="female" style={{ padding: 15 }}>
+						<ToggleButton
+							value="female"
+							aria-label="female"
+							style={{ padding: 15 }}
+						>
 							<FontAwesomeIcon icon={faVenus} />
 						</ToggleButton>
-						<ToggleButton value="male" aria-label="male" style={{ padding: 15 }}>
+						<ToggleButton
+							value="male"
+							aria-label="male"
+							style={{ padding: 15 }}
+						>
 							<FontAwesomeIcon icon={faMars} />
 						</ToggleButton>
-						<ToggleButton value="PreferNotToSay" aria-label="Prefer not to say" style={{ padding: 15 }}>
+						<ToggleButton
+							value="PreferNotToSay"
+							aria-label="Prefer not to say"
+							style={{ padding: 15 }}
+						>
 							<FontAwesomeIcon icon={faTransgenderAlt} />
 						</ToggleButton>
 					</ToggleButtonGroup>
@@ -146,8 +198,8 @@ export default function AddressForm() {
 							format="MM/dd/yyyy"
 							fullWidth
 							required
-							value={selectedDate}
-							onChange={handleDateChange}
+							value={userContext.user.date_of_birth}
+							onChange={setDate}
 							KeyboardButtonProps={{
 								"aria-label": "change date",
 							}}
@@ -159,8 +211,10 @@ export default function AddressForm() {
 					<TextField
 						id="placeOfResidency"
 						name="placeOfResidency"
-						label="Place of Residency"
+						label="Place of Residency (Country, City, Zipcode)"
 						fullWidth
+						value={userContext.user.place_of_residency}
+						onChange={setPlaceOfResidency}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
@@ -169,6 +223,8 @@ export default function AddressForm() {
 						name="occupation"
 						label="Occupation / Field of Study"
 						fullWidth
+						value={userContext.user.occupation}
+						onChange={setOccupation}
 					/>
 				</Grid>
 			</Grid>
