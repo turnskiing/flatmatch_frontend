@@ -8,6 +8,8 @@ export interface IUser {
 	date_of_birth: Date | null
 	occupation: string
 	place_of_residency: string
-	interests: [string]
+	interests: string[]
+    acceptedTerms: boolean
+    //TODO: Use or delete smoker 
 	smoker: boolean
 }

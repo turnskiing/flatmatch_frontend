@@ -69,23 +69,29 @@ export default function CreateProfileView() {
 		setActiveStep(activeStep - 1)
 	}
 
-	function isFormValid(): boolean {
+	const isFormValid = (): boolean => {
 		switch (activeStep) {
 			case 0:
 				return isPersonalInformationValid()
 			case 1:
-				return false
+				return isInterestsValid()
 			default:
 				return false
 		}
 	}
 
-	function isPersonalInformationValid(): boolean {
+	const isPersonalInformationValid = (): boolean => {
 		const user = userContext.user
 		return user.full_name.trim() !== "" &&
 			user.gender !== null &&
 			user.images.length > 0 &&
 			user.date_of_birth !== null
+	}
+
+	const isInterestsValid = (): boolean => {
+		const user = userContext.user
+		return user.interests.filter(b => b.trim() !== "").length !== 0 &&
+			user.acceptedTerms === true
 	}
 
 	return (

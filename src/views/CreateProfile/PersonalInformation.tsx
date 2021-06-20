@@ -117,7 +117,7 @@ export default function AddressForm() {
 									onClick={onImageUpload}
 									{...dragProps}
 								>
-									Add Profile pictures
+									Add Profile pictures *
 								</Button>
 								{imageList.map((image, index) => (
 									<div key={index} className="image-item">
@@ -156,7 +156,7 @@ export default function AddressForm() {
 				</Grid>
 				<Grid item xs={12} sm={6}>
 					<Typography color="textSecondary" component="span">
-						Gender:{" "}
+						Gender * {" "}
 					</Typography>
 					<ToggleButtonGroup
 						value={userContext.user.gender}

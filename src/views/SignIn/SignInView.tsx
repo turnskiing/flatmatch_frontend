@@ -27,11 +27,11 @@ export default function SignInSide() {
   const [passwordAgain, setPasswordAgain] = useState<string>("");
   const history = useHistory();
 
-  function handleSubmit() {
+  const handleSubmit = () => {
     history.push("home/create_profile");
   }
 
-  function isDisabled(): boolean {
+  const isDisabled = (): boolean => {
 	  return signUp
 	  ? !isSignUpValid(
 		  userContext.user.email,

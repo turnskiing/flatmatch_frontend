@@ -12,7 +12,8 @@ const defaultUser: IUser = {
 	date_of_birth: null,
 	occupation: "",
 	place_of_residency: "",
-	interests: [""],
+	interests: [],
+	acceptedTerms: false,
 	smoker: false,
 }
 
