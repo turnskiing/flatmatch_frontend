@@ -12,4 +12,10 @@ export interface IUser {
     acceptedTerms: boolean
     //TODO: Use or delete smoker 
 	smoker: boolean
+    type: UserType | null
+}
+
+export enum UserType {
+    Applicant,
+    Tennant
 }

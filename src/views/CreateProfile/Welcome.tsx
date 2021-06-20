@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useContext } from "react"
 import { useHistory } from "react-router-dom"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
@@ -7,12 +7,31 @@ import CardActionArea from "@material-ui/core/CardActionArea"
 import CardContent from "@material-ui/core/CardContent"
 // Styles
 import { CreateProfileStyles } from "./CreateProfile.style"
+// Context
+import { UserContext } from "../../App"
+// Models
+import { IUser, UserType } from "../../models/user"
 
 export default function Welcome() {
+	const userContext = useContext(UserContext)
 	const history = useHistory()
 	const classes = CreateProfileStyles()
 
-	const handleClick = () => {
+	const handleApplicantClick = () => {
+		const newUser: IUser = {
+			...userContext.user,
+			type: UserType.Applicant
+		}
+		userContext.setUser(newUser)
+		history.push("/home/find_room")
+	}
+
+	const handleTennantClick = () => {
+		const newUser: IUser = {
+			...userContext.user,
+			type: UserType.Tennant
+		}
+		userContext.setUser(newUser)
 		history.push("/home/find_room")
 	}
 
@@ -38,7 +57,7 @@ export default function Welcome() {
 				>
 					<Grid item xs={12} sm={6} justify="center" alignItems="center">
 						<Card className={classes.card}>
-							<CardActionArea onClick={handleClick}>
+							<CardActionArea onClick={handleApplicantClick}>
 								<CardContent>
 									<Typography gutterBottom variant="h5" component="h2" style={{ paddingTop: 20, paddingBottom: 20 }}>
 										Find shared appartments
@@ -56,7 +75,7 @@ export default function Welcome() {
 					</Grid>
 					<Grid item xs={12} sm={6} justify="center">
 						<Card className={classes.card}>
-							<CardActionArea onClick={handleClick}>
+							<CardActionArea onClick={handleTennantClick}>
 								<CardContent>
 									<Typography gutterBottom variant="h5" component="h2" style={{ paddingTop: 20, paddingBottom: 20 }}>
 										Offer shared appartments

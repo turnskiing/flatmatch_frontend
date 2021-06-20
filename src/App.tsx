@@ -15,6 +15,7 @@ const defaultUser: IUser = {
 	interests: [],
 	acceptedTerms: false,
 	smoker: false,
+	type: null
 }
 
 interface IContextProps {
