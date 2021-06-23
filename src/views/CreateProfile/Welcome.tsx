@@ -4,18 +4,24 @@ import Typography from "@material-ui/core/Typography"
 import Card from "@material-ui/core/Card"
 import CardActionArea from "@material-ui/core/CardActionArea"
 import CardContent from "@material-ui/core/CardContent"
-// Styles
-import { CreateProfileStyles } from "./CreateProfile.style"
+import { makeStyles } from "@material-ui/core/styles"
 // Context
 import { UserContext } from "../../App"
 import { CreateProfileStepContext } from "./CreateProfileView"
 // Models
 import { IUser, UserType } from "../../models/user"
 
+const WelcomeStyles = makeStyles((theme) => ({
+	card: {
+		minWidth: 250,
+		margin: 20
+	},
+}))
+
 export default function Welcome() {
 	const userContext = useContext(UserContext)
 	const stepContext = useContext(CreateProfileStepContext)
-	const classes = CreateProfileStyles()
+	const classes = WelcomeStyles()
 
 	const handleApplicantClick = () => {
 		const newUser: IUser = {

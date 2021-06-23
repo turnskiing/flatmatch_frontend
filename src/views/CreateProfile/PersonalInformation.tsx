@@ -27,7 +27,7 @@ import {
 } from "@material-ui/pickers"
 import ImageUploading, { ImageListType } from "react-images-uploading"
 // Styles
-import { CreateProfileStyles } from "./CreateProfile.style"
+import { PersonalInformationStyles } from "./PersonalInfromation.style"
 // Context
 import { UserContext } from "../../App"
 // Models
@@ -35,7 +35,7 @@ import { IUser, UserType } from "../../models/user"
 
 export default function AddressForm() {
 	const userContext = useContext(UserContext)
-	const classes = CreateProfileStyles()
+	const classes = PersonalInformationStyles()
 	const maxNumber = 5
 
 	const setImages = (
