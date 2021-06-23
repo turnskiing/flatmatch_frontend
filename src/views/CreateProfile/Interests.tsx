@@ -51,7 +51,7 @@ export default function Interests() {
 
 	const handleDelete = (interestToDelete: string) => () => {
 		const newInsterests = userContext.user.interests
-		setInterests(newInsterests.filter((interest) => interest !== interestToDelete))
+		setInterests(newInsterests.filter((existingInterest) => existingInterest !== interestToDelete))
 	}
 
 	const handleChange = () => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -122,14 +122,14 @@ export default function Interests() {
 				</Grid>
 				<Grid item xs={12} sm={7}>
 					<Paper component="ul" className={classes.root} elevation={0}>
-						{userContext.user.interests.map((interest) => {
+						{userContext.user.interests.map((existingInterest) => {
 							return (
-								<li key={interest} style={{ listStyle: "none" }}>
+								<li key={existingInterest} style={{ listStyle: "none" }}>
 									<Chip
-										label={interest}
+										label={existingInterest}
 										variant="outlined"
 										color="primary"
-										onDelete={handleDelete(interest)}
+										onDelete={handleDelete(existingInterest)}
 										className={classes.chip}
 									/>
 								</li>
