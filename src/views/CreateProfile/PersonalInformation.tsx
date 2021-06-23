@@ -17,6 +17,10 @@ import IconButton from "@material-ui/core/IconButton"
 import ToggleButton from "@material-ui/lab/ToggleButton"
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup"
 import DateFnsUtils from "@date-io/date-fns"
+import InputLabel from '@material-ui/core/InputLabel'
+import MenuItem from '@material-ui/core/MenuItem'
+import FormControl from '@material-ui/core/FormControl'
+import Select from '@material-ui/core/Select'
 import {
 	MuiPickersUtilsProvider,
 	KeyboardDatePicker,
@@ -27,7 +31,7 @@ import { CreateProfileStyles } from "./CreateProfile.style"
 // Context
 import { UserContext } from "../../App"
 // Models
-import { IUser } from "../../models/user"
+import { IUser, UserType } from "../../models/user"
 
 export default function AddressForm() {
 	const userContext = useContext(UserContext)
@@ -84,6 +88,19 @@ export default function AddressForm() {
 		const newUser: IUser = {
 			...userContext.user,
 			place_of_residency: event.target.value,
+		}
+		userContext.setUser(newUser)
+	}
+
+	const setSmoker = (event: React.ChangeEvent<{ value: unknown }>) => {
+		let isSmoker = false
+		if (event.target.value as string === "Yes") {
+			isSmoker = true
+		}
+
+		const newUser: IUser = {
+			...userContext.user,
+			smoker: isSmoker,
 		}
 		userContext.setUser(newUser)
 	}
@@ -206,7 +223,22 @@ export default function AddressForm() {
 						/>
 					</MuiPickersUtilsProvider>
 				</Grid>
-				<Grid item xs={12} sm={6}></Grid>
+				<Grid item xs={12} sm={6}>
+					{userContext.user.type === UserType.Applicant && (
+						<FormControl className={classes.choiceSelector}>
+							<InputLabel id="select-smoker">Smoker *</InputLabel>
+							<Select
+								labelId="select-smoker"
+								id="select-smoker"
+								value={(userContext.user.smoker === true) ? "Yes" : "No"}
+								onChange={setSmoker}
+							>
+								<MenuItem value={"Yes"}>Yes</MenuItem>
+								<MenuItem value={"No"}>No</MenuItem>
+							</Select>
+						</FormControl>
+					)}
+				</Grid>
 				<Grid item xs={12} sm={6}>
 					<TextField
 						id="placeOfResidency"

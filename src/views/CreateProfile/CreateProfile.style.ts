@@ -49,5 +49,9 @@ export const CreateProfileStyles = makeStyles((theme) => ({
 		backgroundColor: "white",
 		padding: 0,
 		marginLeft: 5,
-	}
+	},
+	choiceSelector: {
+		margin: theme.spacing(2),
+		minWidth: 120,
+	},
 }))
