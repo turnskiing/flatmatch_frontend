@@ -9,13 +9,12 @@ export interface IUser {
 	occupation: string
 	place_of_residency: string
 	interests: string[]
-    acceptedTerms: boolean
-    //TODO: Use or delete smoker 
+	acceptedTerms: boolean
 	smoker: boolean
-    type: UserType | null
+	type: UserType | null
 }
 
 export enum UserType {
-    Applicant,
-    Tennant
+	Applicant,
+	Tennant
 }

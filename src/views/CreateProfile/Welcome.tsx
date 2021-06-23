@@ -1,5 +1,4 @@
 import React, { useContext } from "react"
-import { useHistory } from "react-router-dom"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 import Card from "@material-ui/core/Card"
@@ -9,12 +8,13 @@ import CardContent from "@material-ui/core/CardContent"
 import { CreateProfileStyles } from "./CreateProfile.style"
 // Context
 import { UserContext } from "../../App"
+import { CreateProfileStepContext } from "./CreateProfileView"
 // Models
 import { IUser, UserType } from "../../models/user"
 
 export default function Welcome() {
 	const userContext = useContext(UserContext)
-	const history = useHistory()
+	const stepContext = useContext(CreateProfileStepContext)
 	const classes = CreateProfileStyles()
 
 	const handleApplicantClick = () => {
@@ -23,7 +23,7 @@ export default function Welcome() {
 			type: UserType.Applicant
 		}
 		userContext.setUser(newUser)
-		history.push("/home/find_room")
+		stepContext.setActiveStep(stepContext.activeStep + 1)
 	}
 
 	const handleTennantClick = () => {
@@ -32,7 +32,7 @@ export default function Welcome() {
 			type: UserType.Tennant
 		}
 		userContext.setUser(newUser)
-		history.push("/home/find_room")
+		stepContext.setActiveStep(stepContext.activeStep + 1)
 	}
 
 	return (
@@ -41,7 +41,7 @@ export default function Welcome() {
 				Welcome to FlatMatch
 			</Typography>
 			<Typography variant="subtitle1" style={{ paddingTop: 20 }}>
-				We are happy to have you on board. There is just one more decision you
+				We are happy to have you on board. There is one more important decision you
 				need to make.
 			</Typography>
 			<Typography variant="subtitle1" style={{ paddingBottom: 20 }}>

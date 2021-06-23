@@ -21,8 +21,9 @@ import { withStyles } from '@material-ui/core/styles'
 import grey from "@material-ui/core/colors/grey"
 // Context
 import { UserContext } from "../../App"
+import { useHistory } from "react-router-dom"
 
-const steps = ["Personal information", "Interests", "Welcome"]
+const steps = ["Welcome", "Personal information", "Interests"]
 
 const ColorStepConnector = withStyles((theme) => ({
 	active: {
@@ -45,19 +46,26 @@ const ColorStepConnector = withStyles((theme) => ({
 function getStepContent(step: number) {
 	switch (step) {
 		case 0:
-			return <PersonalInfromation />
-		case 1:
-			return <Interests />
-		case 2:
 			return <Welcome />
+		case 1:
+			return <PersonalInfromation />
+		case 2:
+			return <Interests />
 		default:
 			throw new Error("Unknown step")
 	}
 }
 
+interface IContextProps {
+	activeStep: number
+	setActiveStep: React.Dispatch<React.SetStateAction<number>>
+}
+
+export const CreateProfileStepContext = React.createContext({} as IContextProps)
 
 export default function CreateProfileView() {
 	const userContext = useContext(UserContext)
+	const history = useHistory()
 	const classes = CreateProfileStyles()
 	const [activeStep, setActiveStep] = React.useState(0)
 
@@ -69,11 +77,17 @@ export default function CreateProfileView() {
 		setActiveStep(activeStep - 1)
 	}
 
+	const handleCreateProfile = () => {
+		history.push("/home/find_room")
+	}
+
 	const isFormValid = (): boolean => {
 		switch (activeStep) {
 			case 0:
-				return isPersonalInformationValid()
+				return true
 			case 1:
+				return isPersonalInformationValid()
+			case 2:
 				return isInterestsValid()
 			default:
 				return false
@@ -112,14 +126,16 @@ export default function CreateProfileView() {
 					</Stepper>
 					<React.Fragment>
 						<React.Fragment>
-							{getStepContent(activeStep)}
+							<CreateProfileStepContext.Provider value={{ activeStep, setActiveStep }}>
+								{getStepContent(activeStep)}
+							</CreateProfileStepContext.Provider>
 							<div className={classes.buttons}>
-								{activeStep === 1 && (
+								{activeStep !== 0 && (
 									<Button onClick={handleBack} className={classes.button}>
 										Back
 									</Button>
 								)}
-								{activeStep !== 2 && (
+								{activeStep === 1 && (
 									<Button
 										variant="contained"
 										color="primary"
@@ -127,9 +143,18 @@ export default function CreateProfileView() {
 										onClick={handleNext}
 										className={classes.button}
 									>
-										{activeStep === steps.length - 2
-											? "Create Profile"
-											: "Next"}
+										Next
+									</Button>
+								)}
+								{activeStep === 2 && (
+									<Button
+										variant="contained"
+										color="primary"
+										disabled={!isFormValid()}
+										onClick={handleCreateProfile}
+										className={classes.button}
+									>
+										Create Profile
 									</Button>
 								)}
 							</div>
