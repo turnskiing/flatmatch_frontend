@@ -12,36 +12,16 @@ import InputLabel from "@material-ui/core/InputLabel"
 import InputAdornment from "@material-ui/core/InputAdornment"
 import FormControl from "@material-ui/core/FormControl"
 import AddIcon from "@material-ui/icons/Add"
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
 // Context
 import { UserContext } from "../../App"
 // Models
 import { IUser } from "../../models/user"
+// Styles
+import { InterestsStyles } from "./Interests.style"
 
-const useStyles = makeStyles((theme: Theme) =>
-	createStyles({
-		root: {
-			display: "flex",
-			justifyContent: "center",
-			flexWrap: "wrap",
-			listStyle: "none",
-			padding: theme.spacing(0.5),
-			margin: 0,
-		},
-		chip: {
-			margin: theme.spacing(0.5),
-		},
-		margin: {
-			margin: theme.spacing(1),
-		},
-		withoutLabel: {
-			marginTop: theme.spacing(3),
-		},
-	})
-)
 
 export default function Interests() {
-	const classes = useStyles()
+	const classes = InterestsStyles()
 	const userContext = useContext(UserContext)
 	const [interest, setInterest] = React.useState("")
 
@@ -53,10 +33,10 @@ export default function Interests() {
 		userContext.setUser(newUser)
 	}
 
-	const setInterests = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const setInterests = (newInterests: string[]) => {
 		const newUser: IUser = {
 			...userContext.user,
-			interests: [event.target.value],
+			interests: newInterests,
 		}
 		userContext.setUser(newUser)
 	}
@@ -69,12 +49,9 @@ export default function Interests() {
 		userContext.setUser(newUser)
 	}
 
-	const [chipData, setChipData] = React.useState<string[]>([])
-
-	const handleDelete = (chipToDelete: string) => () => {
-		setChipData((chips) =>
-			chips.filter((chip) => chip !== chipToDelete)
-		)
+	const handleDelete = (interestToDelete: string) => () => {
+		const newInsterests = userContext.user.interests
+		setInterests(newInsterests.filter((interest) => interest !== interestToDelete))
 	}
 
 	const handleChange = () => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -82,12 +59,13 @@ export default function Interests() {
 	}
 
 	const addInterest = () => {
-		if (interest.trim() !== "" && chipData.length < 6 && chipData.filter(b => b === interest.trim()).length === 0) {
-			const newchipData = chipData
+		const interests = userContext.user.interests
+		if (interest.trim() !== "" && interests.length < 6 && interests.filter(b => b === interest.trim()).length === 0) {
+			const newInterests = interests
 
-			newchipData.push(interest.trim())
+			newInterests.push(interest.trim())
 			setInterest("")
-			setChipData(newchipData)
+			setInterests(newInterests)
 		}
 	}
 
@@ -122,7 +100,7 @@ export default function Interests() {
 					</Typography>
 					<FormControl fullWidth className={classes.margin}>
 						<InputLabel htmlFor="standard-adornment-interests">
-							Interest
+							Interest *
 						</InputLabel>
 						<Input
 							id="interests-textfield"
@@ -144,14 +122,14 @@ export default function Interests() {
 				</Grid>
 				<Grid item xs={12} sm={7}>
 					<Paper component="ul" className={classes.root} elevation={0}>
-						{chipData.map((data) => {
+						{userContext.user.interests.map((interest) => {
 							return (
-								<li key={data} style={{ listStyle: "none" }}>
+								<li key={interest} style={{ listStyle: "none" }}>
 									<Chip
-										label={data}
+										label={interest}
 										variant="outlined"
 										color="primary"
-										onDelete={handleDelete(data)}
+										onDelete={handleDelete(interest)}
 										className={classes.chip}
 									/>
 								</li>
