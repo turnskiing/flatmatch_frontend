@@ -21,3 +21,11 @@ export function FindOfferingBreadCrumb() {
 		</Breadcrumbs>
 	)
 }
+
+export function HomeBreadCrumb() {
+	return (
+		<Breadcrumbs maxItems={1} aria-label="breadcrumb">
+			<Typography color="textPrimary">Home</Typography>
+		</Breadcrumbs>
+	)
+}
