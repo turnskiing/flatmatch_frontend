@@ -1,6 +1,6 @@
-import React, { useState } from "react"
+import React, { useContext, useState } from "react"
 import { useHistory } from "react-router-dom"
-import validator from 'validator'
+import validator from "validator"
 // MaterialUI
 import Button from "@material-ui/core/Button"
 import CssBaseline from "@material-ui/core/CssBaseline"
@@ -11,25 +11,75 @@ import Box from "@material-ui/core/Box"
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
 // Componenets
-import { Copyright } from "../components/Copyright"
+import { Copyright } from "../../components/Copyright"
 // Images
-import Logo from "../images/FlatMatch.png"
+import Logo from "../../images/FlatMatch.png"
 // Styles
 import { SignInStyles } from "./SignInView.style"
-
+// Context
+import { UserContext } from "../../App"
+import { IUser, UserType } from "../../models/user"
+import UserService from "../../services/UserService"
+import { AuthRoutes, NonAuthRoutes } from "../../Router"
 
 export default function SignInSide() {
+	const userContext = useContext(UserContext)
 	const classes = SignInStyles()
 	const [signUp, setSignUp] = useState(false)
-	const [email, setEmail] = useState<string>("")
-	const [password, setPassword] = useState<string>("")
 	const [passwordAgain, setPasswordAgain] = useState<string>("")
 	const history = useHistory()
 
-	function handleSubmit() {
-		history.push('home/find_room')
+	const handleSignIn = async (event: React.MouseEvent<HTMLElement>) => {
+		event.preventDefault()
+		try {
+			await UserService.signIn(userContext.user.email, userContext.user.password)
+			const receivedUser = await UserService.getUserInfo()
+			const newUser: IUser = {
+				...receivedUser,
+				password: "",
+				images: [],
+				acceptedTerms: true,
+				type: receivedUser.userType === "Applicant" ? UserType.Applicant : UserType.Tennant
+			}
+			userContext.setUser(newUser)
+			history.push(AuthRoutes.home)
+		} catch (response) {
+			history.push(NonAuthRoutes.signIn)
+		}
 	}
 
+	const handleSignUp = () => {
+		history.push(NonAuthRoutes.createProfile)
+	}
+
+	const isDisabled = (): boolean => {
+		return signUp
+			? !isSignUpValid(
+				userContext.user.email,
+				userContext.user.password,
+				passwordAgain
+			)
+			: !isSignInValid(
+				userContext.user.email,
+				userContext.user.password
+			)
+	}
+
+	const setEmail = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newUser: IUser = {
+			...userContext.user,
+			email: event.target.value,
+		}
+		userContext.setUser(newUser)
+	}
+
+	const setPassword = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newUser: IUser = {
+			...userContext.user,
+			password: event.target.value,
+		}
+		userContext.setUser(newUser)
+	}
 
 	return (
 		<Grid container component="main" className={classes.root}>
@@ -48,7 +98,7 @@ export default function SignInSide() {
 					<Grid container>
 						<Grid item xs>
 							<Typography component="h2" align="center" variant="subtitle1">
-								{signUp ? ("Sign up to get started!") : ("Sign in to continue!")}
+								{signUp ? "Sign up to get started!" : "Sign in to continue!"}
 							</Typography>
 						</Grid>
 					</Grid>
@@ -63,8 +113,8 @@ export default function SignInSide() {
 							name="email"
 							autoComplete="email"
 							autoFocus
-							value={email}
-							onChange={(ev: React.ChangeEvent<HTMLInputElement>): void => setEmail(ev.target.value)}
+							value={userContext.user.email}
+							onChange={setEmail}
 						/>
 						<TextField
 							variant="outlined"
@@ -72,12 +122,12 @@ export default function SignInSide() {
 							required
 							fullWidth
 							name="password"
-							label="Password"
+							label="Password (min. 8 characters)"
 							type="password"
 							id="password"
 							autoComplete="current-password"
-							value={password}
-							onChange={(ev: React.ChangeEvent<HTMLInputElement>): void => setPassword(ev.target.value)}
+							value={userContext.user.password}
+							onChange={setPassword}
 						/>
 						{signUp ? (
 							<TextField
@@ -91,18 +141,21 @@ export default function SignInSide() {
 								id="password"
 								autoComplete="current-password"
 								value={passwordAgain}
-								onChange={(ev: React.ChangeEvent<HTMLInputElement>): void => setPasswordAgain(ev.target.value)}
-							/>) : null}
+								onChange={(ev: React.ChangeEvent<HTMLInputElement>): void =>
+									setPasswordAgain(ev.target.value)
+								}
+							/>
+						) : null}
 						<Button
 							type="submit"
 							fullWidth
 							variant="contained"
 							color="primary"
 							className={classes.submit}
-							disabled={signUp ? !isSignUpValid(email, password, passwordAgain) : !isSignInValid(email, password)}
-							onClick={handleSubmit}
+							disabled={isDisabled()}
+							onClick={signUp ? handleSignUp : handleSignIn}
 						>
-							{signUp ? ("Sign Up") : ("Sign In")}
+							{signUp ? "Sign Up" : "Sign In"}
 						</Button>
 						<Grid container>
 							<Grid item xs>
@@ -115,9 +168,13 @@ export default function SignInSide() {
 									href="#"
 									variant="body2"
 									align="right"
-									onClick={() => { setSignUp(!signUp) }}
+									onClick={() => {
+										setSignUp(!signUp)
+									}}
 								>
-									{signUp ? ("Already a member? Sign In Here") : ("New user? Sign Up Here")}
+									{signUp
+										? "Already a member? Sign In Here"
+										: "New user? Sign Up Here"}
 								</Link>
 							</Grid>
 						</Grid>
@@ -135,8 +192,14 @@ function isSignInValid(email: string, password: string): boolean {
 	return isEmailValid(email) && password.length >= 8
 }
 
-function isSignUpValid(email: string, password: string, passwordAgain: string): boolean {
-	return isEmailValid(email) && password.length >= 8 && password === passwordAgain
+function isSignUpValid(
+	email: string,
+	password: string,
+	passwordAgain: string
+): boolean {
+	return (
+		isEmailValid(email) && password.length >= 8 && password === passwordAgain
+	)
 }
 
 function isEmailValid(email: string): boolean {
