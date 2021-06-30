@@ -83,16 +83,16 @@ export default function CreateProfileView() {
 		event.preventDefault()
 		try {
 			await UserService.signUp(userContext.user)
-			// Overwrite the local state with the response from the server 
+			// Overwrite the local state with the response from the server
 			// This prevents users from changing local state by going back to create_profile
 			const receivedUser = await UserService.getUserInfo()
 			const newUser: IUser = {
-			...receivedUser,
-			password: "",
-			images: [],
-			acceptedTerms: true,
-			type: receivedUser.userType === "Applicant" ? UserType.Applicant : UserType.Tennant
-		}
+				...receivedUser,
+				password: "",
+				images: [],
+				acceptedTerms: true,
+				type: receivedUser.userType === "Applicant" ? UserType.Applicant : UserType.Tennant
+			}
 			userContext.setUser(newUser)
 			history.push(AuthRoutes.home)
 		} catch (response) {
