@@ -72,7 +72,7 @@ export default function Welcome() {
 					justify="space-around"
 					alignItems="center"
 				>
-					<Grid item xs={12} sm={6} justify="center" alignItems="center">
+					<Grid item xs={12} sm={6}>
 						<Card className={classes.card}>
 							<CardActionArea onClick={handleApplicantClick}>
 								<CardContent>
@@ -104,7 +104,7 @@ export default function Welcome() {
 							</CardActionArea>
 						</Card>
 					</Grid>
-					<Grid item xs={12} sm={6} justify="center">
+					<Grid item xs={12} sm={6}>
 						<Card className={classes.card}>
 							<CardActionArea onClick={handleTennantClick}>
 								<CardContent>

@@ -68,10 +68,18 @@ export default function AddressForm() {
 		userContext.setUser(newUser)
 	}
 
-	const setUsername = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const setFirstName = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const newUser: IUser = {
 			...userContext.user,
-			full_name: event.target.value,
+			first_name: event.target.value.trim(),
+		}
+		userContext.setUser(newUser)
+	}
+
+	const setLastName = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newUser: IUser = {
+			...userContext.user,
+			last_name: event.target.value.trim(),
 		}
 		userContext.setUser(newUser)
 	}
@@ -84,10 +92,54 @@ export default function AddressForm() {
 		userContext.setUser(newUser)
 	}
 
-	const setPlaceOfResidency = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const setCountry = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const newUser: IUser = {
 			...userContext.user,
-			place_of_residency: event.target.value,
+			place_of_residency: {
+				country: event.target.value.trim(),
+				city: userContext.user.place_of_residency.city,
+				zipCode: userContext.user.place_of_residency.zipCode,
+				address: userContext.user.place_of_residency.address
+			}
+		}
+		userContext.setUser(newUser)
+	}
+
+	const setCity = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newUser: IUser = {
+			...userContext.user,
+			place_of_residency: {
+				country: userContext.user.place_of_residency.country,
+				city: event.target.value.trim(),
+				zipCode: userContext.user.place_of_residency.zipCode,
+				address: userContext.user.place_of_residency.address
+			}
+		}
+		userContext.setUser(newUser)
+	}
+
+	const setZipcode = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newUser: IUser = {
+			...userContext.user,
+			place_of_residency: {
+				country: userContext.user.place_of_residency.country,
+				city: userContext.user.place_of_residency.city,
+				zipCode: event.target.value.trim(),
+				address: userContext.user.place_of_residency.address
+			}
+		}
+		userContext.setUser(newUser)
+	}
+
+	const setAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newUser: IUser = {
+			...userContext.user,
+			place_of_residency: {
+				country: userContext.user.place_of_residency.country,
+				city: userContext.user.place_of_residency.city,
+				zipCode: userContext.user.place_of_residency.zipCode,
+				address: event.target.value.trim(),
+			}
 		}
 		userContext.setUser(newUser)
 	}
@@ -107,7 +159,7 @@ export default function AddressForm() {
 
 	return (
 		<React.Fragment>
-			<Typography variant="h6" gutterBottom>
+			<Typography variant="h5" gutterBottom>
 				Personal Information
 			</Typography>
 			<Grid container spacing={3}>
@@ -162,48 +214,26 @@ export default function AddressForm() {
 				<Grid item xs={12} sm={6}>
 					<TextField
 						required
-						id="fullName"
-						name="fullName"
-						label="Full name"
+						id="firstName"
+						name="firstName"
+						label="First name"
 						fullWidth
-						autoComplete="full-name"
-						value={userContext.user.full_name}
-						onChange={setUsername}
+						autoComplete="first-name"
+						value={userContext.user.first_name}
+						onChange={setFirstName}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
-					<Typography color="textSecondary" component="span">
-						Gender * {" "}
-					</Typography>
-					<ToggleButtonGroup
-						value={userContext.user.gender}
-						size="medium"
-						exclusive
-						onChange={setGender}
-						aria-label="select gender"
-					>
-						<ToggleButton
-							value="female"
-							aria-label="female"
-							style={{ padding: 15 }}
-						>
-							<FontAwesomeIcon icon={faVenus} />
-						</ToggleButton>
-						<ToggleButton
-							value="male"
-							aria-label="male"
-							style={{ padding: 15 }}
-						>
-							<FontAwesomeIcon icon={faMars} />
-						</ToggleButton>
-						<ToggleButton
-							value="PreferNotToSay"
-							aria-label="Prefer not to say"
-							style={{ padding: 15 }}
-						>
-							<FontAwesomeIcon icon={faTransgenderAlt} />
-						</ToggleButton>
-					</ToggleButtonGroup>
+					<TextField
+						required
+						id="lastName"
+						name="lastName"
+						label="Last name"
+						fullWidth
+						autoComplete="last-name"
+						value={userContext.user.last_name}
+						onChange={setLastName}
+					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
 					<MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -223,6 +253,50 @@ export default function AddressForm() {
 						/>
 					</MuiPickersUtilsProvider>
 				</Grid>
+				<Grid item xs={12} sm={6} className={classes.gender}>
+					<Typography color="textSecondary" component="span">
+						Gender * {" "}
+					</Typography>
+					<ToggleButtonGroup
+						value={userContext.user.gender}
+						size="medium"
+						exclusive
+						onChange={setGender}
+						aria-label="select gender"
+					>
+						<ToggleButton
+							value="Female"
+							aria-label="female"
+							style={{ padding: 15 }}
+						>
+							<FontAwesomeIcon icon={faVenus} />
+						</ToggleButton>
+						<ToggleButton
+							value="Male"
+							aria-label="male"
+							style={{ padding: 15 }}
+						>
+							<FontAwesomeIcon icon={faMars} />
+						</ToggleButton>
+						<ToggleButton
+							value="Prefer not to say"
+							aria-label="Prefer not to say"
+							style={{ padding: 15 }}
+						>
+							<FontAwesomeIcon icon={faTransgenderAlt} />
+						</ToggleButton>
+					</ToggleButtonGroup>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<TextField
+						id="occupation"
+						name="occupation"
+						label="Occupation / Field of Study"
+						fullWidth
+						value={userContext.user.occupation}
+						onChange={setOccupation}
+					/>
+				</Grid>
 				<Grid item xs={12} sm={6}>
 					{userContext.user.type === UserType.Applicant && (
 						<FormControl className={classes.choiceSelector}>
@@ -239,24 +313,49 @@ export default function AddressForm() {
 						</FormControl>
 					)}
 				</Grid>
+				<Grid item xs={12} sm={12} className={classes.place_of_residency}>
+					<Typography variant="h6">
+						What is your current place of residency?
+					</Typography>
+				</Grid>
 				<Grid item xs={12} sm={6}>
 					<TextField
-						id="placeOfResidency"
-						name="placeOfResidency"
-						label="Place of Residency (Country, City, Zipcode)"
+						id="country"
+						name="country"
+						label="Country"
 						fullWidth
-						value={userContext.user.place_of_residency}
-						onChange={setPlaceOfResidency}
+						value={userContext.user.place_of_residency.country}
+						onChange={setCountry}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
 					<TextField
-						id="occupation"
-						name="occupation"
-						label="Occupation / Field of Study"
+						id="city"
+						name="city"
+						label="City"
 						fullWidth
-						value={userContext.user.occupation}
-						onChange={setOccupation}
+						value={userContext.user.place_of_residency.city}
+						onChange={setCity}
+					/>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<TextField
+						id="zipcode"
+						name="zipcode"
+						label="Zipcode"
+						fullWidth
+						value={userContext.user.place_of_residency.zipCode}
+						onChange={setZipcode}
+					/>
+				</Grid>
+				<Grid item xs={12} sm={6}>
+					<TextField
+						id="address"
+						name="address"
+						label="Address"
+						fullWidth
+						value={userContext.user.place_of_residency.address}
+						onChange={setAddress}
 					/>
 				</Grid>
 			</Grid>

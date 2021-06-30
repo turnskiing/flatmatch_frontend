@@ -18,5 +18,8 @@ export const InterestsStyles = makeStyles((theme) => ({
 	withoutLabel: {
 		marginTop: theme.spacing(3),
 	},
+	bio: {
+		marginTop: theme.spacing(2),
+	}
 })
 )

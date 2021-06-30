@@ -22,44 +22,45 @@ import AccountBoxIcon from '@material-ui/icons/AccountBox'
 import SettingsIcon from '@material-ui/icons/Settings'
 import LocalOfferIcon from '@material-ui/icons/LocalOffer'
 import { UserType } from "../../models/user"
+import { AuthRoutes } from "../../Router"
 
-export default function CreateHomeScreenView() {
+export default function HomeScreenView() {
 	const userContext = useContext(UserContext)
 	const history = useHistory()
 	const classes = HomeScreenStyles()
 
 	const handleFindAppartment = () => {
-		history.push("/home/find_room")
+		history.push(AuthRoutes.findRoom)
 	}
 
 	const handleCreateOffering = () => {
-		history.push("/home/create_offering")
+		history.push(AuthRoutes.createOffering)
 	}
 
 	const handleFindRoommates = () => {
-		history.push("/home/find_applicants")
+		history.push(AuthRoutes.findApplicant)
 	}
 
 	const handleMyMessages = () => {
-		history.push("/home/messages")
+		history.push(AuthRoutes.messages)
 	}
 
 	const handleViewProfile = () => {
-		history.push("/home/profile")
+		history.push(AuthRoutes.profile)
 	}
 
 	const handlePersonalPreferences = () => {
-		history.push("/home/find_room/filter")
+		history.push(AuthRoutes.filter)
 	}
 
 	return (
 		<React.Fragment>
-			{DefaultAppBar(userContext.user.full_name, HomeBreadCrumb(), "")}
+			{DefaultAppBar(userContext.user.first_name, HomeBreadCrumb(), "")}
 			<div>
 				<main className={classes.layout}>
 					<Paper className={classes.paper}>
 						<Typography component="h1" variant="h4" align="center" style={{ padding: 20 }}>
-							Hello{" " + userContext.user.full_name.slice(0, userContext.user.full_name.indexOf(" "))}!
+							Hello{" " + userContext.user.first_name}!
 						</Typography>
 						<React.Fragment>
 							<React.Fragment>
@@ -72,7 +73,7 @@ export default function CreateHomeScreenView() {
 										alignItems="center"
 									>
 										{userContext.user.type === UserType.Applicant && (
-											<Grid item component={Card} xs={12} sm={6} justify="center" alignItems="center" className={classes.card}>
+											<Grid item component={Card} xs={12} sm={6} className={classes.card}>
 												<CardActionArea onClick={handleFindAppartment}>
 													<CardContent>
 														<Box display="flex" bgcolor="grey.200" justifyContent="center" className={classes.box}>
@@ -92,7 +93,7 @@ export default function CreateHomeScreenView() {
 											</Grid>
 										)}
 										{userContext.user.type === UserType.Tennant && (
-											<Grid item component={Card} xs={12} sm={6} justify="center" alignItems="center" className={classes.card}>
+											<Grid item component={Card} xs={12} sm={6} className={classes.card}>
 												<CardActionArea onClick={handleCreateOffering}>
 													<CardContent>
 														<Box display="flex" bgcolor="grey.200" justifyContent="center" className={classes.box}>
@@ -112,7 +113,7 @@ export default function CreateHomeScreenView() {
 											</Grid>
 										)}
 										{userContext.user.type === UserType.Tennant && (
-											<Grid item component={Card} xs={12} sm={6} justify="center" alignItems="center" className={classes.card}>
+											<Grid item component={Card} xs={12} sm={6} className={classes.card}>
 												<CardActionArea onClick={handleFindRoommates}>
 													<CardContent>
 														<Box display="flex" bgcolor="grey.200" justifyContent="center" className={classes.box}>
@@ -131,7 +132,7 @@ export default function CreateHomeScreenView() {
 												</CardActionArea>
 											</Grid>
 										)}
-										<Grid item component={Card} xs={12} sm={6} justify="center" alignItems="center" className={classes.card}>
+										<Grid item component={Card} xs={12} sm={6} className={classes.card}>
 											<CardActionArea onClick={handleMyMessages}>
 												<CardContent>
 													<Box display="flex" bgcolor="grey.200" justifyContent="center" className={classes.box}>
@@ -149,7 +150,7 @@ export default function CreateHomeScreenView() {
 												</CardContent>
 											</CardActionArea>
 										</Grid>
-										<Grid item component={Card} xs={12} sm={6} justify="center" alignItems="center" className={classes.card}>
+										<Grid item component={Card} xs={12} sm={6} className={classes.card}>
 											<CardActionArea onClick={handleViewProfile}>
 												<CardContent>
 													<Box display="flex" bgcolor="grey.200" justifyContent="center" className={classes.box}>
@@ -168,7 +169,7 @@ export default function CreateHomeScreenView() {
 											</CardActionArea>
 										</Grid>
 										{userContext.user.type === UserType.Applicant && (
-											<Grid item component={Card} xs={12} sm={6} justify="center" alignItems="center" className={classes.card}>
+											<Grid item component={Card} xs={12} sm={6} className={classes.card}>
 												<CardActionArea onClick={handlePersonalPreferences}>
 													<CardContent>
 														<Box display="flex" bgcolor="grey.200" justifyContent="center" className={classes.box}>

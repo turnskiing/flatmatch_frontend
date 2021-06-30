@@ -21,6 +21,9 @@ import grey from "@material-ui/core/colors/grey"
 // Context
 import { UserContext } from "../../App"
 import { useHistory } from "react-router-dom"
+import UserService from "../../services/UserService"
+import { AuthRoutes, NonAuthRoutes } from "../../Router"
+import { IUser, UserType } from "../../models/user"
 
 const steps = ["Welcome", "Personal information", "Interests"]
 
@@ -76,8 +79,25 @@ export default function CreateProfileView() {
 		setActiveStep(activeStep - 1)
 	}
 
-	const handleCreateProfile = () => {
-		history.push("/home")
+	const handleCreateProfile = async (event: React.MouseEvent<HTMLElement>) => {
+		event.preventDefault()
+		try {
+			await UserService.signUp(userContext.user)
+			// Overwrite the local state with the response from the server 
+			// This prevents users from changing local state by going back to create_profile
+			const receivedUser = await UserService.getUserInfo()
+			const newUser: IUser = {
+			...receivedUser,
+			password: "",
+			images: [],
+			acceptedTerms: true,
+			type: receivedUser.userType === "Applicant" ? UserType.Applicant : UserType.Tennant
+		}
+			userContext.setUser(newUser)
+			history.push(AuthRoutes.home)
+		} catch (response) {
+			history.push(NonAuthRoutes.signIn)
+		}
 	}
 
 	const isFormValid = (): boolean => {
@@ -95,7 +115,8 @@ export default function CreateProfileView() {
 
 	const isPersonalInformationValid = (): boolean => {
 		const user = userContext.user
-		return user.full_name.trim() !== "" &&
+		return user.first_name.trim() !== "" &&
+			user.last_name.trim() !== "" &&
 			user.gender !== null &&
 			user.images.length > 0 &&
 			user.date_of_birth !== null

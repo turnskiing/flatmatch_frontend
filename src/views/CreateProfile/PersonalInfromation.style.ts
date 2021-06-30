@@ -13,7 +13,14 @@ export const PersonalInformationStyles = makeStyles((theme) => ({
 		marginLeft: 5,
 	},
 	choiceSelector: {
-		marginTop: theme.spacing(2),
+		marginTop: theme.spacing(0),
 		minWidth: 120,
+	},
+	gender: {
+		marginTop: theme.spacing(2),
+	},
+	place_of_residency: {
+		marginTop: theme.spacing(4),
+		marginBottom: theme.spacing(-2),
 	},
 }))

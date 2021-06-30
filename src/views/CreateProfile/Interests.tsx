@@ -71,12 +71,12 @@ export default function Interests() {
 
 	return (
 		<React.Fragment>
-			<Typography variant="h6" gutterBottom>
+			<Typography variant="h5" gutterBottom>
 				Interests
 			</Typography>
 			<Grid container spacing={3}>
-				<Grid item xs={12}>
-					<Typography variant="subtitle1" gutterBottom>
+				<Grid item xs={12} className={classes.bio}>
+					<Typography variant="h6" gutterBottom>
 						Bio
 					</Typography>
 					<TextField
@@ -95,7 +95,7 @@ export default function Interests() {
 					/>
 				</Grid>
 				<Grid item xs={12} sm={5}>
-					<Typography variant="subtitle1" gutterBottom>
+					<Typography variant="h6" gutterBottom>
 						What are you interested in?
 					</Typography>
 					<FormControl fullWidth className={classes.margin}>
