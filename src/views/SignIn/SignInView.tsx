@@ -18,7 +18,9 @@ import Logo from "../../images/FlatMatch.png"
 import { SignInStyles } from "./SignInView.style"
 // Context
 import { UserContext } from "../../App"
-import { IUser } from "../../models/user"
+import { IUser, UserType } from "../../models/user"
+import UserService from "../../services/UserService"
+import { AuthRoutes, NonAuthRoutes } from "../../Router"
 
 export default function SignInSide() {
 	const userContext = useContext(UserContext)
@@ -27,8 +29,27 @@ export default function SignInSide() {
 	const [passwordAgain, setPasswordAgain] = useState<string>("")
 	const history = useHistory()
 
-	const handleSubmit = () => {
-		history.push("home/create_profile")
+	const handleSignIn = async (event: React.MouseEvent<HTMLElement>) => {
+		event.preventDefault()
+		try {
+			await UserService.signIn(userContext.user.email, userContext.user.password)
+			const receivedUser = await UserService.getUserInfo()
+			const newUser: IUser = {
+				...receivedUser,
+				password: "",
+				images: [],
+				acceptedTerms: true,
+				type: receivedUser.userType === "Applicant" ? UserType.Applicant : UserType.Tennant
+			}
+			userContext.setUser(newUser)
+			history.push(AuthRoutes.home)
+		} catch (response) {
+			history.push(NonAuthRoutes.signIn)
+		}
+	}
+
+	const handleSignUp = () => {
+		history.push(NonAuthRoutes.createProfile)
 	}
 
 	const isDisabled = (): boolean => {
@@ -132,7 +153,7 @@ export default function SignInSide() {
 							color="primary"
 							className={classes.submit}
 							disabled={isDisabled()}
-							onClick={handleSubmit}
+							onClick={signUp ? handleSignUp : handleSignIn}
 						>
 							{signUp ? "Sign Up" : "Sign In"}
 						</Button>

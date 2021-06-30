@@ -9,6 +9,7 @@ import { Grid, IconButton } from "@material-ui/core"
 
 import Logo from "../images/FlatMatch.png"
 import React from "react"
+import UserService from "../services/UserService"
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -66,7 +67,7 @@ export default function DefaultAppBar(
 				<MenuItem onClick={handleMenuClose}>Messages</MenuItem>
 			) : null}
 			<MenuItem onClick={handleMenuClose}>
-				<Link color="inherit" href="/signIn">
+				<Link color="inherit" href="/signIn" onClick={UserService.logout}>
 					Logout
 				</Link>
 			</MenuItem>
