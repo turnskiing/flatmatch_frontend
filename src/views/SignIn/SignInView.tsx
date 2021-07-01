@@ -18,7 +18,7 @@ import Logo from "../../images/FlatMatch.png"
 import { SignInStyles } from "./SignInView.style"
 // Context
 import { UserContext } from "../../App"
-import { IUser, UserType } from "../../models/user"
+import { IUser } from "../../models/user"
 import UserService from "../../services/UserService"
 import { AuthRoutes, NonAuthRoutes } from "../../Router"
 
@@ -33,15 +33,6 @@ export default function SignInSide() {
 		event.preventDefault()
 		try {
 			await UserService.signIn(userContext.user.email, userContext.user.password)
-			const receivedUser = await UserService.getUserInfo()
-			const newUser: IUser = {
-				...receivedUser,
-				password: "",
-				images: [],
-				acceptedTerms: true,
-				type: receivedUser.userType === "Applicant" ? UserType.Applicant : UserType.Tennant
-			}
-			userContext.setUser(newUser)
 			history.push(AuthRoutes.home)
 		} catch (response) {
 			history.push(NonAuthRoutes.signIn)

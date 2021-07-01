@@ -23,7 +23,6 @@ import { UserContext } from "../../App"
 import { useHistory } from "react-router-dom"
 import UserService from "../../services/UserService"
 import { AuthRoutes, NonAuthRoutes } from "../../Router"
-import { IUser, UserType } from "../../models/user"
 
 const steps = ["Welcome", "Personal information", "Interests"]
 
@@ -50,9 +49,9 @@ function getStepContent(step: number) {
 		case 0:
 			return <Welcome />
 		case 1:
-			return <PersonalInfromation />
+			return <PersonalInfromation{...true} />
 		case 2:
-			return <Interests />
+			return <Interests{...true} />
 		default:
 			throw new Error("Unknown step")
 	}
@@ -83,17 +82,6 @@ export default function CreateProfileView() {
 		event.preventDefault()
 		try {
 			await UserService.signUp(userContext.user)
-			// Overwrite the local state with the response from the server 
-			// This prevents users from changing local state by going back to create_profile
-			const receivedUser = await UserService.getUserInfo()
-			const newUser: IUser = {
-			...receivedUser,
-			password: "",
-			images: [],
-			acceptedTerms: true,
-			type: receivedUser.userType === "Applicant" ? UserType.Applicant : UserType.Tennant
-		}
-			userContext.setUser(newUser)
 			history.push(AuthRoutes.home)
 		} catch (response) {
 			history.push(NonAuthRoutes.signIn)
