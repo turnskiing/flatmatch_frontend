@@ -1,6 +1,5 @@
 import AppBar from "@material-ui/core/AppBar"
 import { makeStyles } from "@material-ui/core/styles"
-import Link from "@material-ui/core/Link"
 import Toolbar from "@material-ui/core/Toolbar"
 import Avatar from "@material-ui/core/Avatar"
 import MenuItem from "@material-ui/core/MenuItem"
@@ -10,6 +9,8 @@ import { Grid, IconButton } from "@material-ui/core"
 import Logo from "../images/FlatMatch.png"
 import React from "react"
 import UserService from "../services/UserService"
+import { AuthRoutes } from "../Router"
+import { useHistory } from "react-router-dom"
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -22,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
 				: theme.palette.grey[900],
 	},
 	avatar: {
-		backgroundColor: "#ff8f00",
+		backgroundColor: theme.palette.primary.main,
 	},
 	logo: {
 		width: 150,
@@ -36,6 +37,7 @@ export default function DefaultAppBar(
 	profileImageUrl = "",
 	isProfileCreated = true
 ) {
+	const history = useHistory()
 	const classes = useStyles()
 	const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null)
 
@@ -47,6 +49,10 @@ export default function DefaultAppBar(
 
 	const handleMenuClose = () => {
 		setAnchorEl(null)
+	}
+
+	const handleViewProfile = () => {
+		history.push(AuthRoutes.profile)
 	}
 
 	const menuId = "appbar-account-menu"
@@ -61,15 +67,15 @@ export default function DefaultAppBar(
 			onClose={handleMenuClose}
 		>
 			{isProfileCreated ? (
-				<MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+				<MenuItem onClick={handleViewProfile}>
+					Profile
+				</MenuItem>
 			) : null}
 			{isProfileCreated ? (
 				<MenuItem onClick={handleMenuClose}>Messages</MenuItem>
 			) : null}
-			<MenuItem onClick={handleMenuClose}>
-				<Link color="inherit" href="/signIn" onClick={UserService.logout}>
-					Logout
-				</Link>
+			<MenuItem onClick={UserService.logout}>
+				Logout
 			</MenuItem>
 		</Menu>
 	)

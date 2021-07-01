@@ -21,8 +21,10 @@ import MessageIcon from '@material-ui/icons/Message'
 import AccountBoxIcon from '@material-ui/icons/AccountBox'
 import SettingsIcon from '@material-ui/icons/Settings'
 import LocalOfferIcon from '@material-ui/icons/LocalOffer'
-import { UserType } from "../../models/user"
+import { IUser, UserType } from "../../models/user"
 import { AuthRoutes } from "../../Router"
+import { useEffect } from "react"
+import UserService from "../../services/UserService"
 
 export default function HomeScreenView() {
 	const userContext = useContext(UserContext)
@@ -52,6 +54,22 @@ export default function HomeScreenView() {
 	const handlePersonalPreferences = () => {
 		history.push(AuthRoutes.filter)
 	}
+
+	useEffect(() => {
+		const fetchUsers = async () => {
+			// Overwrite the local state with the response from the server
+			const receivedUser = await UserService.getUserInfo()
+			const newUser: IUser = {
+				...receivedUser,
+				password: "",
+				images: [],
+				acceptedTerms: true,
+				type: receivedUser.userType === "Applicant" ? UserType.Applicant : UserType.Tennant
+			}
+			userContext.setUser(newUser)
+		}
+		fetchUsers()
+	}, [])
 
 	return (
 		<React.Fragment>

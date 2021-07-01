@@ -17,10 +17,10 @@ import IconButton from "@material-ui/core/IconButton"
 import ToggleButton from "@material-ui/lab/ToggleButton"
 import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup"
 import DateFnsUtils from "@date-io/date-fns"
-import InputLabel from '@material-ui/core/InputLabel'
-import MenuItem from '@material-ui/core/MenuItem'
-import FormControl from '@material-ui/core/FormControl'
-import Select from '@material-ui/core/Select'
+import InputLabel from "@material-ui/core/InputLabel"
+import MenuItem from "@material-ui/core/MenuItem"
+import FormControl from "@material-ui/core/FormControl"
+import Select from "@material-ui/core/Select"
 import {
 	MuiPickersUtilsProvider,
 	KeyboardDatePicker,
@@ -33,10 +33,10 @@ import { UserContext } from "../../App"
 // Models
 import { IUser, UserType } from "../../models/user"
 
-export default function AddressForm() {
+export default function PersonalInformation(isEditable: boolean) {
 	const userContext = useContext(UserContext)
 	const classes = PersonalInformationStyles()
-	const maxNumber = 5
+	const maxNumber = 6
 
 	const setImages = (
 		imageList: ImageListType,
@@ -44,7 +44,7 @@ export default function AddressForm() {
 	) => {
 		const newUser: IUser = {
 			...userContext.user,
-			images: imageList as never[]
+			images: imageList as never[],
 		}
 		userContext.setUser(newUser)
 	}
@@ -52,7 +52,7 @@ export default function AddressForm() {
 	const setDate = (date: Date | null) => {
 		const newUser: IUser = {
 			...userContext.user,
-			date_of_birth: date
+			date_of_birth: date,
 		}
 		userContext.setUser(newUser)
 	}
@@ -63,7 +63,7 @@ export default function AddressForm() {
 	) => {
 		const newUser: IUser = {
 			...userContext.user,
-			gender: newGender
+			gender: newGender,
 		}
 		userContext.setUser(newUser)
 	}
@@ -99,8 +99,8 @@ export default function AddressForm() {
 				country: event.target.value.trim(),
 				city: userContext.user.place_of_residency.city,
 				zipCode: userContext.user.place_of_residency.zipCode,
-				address: userContext.user.place_of_residency.address
-			}
+				address: userContext.user.place_of_residency.address,
+			},
 		}
 		userContext.setUser(newUser)
 	}
@@ -112,8 +112,8 @@ export default function AddressForm() {
 				country: userContext.user.place_of_residency.country,
 				city: event.target.value.trim(),
 				zipCode: userContext.user.place_of_residency.zipCode,
-				address: userContext.user.place_of_residency.address
-			}
+				address: userContext.user.place_of_residency.address,
+			},
 		}
 		userContext.setUser(newUser)
 	}
@@ -125,8 +125,8 @@ export default function AddressForm() {
 				country: userContext.user.place_of_residency.country,
 				city: userContext.user.place_of_residency.city,
 				zipCode: event.target.value.trim(),
-				address: userContext.user.place_of_residency.address
-			}
+				address: userContext.user.place_of_residency.address,
+			},
 		}
 		userContext.setUser(newUser)
 	}
@@ -139,14 +139,14 @@ export default function AddressForm() {
 				city: userContext.user.place_of_residency.city,
 				zipCode: userContext.user.place_of_residency.zipCode,
 				address: event.target.value.trim(),
-			}
+			},
 		}
 		userContext.setUser(newUser)
 	}
 
 	const setSmoker = (event: React.ChangeEvent<{ value: unknown }>) => {
 		let isSmoker = false
-		if (event.target.value as string === "Yes") {
+		if ((event.target.value as string) === "Yes") {
 			isSmoker = true
 		}
 
@@ -162,7 +162,7 @@ export default function AddressForm() {
 			<Typography variant="h5" gutterBottom>
 				Personal Information
 			</Typography>
-			<Grid container spacing={3}>
+			<Grid container spacing={3} justify="space-around" alignItems="center">
 				<Grid item xs={12}>
 					<ImageUploading
 						multiple
@@ -184,29 +184,34 @@ export default function AddressForm() {
 									variant="contained"
 									startIcon={<AccountCircleIcon color="primary" />}
 									onClick={onImageUpload}
+									disabled={!isEditable}
 									{...dragProps}
 								>
 									Add Profile pictures *
 								</Button>
-								{imageList.map((image, index) => (
-									<div key={index} className="image-item">
-										<img src={image.dataURL} alt="" width="150" />
-										<div className="image-item__btn-wrapper">
-											<IconButton
-												className={classes.imageButtons}
-												onClick={() => onImageUpdate(index)}
-											>
-												<SyncIcon />
-											</IconButton>
-											<IconButton
-												className={classes.imageButtons}
-												onClick={() => onImageRemove(index)}
-											>
-												<DeleteIcon />
-											</IconButton>
-										</div>
-									</div>
-								))}
+								<Grid container spacing={3} justify='center' alignItems="center" alignContent='space-around'>
+									{imageList.map((image, index) => (
+										<Grid item xs={12} sm={4} key={index}>
+											<img src={image.dataURL} alt="" width="150" />
+											<div className="image-item__btn-wrapper">
+												<IconButton
+													className={classes.imageButtons}
+													onClick={() => onImageUpdate(index)}
+													disabled={!isEditable}
+												>
+													<SyncIcon />
+												</IconButton>
+												<IconButton
+													className={classes.imageButtons}
+													onClick={() => onImageRemove(index)}
+													disabled={!isEditable}
+												>
+													<DeleteIcon />
+												</IconButton>
+											</div>
+										</Grid>
+									))}
+								</Grid>
 							</div>
 						)}
 					</ImageUploading>
@@ -221,6 +226,7 @@ export default function AddressForm() {
 						autoComplete="first-name"
 						value={userContext.user.first_name}
 						onChange={setFirstName}
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
@@ -233,6 +239,7 @@ export default function AddressForm() {
 						autoComplete="last-name"
 						value={userContext.user.last_name}
 						onChange={setLastName}
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
@@ -250,12 +257,13 @@ export default function AddressForm() {
 							KeyboardButtonProps={{
 								"aria-label": "change date",
 							}}
+							disabled={!isEditable}
 						/>
 					</MuiPickersUtilsProvider>
 				</Grid>
 				<Grid item xs={12} sm={6} className={classes.gender}>
 					<Typography color="textSecondary" component="span">
-						Gender * {" "}
+						Gender *{" "}
 					</Typography>
 					<ToggleButtonGroup
 						value={userContext.user.gender}
@@ -268,6 +276,7 @@ export default function AddressForm() {
 							value="Female"
 							aria-label="female"
 							style={{ padding: 15 }}
+							disabled={!isEditable}
 						>
 							<FontAwesomeIcon icon={faVenus} />
 						</ToggleButton>
@@ -275,6 +284,7 @@ export default function AddressForm() {
 							value="Male"
 							aria-label="male"
 							style={{ padding: 15 }}
+							disabled={!isEditable}
 						>
 							<FontAwesomeIcon icon={faMars} />
 						</ToggleButton>
@@ -282,6 +292,7 @@ export default function AddressForm() {
 							value="Prefer not to say"
 							aria-label="Prefer not to say"
 							style={{ padding: 15 }}
+							disabled={!isEditable}
 						>
 							<FontAwesomeIcon icon={faTransgenderAlt} />
 						</ToggleButton>
@@ -295,6 +306,7 @@ export default function AddressForm() {
 						fullWidth
 						value={userContext.user.occupation}
 						onChange={setOccupation}
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
@@ -304,8 +316,9 @@ export default function AddressForm() {
 							<Select
 								labelId="select-smoker"
 								id="select-smoker"
-								value={(userContext.user.smoker === true) ? "Yes" : "No"}
+								value={userContext.user.smoker === true ? "Yes" : "No"}
 								onChange={setSmoker}
+								disabled={!isEditable}
 							>
 								<MenuItem value={"Yes"}>Yes</MenuItem>
 								<MenuItem value={"No"}>No</MenuItem>
@@ -326,6 +339,7 @@ export default function AddressForm() {
 						fullWidth
 						value={userContext.user.place_of_residency.country}
 						onChange={setCountry}
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
@@ -336,6 +350,7 @@ export default function AddressForm() {
 						fullWidth
 						value={userContext.user.place_of_residency.city}
 						onChange={setCity}
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
@@ -346,6 +361,7 @@ export default function AddressForm() {
 						fullWidth
 						value={userContext.user.place_of_residency.zipCode}
 						onChange={setZipcode}
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
@@ -356,6 +372,7 @@ export default function AddressForm() {
 						fullWidth
 						value={userContext.user.place_of_residency.address}
 						onChange={setAddress}
+						disabled={!isEditable}
 					/>
 				</Grid>
 			</Grid>

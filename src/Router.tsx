@@ -5,6 +5,7 @@ import FindOfferingView from './views/FindOffering/FindOfferingView'
 import CreateProfileView from './views/CreateProfile/CreateProfileView'
 import UserService from './services/UserService'
 import HomeScreenView from './views/HomeScreen/HomeScreen'
+import ShowProfile from './views/ShowProfile/ShowProfile'
 
 export enum AuthRoutes {
 	findRoom = '/home/find_room',
@@ -28,9 +29,10 @@ const Router = () => {
 			<Switch>
 				<Route exact path={NonAuthRoutes.default} component={SignInView} />
 				<Route path={NonAuthRoutes.signIn} component={SignInView} />
+				<Route path={NonAuthRoutes.createProfile} component={CreateProfileView} />
 				<AuthRoute exact path={AuthRoutes.home} Component={HomeScreenView} />
 				<AuthRoute path={AuthRoutes.findRoom} Component={FindOfferingView} />
-				<Route path={NonAuthRoutes.createProfile} component={CreateProfileView} />
+				<AuthRoute path={AuthRoutes.profile} Component={ShowProfile} />
 				{/* Not Found */}
 				<Route component={() => <Redirect to={NonAuthRoutes.default} />} />
 			</Switch>
