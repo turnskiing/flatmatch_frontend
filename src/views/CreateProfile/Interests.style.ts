@@ -6,7 +6,7 @@ export const InterestsStyles = makeStyles((theme) => ({
 		justifyContent: "center",
 		flexWrap: "wrap",
 		listStyle: "none",
-		padding: theme.spacing(0.5),
+		padding: theme.spacing(3),
 		margin: 0,
 	},
 	chip: {
