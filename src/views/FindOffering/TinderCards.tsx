@@ -11,7 +11,7 @@ interface Props {
 const TinderCards: FC<Props> = ({ title }): ReactElement => {
 	const [listings, setPeople] = useState([
 		{
-			name: "Zentrales wohnen am Marienplatz: Stylisch möblierte Premium-WG",
+			name: "Zentrales  wohnen am Marienplatz: Stylisch möblierte Premium-WG",
 			url: "https://pictures.immobilienscout24.de/listings/81ea8e03-c3b1-4771-a7f7-4bd2bdf455ed-1445457548.jpg/ORIG/resize/1106x830%3E/format/webp/quality/73",
 			description: "Nice warm friendly household"
 		},
