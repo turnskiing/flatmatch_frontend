@@ -35,7 +35,6 @@ function FindOffering() {
 			{DefaultAppBar(userContext.user.first_name, FindOfferingBreadCrumb(), "")}
 
 			<div className="app">
-				<Header title={""} />
 				<TinderCards />
 				<SwipeButtons />
 				{/*Tinder Cards*/}
