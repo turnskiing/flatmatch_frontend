@@ -176,10 +176,11 @@ export default function AddressForm() {
     }
 
     const setAgeRange = (event: any, newValue: number | number[]) => {
+        var newArray = []
         if(typeof newValue === "number")
-            var newArray = [newValue, 10]
+            newArray = [newValue, 10]
         else
-            var newArray = [newValue[0], newValue[1]]
+            newArray = [newValue[0], newValue[1]]
 
         setSliderValue(newArray)
 
