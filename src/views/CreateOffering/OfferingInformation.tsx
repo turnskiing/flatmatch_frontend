@@ -63,9 +63,6 @@ export default function AddressForm() {
 
 
     const setPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-        // @ts-ignore
-        // console.log(event.target.valueAsNumber)
-        // console.log(offerContext.offer.price.amount)
 
         const newOffering: IHousingOffer = {
             ...offerContext.offer,
