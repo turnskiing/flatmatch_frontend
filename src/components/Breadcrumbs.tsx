@@ -8,7 +8,7 @@ export function CreateOfferingBreadCrumb() {
             </Link>
             <Typography color="textPrimary">CreateOffering</Typography>
         </Breadcrumbs>
-    );
+    )
 }
 
 export function CreateProfileBreadCrumb() {
