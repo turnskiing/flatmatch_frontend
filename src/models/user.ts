@@ -22,5 +22,5 @@ export interface IUser {
 
 export enum UserType {
 	Applicant,
-	Tennant
+	Tenant
 }

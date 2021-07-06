@@ -64,7 +64,7 @@ export default function HomeScreenView() {
 				password: "",
 				images: [],
 				acceptedTerms: true,
-				type: receivedUser.userType === "Applicant" ? UserType.Applicant : UserType.Tennant
+				type: receivedUser.userType === "Applicant" ? UserType.Applicant : UserType.Tenant
 			}
 			userContext.setUser(newUser)
 		}
@@ -110,7 +110,7 @@ export default function HomeScreenView() {
 												</CardActionArea>
 											</Grid>
 										)}
-										{userContext.user.type === UserType.Tennant && (
+										{userContext.user.type === UserType.Tenant && (
 											<Grid item component={Card} xs={12} sm={6} className={classes.card}>
 												<CardActionArea onClick={handleCreateOffering}>
 													<CardContent>
@@ -130,7 +130,7 @@ export default function HomeScreenView() {
 												</CardActionArea>
 											</Grid>
 										)}
-										{userContext.user.type === UserType.Tennant && (
+										{userContext.user.type === UserType.Tenant && (
 											<Grid item component={Card} xs={12} sm={6} className={classes.card}>
 												<CardActionArea onClick={handleFindRoommates}>
 													<CardContent>

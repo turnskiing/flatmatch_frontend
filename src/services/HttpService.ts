@@ -106,6 +106,40 @@ export default class HttpService {
 		}
 	}
 
+	static async remove(url: string, onSuccess: (data: any) => any, onError: (teststatus: any) => any) {
+		let token = window.localStorage["jwtToken"];
+		let header = new Headers();
+		if (token) {
+			header.append("Authorization", `JWT ${token}`);
+		}
+
+		try {
+			let resp = await fetch(url, {
+				method: "DELETE",
+				headers: header,
+			})
+
+			if (this.checkIfUnauthorized(resp)) {
+				window.location.href = '/sign_in'
+				return
+			}
+
+			const response = await resp.json()
+
+			if (response.errors) {
+				onError(response.errors)
+			}
+			else {
+				if (response.hasOwnProperty('token')) {
+					window.localStorage.jwtToken = response.token
+				}
+				onSuccess(response)
+			}
+		} catch (err) {
+			onError(err.message)
+		}
+	}
+
 	static checkIfUnauthorized(res: any) {
 		if (res.status === 401) {
 			return true

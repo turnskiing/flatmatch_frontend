@@ -46,7 +46,7 @@ export default function Welcome() {
 	const handleTennantClick = () => {
 		const newUser: IUser = {
 			...userContext.user,
-			type: UserType.Tennant,
+			type: UserType.Tenant,
 		}
 		userContext.setUser(newUser)
 		stepContext.setActiveStep(stepContext.activeStep + 1)
