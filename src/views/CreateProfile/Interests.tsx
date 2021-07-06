@@ -109,7 +109,7 @@ export default function Interests(isEditable: boolean, termsOfService = true) {
 							disabled={!isEditable}
 							onKeyPress = {(e) => {
 								if(e.key === 'Enter') {
-									addInterest();
+									addInterest()
 								}
 							}}
 							endAdornment={

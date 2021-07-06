@@ -47,13 +47,13 @@ export default class OfferService {
             HttpService.get(`${OfferService.baseURL()}/${id}`,
                 (data) => {
                     if (data !== undefined || Object.keys(data).length !== 0) {
-                        resolve(data);
+                        resolve(data)
                     } else {
-                        reject("Error while retrieving movie");
+                        reject("Error while retrieving movie")
                     }
                 },
-                function (textStatus) {
-                    reject(textStatus);
+                (textStatus) => {
+                    reject(textStatus)
                 })
         })
     }
@@ -102,13 +102,13 @@ export default class OfferService {
                 `${OfferService.baseURL()}/${id}`,
                 (data) => {
                     if (data.message !== undefined) {
-                        resolve(data.message);
+                        resolve(data.message)
                     } else {
-                        reject("Error while deleting HousingOffer");
+                        reject("Error while deleting HousingOffer")
                     }
                 },
-                function (textStatus) {
-                    reject(textStatus);
+                (textStatus) => {
+                    reject(textStatus)
                 }
             )
         })

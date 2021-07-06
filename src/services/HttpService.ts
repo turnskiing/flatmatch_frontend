@@ -107,14 +107,14 @@ export default class HttpService {
 	}
 
 	static async remove(url: string, onSuccess: (data: any) => any, onError: (teststatus: any) => any) {
-		let token = window.localStorage["jwtToken"];
-		let header = new Headers();
+		const token = window.localStorage.jwtToken
+		const header = new Headers()
 		if (token) {
-			header.append("Authorization", `JWT ${token}`);
+			header.append("Authorization", `JWT ${token}`)
 		}
 
 		try {
-			let resp = await fetch(url, {
+			const resp = await fetch(url, {
 				method: "DELETE",
 				headers: header,
 			})

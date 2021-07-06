@@ -21,7 +21,7 @@ import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles';
+import {createStyles, makeStyles, Theme} from '@material-ui/core/styles'
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
@@ -33,8 +33,8 @@ import {OfferingInformationStyle} from "./OfferingInformation.style"
 import {OfferContext} from "../../App"
 // Models
 import {IHousingOffer} from "../../models/housingOffer"
-import {Slider} from "@material-ui/core";
-import value from "*.png";
+import {Slider} from "@material-ui/core"
+import value from "*.png"
 
 const currencies = [
     {
@@ -53,7 +53,7 @@ const currencies = [
         value: 'JPY',
         label: '¥',
     },
-];
+]
 
 export default function AddressForm() {
     const offerContext = useContext(OfferContext)
@@ -64,8 +64,8 @@ export default function AddressForm() {
 
     const setPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
         // @ts-ignore
-        console.log(event.target.valueAsNumber)
-        console.log(offerContext.offer.price.amount)
+        // console.log(event.target.valueAsNumber)
+        // console.log(offerContext.offer.price.amount)
 
         const newOffering: IHousingOffer = {
             ...offerContext.offer,
@@ -176,10 +176,11 @@ export default function AddressForm() {
     }
 
     const setAgeRange = (event: any, newValue: number | number[]) => {
+        var newArray = []
         if(typeof newValue === "number")
-            var newArray = [newValue, 10]
+            newArray = [newValue, 10]
         else
-            var newArray = [newValue[0], newValue[1]]
+            newArray = [newValue[0], newValue[1]]
 
         setSliderValue(newArray)
 
@@ -401,7 +402,7 @@ export default function AddressForm() {
                     onChange={setAgeRange}
                     valueLabelDisplay="auto"
                     aria-labelledby="range-slider"
-                    //getAriaValueText={"valuetext"}
+                    // getAriaValueText={"valuetext"}
                 />
                 </Grid>
                 <Grid item xs={12} sm={12} className={classes.location}>
