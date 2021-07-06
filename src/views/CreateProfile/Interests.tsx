@@ -107,6 +107,11 @@ export default function Interests(isEditable: boolean, termsOfService = true) {
 							value={interest}
 							onChange={handleChange()}
 							disabled={!isEditable}
+							onKeyPress = {(e) => {
+								if(e.key === 'Enter') {
+									addInterest();
+								}
+							}}
 							endAdornment={
 								<InputAdornment position="end">
 									<IconButton
