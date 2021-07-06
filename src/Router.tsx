@@ -2,10 +2,10 @@ import { BrowserRouter, Route, Switch, Redirect, RouteComponentProps } from 'rea
 
 import SignInView from './views/SignIn/SignInView'
 import FindOfferingView from './views/FindOffering/FindOfferingView'
-import CreateProfileView from './views/CreateProfile/CreateProfileView'
 import UserService from './services/UserService'
 import HomeScreenView from './views/HomeScreen/HomeScreen'
 import ShowProfile from './views/ShowProfile/ShowProfile'
+import CreateOfferingView from './views/CreateOffering/CreateOfferingView'
 
 export enum AuthRoutes {
 	findRoom = '/home/find_room',
@@ -29,11 +29,12 @@ const Router = () => {
 			<Switch>
 				<Route exact path={NonAuthRoutes.default} component={SignInView} />
 				<Route path={NonAuthRoutes.signIn} component={SignInView} />
-				<Route path={NonAuthRoutes.createProfile} component={CreateProfileView} />
+				<Route path={NonAuthRoutes.createProfile} component={CreateOfferingView} />
 				<AuthRoute exact path={AuthRoutes.home} Component={HomeScreenView} />
 				<AuthRoute path={AuthRoutes.findRoom} Component={FindOfferingView} />
 				<AuthRoute path={AuthRoutes.profile} Component={ShowProfile} />
-				{/* Not Found */}
+				<AuthRoute path={AuthRoutes.createOffering} Component={CreateOfferingView} />
+                {/* Not Found */}
 				<Route component={() => <Redirect to={NonAuthRoutes.default} />} />
 			</Switch>
 		</BrowserRouter>

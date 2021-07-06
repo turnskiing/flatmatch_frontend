@@ -59,7 +59,7 @@ export default function ShowProfile() {
 				type:
 					receivedUser.userType === "Applicant"
 						? UserType.Applicant
-						: UserType.Tennant,
+						: UserType.Tenant,
 			}
 			userContext.setUser(newUser)
 		}
