@@ -17,7 +17,7 @@ import { UserContext } from "../../App"
 import { useHistory } from "react-router-dom"
 import UserService from "../../services/UserService"
 import { AuthRoutes, NonAuthRoutes } from "../../Router"
-//Styles
+// Styles
 import grey from "@material-ui/core/colors/grey"
 
 

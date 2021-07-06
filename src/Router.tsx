@@ -34,7 +34,7 @@ const Router = () => {
 				<AuthRoute path={AuthRoutes.findRoom} Component={FindOfferingView} />
 				<AuthRoute path={AuthRoutes.profile} Component={ShowProfile} />
 				<AuthRoute path={AuthRoutes.createOffering} Component={CreateOfferingView} />
-                {/* Not Found */}
+				{/* Not Found */}
 				<Route component={() => <Redirect to={NonAuthRoutes.default} />} />
 			</Switch>
 		</BrowserRouter>
