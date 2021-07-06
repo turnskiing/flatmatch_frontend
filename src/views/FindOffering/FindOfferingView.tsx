@@ -37,8 +37,6 @@ function FindOffering() {
 			<div className="app">
 				<TinderCards />
 				<SwipeButtons />
-				{/*Tinder Cards*/}
-				{/*Buttons*/}
 			</div>
 		</React.Fragment>
 
