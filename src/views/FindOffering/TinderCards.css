@@ -25,6 +25,35 @@
     position:   absolute;
     bottom: 1vh;
     left: 1vh;
+    right: 1vh;
+    padding: 1vh 1vw 1vh 1vw ;
+    color: #f5edee;
+    font-family:    Arial, Helvetica, sans-serif;
+    font-size: 2vh;
+    border-radius: 5px;
+    background-color: rgba(55, 54, 48, 0.3);
+}
+
+.toplevel_info {
+    position:   absolute;
+    top: 1vh;
+    left: 1vh;
+    right: 40vh;
+    float: left;
+    padding: 1vh 1vw 1vh 1vw ;
+    color: #f5edee;
+    font-family:    Arial, Helvetica, sans-serif;
+    font-size: 2vh;
+    border-radius: 5px;
+    background-color: rgba(55, 54, 48, 0.3);
+}
+
+.badges {
+    position:   absolute;
+    top: 1vh;
+    left: 40vh;
+    right: 1vh;
+    float: right;
     padding: 1vh 1vw 1vh 1vw ;
     color: #f5edee;
     font-family:    Arial, Helvetica, sans-serif;
@@ -37,5 +66,12 @@
     color: #f7ffff;
     font-family:    Arial, Helvetica, sans-serif;
     font-size:      3vh;
+    font-weight:    bold;
+}
+
+#details_title{
+    color: #f7ffff;
+    font-family:    Arial, Helvetica, sans-serif;
+    font-size:      2vh;
     font-weight:    bold;
 }
