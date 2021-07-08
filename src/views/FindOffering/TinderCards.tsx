@@ -13,20 +13,20 @@ const TinderCards: FC<Props> = ({title}): ReactElement => {
         {
             tenants: ["tomwenzel@hotmail.de"],
             price: {
-                amount: 780,
+                amount: 400,
                 currency: "EUR"
             },
-            images: ["https://upload.wikimedia.org/wikipedia/commons/c/cb/Studentenstadt-Freimann-Oranges-Haus1.jpg"],
+            images: ["https://www.juergen-reichmann.de/images/pics/1313000/1313021.jpg"],
             location: {
                 country: "Germany",
                 city: "Munich",
                 zipCode: "80805",
-                address: "Christoph-Probst Str. 8"
+                address: "Grasmeierstraße 27"
             },
-            description: "Wunderschoenes zimmer in bester Lage in Muenchen. Einzelduschen in AIDA Klo's. Gemeinschaftsraeume, Sauna, Dachterrasse etc.",
+            description: "Wunderschoenes zweistoeckiges Haus in bester Lage in Muenchen. Kuschelige 6qm in dieser Wohngemeinschaft",
             roomSize: 9,
-            yearConstructed: 1972,
-            title: "Schoenes Zimmer in WG Platte",
+            yearConstructed: 2010,
+            title: "O2 micro compact home.",
             ageRange: {
                 minAge: 0,
                 maxAge: 100
@@ -37,7 +37,7 @@ const TinderCards: FC<Props> = ({title}): ReactElement => {
             values: [],
             acceptedTerms: false,
         }, {
-            tenants: ["tomwenzel@hotmail.de"],
+            tenants: ["tomwenzel@hotmail.de", 'werner.herzog@banane.com'],
             price: {
                 amount: 900,
                 currency: "EUR"
@@ -62,33 +62,7 @@ const TinderCards: FC<Props> = ({title}): ReactElement => {
             numberOfRooms: 1,
             values: [],
             acceptedTerms: false,
-        }, {
-            tenants: ["tomwenzel@hotmail.de"],
-            price: {
-                amount: 780,
-                currency: "EUR"
-            },
-            images: ["https://upload.wikimedia.org/wikipedia/commons/c/cb/Studentenstadt-Freimann-Oranges-Haus1.jpg"],
-            location: {
-                country: "Germany",
-                city: "Munich",
-                zipCode: "80805",
-                address: "Christoph-Probst Str. 8"
-            },
-            description: "Wunderschoenes zimmer in bester Lage in Muenchen. Einzelduschen in AIDA Klo's. Gemeinschaftsraeume, Sauna, Dachterrasse etc.",
-            roomSize: 9,
-            yearConstructed: 1972,
-            title: "Schoenes Zimmer in WG Platte",
-            ageRange: {
-                minAge: 0,
-                maxAge: 100
-            },
-            moveInDate: null,
-            furnished: true,
-            numberOfRooms: 1,
-            values: [],
-            acceptedTerms: false,
-        }, {
+        },{
             tenants: ["tomwenzel@hotmail.de"],
             price: {
                 amount: 780,
