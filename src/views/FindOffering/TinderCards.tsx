@@ -1,78 +1,169 @@
-import React, { FC, ReactElement, useState } from "react"
+import React, {FC, ReactElement, useState} from "react"
 import "./TinderCards.css"
 import TinderCard from "react-tinder-card"
 import DetailPage from "./DetailPage"
-import { render } from "react-dom"
+import {render} from "react-dom"
 
 interface Props {
-	title?: string
+    title?: string
 }
 
-const TinderCards: FC<Props> = ({ title }): ReactElement => {
-	const [listings, setPeople] = useState([
-		{
-			name: "Zentrales  wohnen am Marienplatz: Stylisch möblierte Premium-WG",
-			url: "https://pictures.immobilienscout24.de/listings/81ea8e03-c3b1-4771-a7f7-4bd2bdf455ed-1445457548.jpg/ORIG/resize/1106x830%3E/format/webp/quality/73",
-			description: "Nice warm friendly household"
-		},
-		{
-			name: "Furnished room in international 4 people flat!!! with small Terrasse!! R1",
-			url: "https://pictures.immobilienscout24.de/listings/f2e15e09-7b03-4a27-b523-2d7b876d6c34-1445457551.jpg/ORIG/resize/1106x830%3E/format/webp/quality/73",
-			description: "Nice warm friendly household"
+const TinderCards: FC<Props> = ({title}): ReactElement => {
+    const [listings, setPeople] = useState([
+        {
+            tenants: ["tomwenzel@hotmail.de"],
+            price: {
+                amount: 780,
+                currency: "EUR"
+            },
+            images: ["https://upload.wikimedia.org/wikipedia/commons/c/cb/Studentenstadt-Freimann-Oranges-Haus1.jpg"],
+            location: {
+                country: "Germany",
+                city: "Munich",
+                zipCode: "80805",
+                address: "Christoph-Probst Str. 8"
+            },
+            description: "Wunderschoenes zimmer in bester Lage in Muenchen. Einzelduschen in AIDA Klo's. Gemeinschaftsraeume, Sauna, Dachterrasse etc.",
+            roomSize: 9,
+            yearConstructed: 1972,
+            title: "Schoenes Zimmer in WG Platte",
+            ageRange: {
+                minAge: 0,
+                maxAge: 100
+            },
+            moveInDate: null,
+            furnished: true,
+            numberOfRooms: 1,
+            values: [],
+            acceptedTerms: false,
+        }, {
+            tenants: ["tomwenzel@hotmail.de"],
+            price: {
+                amount: 780,
+                currency: "EUR"
+            },
+            images: ["https://upload.wikimedia.org/wikipedia/commons/c/cb/Studentenstadt-Freimann-Oranges-Haus1.jpg"],
+            location: {
+                country: "Germany",
+                city: "Munich",
+                zipCode: "80805",
+                address: "Christoph-Probst Str. 8"
+            },
+            description: "Wunderschoenes zimmer in bester Lage in Muenchen. Einzelduschen in AIDA Klo's. Gemeinschaftsraeume, Sauna, Dachterrasse etc.",
+            roomSize: 9,
+            yearConstructed: 1972,
+            title: "Schoenes Zimmer in WG Platte",
+            ageRange: {
+                minAge: 0,
+                maxAge: 100
+            },
+            moveInDate: null,
+            furnished: true,
+            numberOfRooms: 1,
+            values: [],
+            acceptedTerms: false,
+        }, {
+            tenants: ["tomwenzel@hotmail.de"],
+            price: {
+                amount: 780,
+                currency: "EUR"
+            },
+            images: ["https://upload.wikimedia.org/wikipedia/commons/c/cb/Studentenstadt-Freimann-Oranges-Haus1.jpg"],
+            location: {
+                country: "Germany",
+                city: "Munich",
+                zipCode: "80805",
+                address: "Christoph-Probst Str. 8"
+            },
+            description: "Wunderschoenes zimmer in bester Lage in Muenchen. Einzelduschen in AIDA Klo's. Gemeinschaftsraeume, Sauna, Dachterrasse etc.",
+            roomSize: 9,
+            yearConstructed: 1972,
+            title: "Schoenes Zimmer in WG Platte",
+            ageRange: {
+                minAge: 0,
+                maxAge: 100
+            },
+            moveInDate: null,
+            furnished: true,
+            numberOfRooms: 1,
+            values: [],
+            acceptedTerms: false,
+        }, {
+            tenants: ["tomwenzel@hotmail.de"],
+            price: {
+                amount: 780,
+                currency: "EUR"
+            },
+            images: ["https://upload.wikimedia.org/wikipedia/commons/c/cb/Studentenstadt-Freimann-Oranges-Haus1.jpg"],
+            location: {
+                country: "Germany",
+                city: "Munich",
+                zipCode: "80805",
+                address: "Christoph-Probst Str. 8"
+            },
+            description: "Wunderschoenes zimmer in bester Lage in Muenchen. Einzelduschen in AIDA Klo's. Gemeinschaftsraeume, Sauna, Dachterrasse etc.",
+            roomSize: 9,
+            yearConstructed: 1972,
+            title: "Schoenes Zimmer in WG Platte",
+            ageRange: {
+                minAge: 0,
+                maxAge: 100
+            },
+            moveInDate: null,
+            furnished: true,
+            numberOfRooms: 1,
+            values: [],
+            acceptedTerms: false,
+        }
+    ])
 
-		},
-		{
-			name: "*2* NEU-Renovierte 3erWG!!! mit BALKON! voll MÖBLIERT// new renovated flat for 3 people!!!*",
-			url: "https://pictures.immobilienscout24.de/listings/4ea91338-876e-4a0b-8da9-bb0be297f591-1445457555.jpg/ORIG/resize/1106x830%3E/format/webp/quality/73",
-			description: "Nice warm friendly household"
+    const swiped = (direction: string, nameToDelete: string) => {
+        // console.log("removing" + nameToDelete + direction)
+        if (direction === 'up') {
+            //    console.log("asd")
+        }
 
-		},
-		{
-			name: "Loft-WG // Möbliertes Zimmer, tolle Community in moderner internationaler 8er Loft - WG ",
-			url: "https://pictures.immobilienscout24.de/listings/cf42f15e-7869-4f8c-a66f-4807138d1490-1445457553.jpg/ORIG/resize/1106x830%3E/format/webp/quality/73",
-			description: "Nice warm friendly household"
+    }
+    const outOfFrame = (name: string) => {
+        // console.log("someone has left the party" + name)
+    }
 
-		},
-	])
+    return (
+        <div className={"tinderCards"}>
 
-	const swiped = (direction: string, nameToDelete: string) => {
-		// console.log("removing" + nameToDelete + direction)
-		if (direction === 'up') {
-			//    console.log("asd")
-		}
-
-	}
-	const outOfFrame = (name: string) => {
-		// console.log("someone has left the party" + name)
-	}
-
-	return (
-		<div className={"tinderCards"}>
-
-			<div className={"tinderCards_cardContainer"}>
-				{listings.map((listing) => (
-					<div className={"swipe"}>
-						<TinderCard
-							key={listing.name}
-							preventSwipe={["down"]}
-							onSwipe={(dir: string) => swiped(dir, listing.name)}
-							onCardLeftScreen={() => outOfFrame(listing.name)}
-						>
-							<div
-								style={{ backgroundImage: `url(${listing.url})` }}
-								className={"card"}
-							>
-								<div className={'offer__description'}>
-									<p id={'listing__title'}>{listing.name}</p>
-									{listing.description}
-								</div>
-							</div>
-						</TinderCard>
-					</div>
-				))}
-			</div>
-		</div>
-	)
+            <div className={"tinderCards_cardContainer"}>
+                {listings.map((listing) => (
+                    <div className={"swipe"}>
+                        <TinderCard
+                            key={listing.title}
+                            preventSwipe={["down"]}
+                            onSwipe={(dir: string) => swiped(dir, listing.description)}
+                            onCardLeftScreen={() => outOfFrame(listing.description)}
+                        >
+                            <div
+                                style={{backgroundImage: `url(${listing.images[0]})`}}
+                                className={"card"}
+                            >
+                                <div className={'offer__description'}>
+                                    <p id={'listing__title'}>{listing.title}</p>
+                                    {listing.description}
+                                </div>
+                                <div className={'toplevel_info'}>
+                                    <p id={'details_title'}>{listing.price.amount + " " + listing.price.currency}</p>
+                                    {listing.location.address + ", " + listing.location.zipCode + ", " + listing.location.city}
+                                </div>
+                                <div className={'badges'}>
+                                    <p id={'details_title'}>{"Roommates: " + listing.tenants.length}</p>
+                                    <div>{"Room size : " + listing.roomSize}</div>
+                                    <div>{"Year constructed: " + listing.yearConstructed}</div>
+                                </div>
+                            </div>
+                        </TinderCard>
+                    </div>
+                ))}
+            </div>
+        </div>
+    )
 }
 
 export default TinderCards
