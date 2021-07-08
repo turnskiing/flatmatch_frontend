@@ -59,7 +59,7 @@ export default function AddressForm() {
     const offerContext = useContext(OfferContext)
     const classes = OfferingInformationStyle()
     const maxNumber = 5
-    const [sliderValue, setSliderValue] = React.useState([0, 100])
+    const [sliderValue, setSliderValue] = React.useState([19, 80])
 
 
     const setPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -334,7 +334,6 @@ export default function AddressForm() {
                 </Grid>
                 <Grid item xs={6} sm={3}>
                         <TextField
-                            required
                             id="numberOfRooms"
                             name="numberOfRooms"
                             label="Number of Rooms"
@@ -347,7 +346,6 @@ export default function AddressForm() {
                 </Grid>
                 <Grid item xs={12} md={6}>
                         <TextField
-                            required
                             id="yearConstructed"
                             name="yearConstructed"
                             label="Year Constructed"
@@ -409,6 +407,7 @@ export default function AddressForm() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
+                        required
                         id="country"
                         name="country"
                         label="Country"
@@ -419,6 +418,7 @@ export default function AddressForm() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
+                        required
                         id="city"
                         name="city"
                         label="City"
@@ -429,6 +429,7 @@ export default function AddressForm() {
                 </Grid>
                 <Grid item xs={12} sm={6}>
                     <TextField
+                        required
                         id="zipcode"
                         name="zipcode"
                         label="Zipcode"

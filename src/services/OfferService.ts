@@ -9,7 +9,7 @@ export default class OfferService {
         // TODO: change hardcoded values (image)
         return new Promise((resolve, reject) => {
             HttpService.post(`${OfferService.baseURL()}/`, {
-                tennants: offer.tenants,
+                tenants: offer.tenants,
                 price: {
                     currency: offer.price.currency,
                     amount: offer.price.amount
