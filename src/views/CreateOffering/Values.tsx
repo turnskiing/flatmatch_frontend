@@ -111,13 +111,14 @@ export default function Interests() {
                         Description
                     </Typography>
                     <TextField
+                        required
                         id="description"
                         label="Describe your living situation. What should applicants know about your living situation?"
                         multiline
                         fullWidth
                         rows={4}
                         inputProps={{
-                            maxLength: 400,
+                            maxLength: 600,
                         }}
                         defaultValue=""
                         variant="outlined"
@@ -214,22 +215,6 @@ export default function Interests() {
                         {offerContext.offer.tenants.map((existingValue) => {
                             return (
                                 <li key={existingValue} style={{ listStyle: "none" }}>
-                                    {/*<Card className={classes.cards}>
-                                        <CardActionArea>
-                                            <CardMedia
-                                                image="src/images/avatar.png"
-                                                title="Profile"
-                                            />
-                                            <CardContent>
-                                                <Typography gutterBottom variant="h5" component="h2">
-                                                    {existingValue}
-                                                </Typography>
-                                                <Typography variant="body2" color="textSecondary" component="p">
-                                                    Username lives in this appartment
-                                                </Typography>
-                                            </CardContent>
-                                        </CardActionArea>
-                                    </Card>*/}
                                     <Chip
                                         label={existingValue}
                                         variant="outlined"
