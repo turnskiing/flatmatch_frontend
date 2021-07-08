@@ -39,20 +39,20 @@ const TinderCards: FC<Props> = ({title}): ReactElement => {
         }, {
             tenants: ["tomwenzel@hotmail.de"],
             price: {
-                amount: 780,
+                amount: 900,
                 currency: "EUR"
             },
-            images: ["https://upload.wikimedia.org/wikipedia/commons/c/cb/Studentenstadt-Freimann-Oranges-Haus1.jpg"],
+            images: ["https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Studentenstadt.Freimann.-.HSH.JPG/1024px-Studentenstadt.Freimann.-.HSH.JPG"],
             location: {
                 country: "Germany",
                 city: "Munich",
                 zipCode: "80805",
-                address: "Christoph-Probst Str. 8"
+                address: "Wilhelm-Lust Str. 18"
             },
-            description: "Wunderschoenes zimmer in bester Lage in Muenchen. Einzelduschen in AIDA Klo's. Gemeinschaftsraeume, Sauna, Dachterrasse etc.",
-            roomSize: 9,
-            yearConstructed: 1972,
-            title: "Schoenes Zimmer in WG Platte",
+            description: "Beste Lage Englischer Garten! Guenstig! Jetzt zuschlagen!",
+            roomSize: 10,
+            yearConstructed: 1977,
+            title: "Charmanter Plattenbau mit Dachterrasse",
             ageRange: {
                 minAge: 0,
                 maxAge: 100
@@ -146,16 +146,17 @@ const TinderCards: FC<Props> = ({title}): ReactElement => {
                             >
                                 <div className={'offer__description'}>
                                     <p id={'listing__title'}>{listing.title}</p>
-                                    {listing.description}
+                                    <div className={"details_text"}>{listing.description}</div>
                                 </div>
                                 <div className={'toplevel_info'}>
                                     <p id={'details_title'}>{listing.price.amount + " " + listing.price.currency}</p>
-                                    {listing.location.address + ", " + listing.location.zipCode + ", " + listing.location.city}
+                                    <div className={"details_text"}>{listing.location.address + ", " + listing.location.zipCode + ", " + listing.location.city}</div>
                                 </div>
                                 <div className={'badges'}>
                                     <p id={'details_title'}>{"Roommates: " + listing.tenants.length}</p>
-                                    <div>{"Room size : " + listing.roomSize}</div>
-                                    <div>{"Year constructed: " + listing.yearConstructed}</div>
+                                    <div className={"details_text"}>{"Room size : " + listing.roomSize}</div>
+                                    <div className={"details_text"}>{"Year constructed: " + listing.yearConstructed}</div>
+                                    <div className={"details_text"}>{"Furnished : " + listing.furnished}</div>
                                 </div>
                             </div>
                         </TinderCard>
