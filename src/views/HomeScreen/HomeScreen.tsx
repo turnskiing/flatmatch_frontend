@@ -25,6 +25,7 @@ import { IUser, UserType } from "../../models/user"
 import { AuthRoutes } from "../../Router"
 import { useEffect } from "react"
 import UserService from "../../services/UserService"
+import FilterView from "../Filter/FilterView"
 
 export default function HomeScreenView() {
 	const userContext = useContext(UserContext)
@@ -204,6 +205,11 @@ export default function HomeScreenView() {
 														</Typography>
 													</CardContent>
 												</CardActionArea>
+											</Grid>
+										)}
+										{userContext.user.type === UserType.Applicant && (
+											<Grid item component={Card} xs={12} sm={6} className={classes.card}>
+												<FilterView />
 											</Grid>
 										)}
 									</Grid>

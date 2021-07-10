@@ -34,7 +34,7 @@ import { IHousingOffer } from "../../models/housingOffer"
 import { Slider } from "@material-ui/core"
 import value from "*.png"
 
-const currencies = [
+export const currencies = [
 	{
 		value: 'USD',
 		label: '$',

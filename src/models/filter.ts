@@ -1,0 +1,32 @@
+import { currencies } from "../views/CreateOffering/OfferingInformation"
+
+export interface IFilter {
+	priceRange?: {
+		currency: string
+		minPrice?: number
+		maxPrice?: number
+	}
+	ageRange?: {
+		minAge?: number
+		maxAge?: number
+	}
+	location?: {
+		country: string
+		city?: string
+		zipCode?: string
+		address?: string
+		distance?: number
+	}
+	roomMatesNumber?: number
+	furnished?: boolean
+	minYearConstructed?: Date
+}
+
+export const defaultFilter: IFilter = {
+	priceRange: {
+		currency: currencies[1].value
+	},
+	location: {
+		country: "DE"
+	}
+}

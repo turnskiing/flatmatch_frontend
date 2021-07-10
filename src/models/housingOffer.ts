@@ -26,3 +26,30 @@ export interface IHousingOffer {
 	acceptedTerms: boolean
 }
 
+export const defaultOffer: IHousingOffer = {
+	tenants: [],
+	price: {
+		amount: null,
+		currency: "EUR"
+	},
+	images: [],
+	location: {
+		country: "",
+		city: "",
+		zipCode: "",
+		address: ""
+	},
+	description: "",
+	roomSize: null,
+	yearConstructed: null,
+	title: "",
+	ageRange: {
+		minAge: 0,
+		maxAge: 100
+	},
+	moveInDate: null,
+	furnished: false,
+	numberOfRooms: null,
+	values: [],
+	acceptedTerms: false,
+}
