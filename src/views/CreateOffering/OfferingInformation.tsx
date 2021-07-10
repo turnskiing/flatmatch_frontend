@@ -1,5 +1,11 @@
 import "date-fns"
-import React, {useContext} from "react"
+import React, { ChangeEvent, useContext } from "react"
+import {
+	faTransgenderAlt,
+	faVenus,
+	faMars,
+} from "@fortawesome/free-solid-svg-icons"
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import AccountCircleIcon from "@material-ui/icons/AccountCircle"
 import DeleteIcon from "@material-ui/icons/Delete"
 import SyncIcon from "@material-ui/icons/Sync"
@@ -13,36 +19,38 @@ import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import {
-    MuiPickersUtilsProvider,
-    KeyboardDatePicker,
+	MuiPickersUtilsProvider,
+	KeyboardDatePicker,
 } from "@material-ui/pickers"
-import ImageUploading, {ImageListType} from "react-images-uploading"
+import ImageUploading, { ImageListType } from "react-images-uploading"
 // Styles
-import {OfferingInformationStyle} from "./OfferingInformation.style"
+import { OfferingInformationStyle } from "./OfferingInformation.style"
 // Context
-import {OfferContext} from "../../App"
+import { OfferContext } from "../../App"
 // Models
-import {IHousingOffer} from "../../models/housingOffer"
-import {Slider} from "@material-ui/core"
+import { IHousingOffer } from "../../models/housingOffer"
+import { Slider } from "@material-ui/core"
+import value from "*.png"
 
 const currencies = [
-    {
-        value: 'USD',
-        label: '$',
-    },
-    {
-        value: 'EUR',
-        label: '€',
-    },
-    {
-        value: 'BTC',
-        label: '฿',
-    },
-    {
-        value: 'JPY',
-        label: '¥',
-    },
+	{
+		value: 'USD',
+		label: '$',
+	},
+	{
+		value: 'EUR',
+		label: '€',
+	},
+	{
+		value: 'BTC',
+		label: '฿',
+	},
+	{
+		value: 'JPY',
+		label: '¥',
+	},
 ]
 
 export default function AddressForm() {
@@ -52,162 +60,162 @@ export default function AddressForm() {
     const [sliderValue, setSliderValue] = React.useState([19, 80])
 
 
-    const setPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const setPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
 
-        const newOffering: IHousingOffer = {
-            ...offerContext.offer,
-             price: {
-                    amount: event.target.valueAsNumber,
-                    currency: offerContext.offer.price.currency
-             }
-        }
-        offerContext.setOffer(newOffering)
-    }
+		const newOffering: IHousingOffer = {
+			...offerContext.offer,
+			price: {
+				amount: event.target.valueAsNumber,
+				currency: offerContext.offer.price.currency
+			}
+		}
+		offerContext.setOffer(newOffering)
+	}
 
-    const setCurrencys = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newOffering: IHousingOffer = {
-            ...offerContext.offer,
-            price: {
-                amount: offerContext.offer.price.amount,
-                currency: event.target.value
-            }
-        }
-        offerContext.setOffer(newOffering)
-    }
+	const setCurrencys = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newOffering: IHousingOffer = {
+			...offerContext.offer,
+			price: {
+				amount: offerContext.offer.price.amount,
+				currency: event.target.value
+			}
+		}
+		offerContext.setOffer(newOffering)
+	}
 
-    const setImages = (
-        imageList: ImageListType,
-        addUpdateIndex: number[] | undefined
-    ) => {
-        const newOffering: IHousingOffer = {
-            ...offerContext.offer,
-            images: imageList as never[]
-        }
-        offerContext.setOffer(newOffering)
-    }
+	const setImages = (
+		imageList: ImageListType,
+		addUpdateIndex: number[] | undefined
+	) => {
+		const newOffering: IHousingOffer = {
+			...offerContext.offer,
+			images: imageList as never[]
+		}
+		offerContext.setOffer(newOffering)
+	}
 
-    const setCountry = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newOffer: IHousingOffer = {
-            ...offerContext.offer,
-            location: {
-                country: event.target.value.trim(),
-                city: offerContext.offer.location.city,
-                zipCode: offerContext.offer.location.zipCode,
-                address: offerContext.offer.location.address
-            }
-        }
-        offerContext.setOffer(newOffer)
-    }
+	const setCountry = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newOffer: IHousingOffer = {
+			...offerContext.offer,
+			location: {
+				country: event.target.value.trim(),
+				city: offerContext.offer.location.city,
+				zipCode: offerContext.offer.location.zipCode,
+				address: offerContext.offer.location.address
+			}
+		}
+		offerContext.setOffer(newOffer)
+	}
 
-    const setCity = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newOffer: IHousingOffer = {
-            ...offerContext.offer,
-            location: {
-                country: offerContext.offer.location.country,
-                city: event.target.value.trim(),
-                zipCode: offerContext.offer.location.zipCode,
-                address: offerContext.offer.location.address
-            }
-        }
-        offerContext.setOffer(newOffer)
-    }
+	const setCity = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newOffer: IHousingOffer = {
+			...offerContext.offer,
+			location: {
+				country: offerContext.offer.location.country,
+				city: event.target.value.trim(),
+				zipCode: offerContext.offer.location.zipCode,
+				address: offerContext.offer.location.address
+			}
+		}
+		offerContext.setOffer(newOffer)
+	}
 
-    const setZipcode = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newOffer: IHousingOffer = {
-            ...offerContext.offer,
-            location: {
-                country: offerContext.offer.location.country,
-                city: offerContext.offer.location.city,
-                zipCode: event.target.value.trim(),
-                address: offerContext.offer.location.address
-            }
-        }
-        offerContext.setOffer(newOffer)
-    }
+	const setZipcode = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newOffer: IHousingOffer = {
+			...offerContext.offer,
+			location: {
+				country: offerContext.offer.location.country,
+				city: offerContext.offer.location.city,
+				zipCode: event.target.value.trim(),
+				address: offerContext.offer.location.address
+			}
+		}
+		offerContext.setOffer(newOffer)
+	}
 
-    const setAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newOffer: IHousingOffer = {
-            ...offerContext.offer,
-            location: {
-                country: offerContext.offer.location.country,
-                city: offerContext.offer.location.city,
-                zipCode: offerContext.offer.location.zipCode,
-                address: event.target.value.trim(),
-            }
-        }
-        offerContext.setOffer(newOffer)
-    }
+	const setAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newOffer: IHousingOffer = {
+			...offerContext.offer,
+			location: {
+				country: offerContext.offer.location.country,
+				city: offerContext.offer.location.city,
+				zipCode: offerContext.offer.location.zipCode,
+				address: event.target.value.trim(),
+			}
+		}
+		offerContext.setOffer(newOffer)
+	}
 
-    const setRoomSize = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newOffering: IHousingOffer = {
-            ...offerContext.offer,
-            roomSize: event.target.valueAsNumber,
-        }
-        offerContext.setOffer(newOffering)
-    }
+	const setRoomSize = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newOffering: IHousingOffer = {
+			...offerContext.offer,
+			roomSize: event.target.valueAsNumber,
+		}
+		offerContext.setOffer(newOffering)
+	}
 
-    const setYearConstructed = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newOffering: IHousingOffer = {
-            ...offerContext.offer,
-            yearConstructed: event.target.valueAsNumber,
-        }
-        offerContext.setOffer(newOffering)
-    }
+	const setYearConstructed = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newOffering: IHousingOffer = {
+			...offerContext.offer,
+			yearConstructed: event.target.valueAsNumber,
+		}
+		offerContext.setOffer(newOffering)
+	}
 
-    const setTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newOffering: IHousingOffer = {
-            ...offerContext.offer,
-            title: event.target.value,
-        }
-        offerContext.setOffer(newOffering)
-    }
+	const setTitle = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newOffering: IHousingOffer = {
+			...offerContext.offer,
+			title: event.target.value,
+		}
+		offerContext.setOffer(newOffering)
+	}
 
-    const setAgeRange = (event: any, newValue: number | number[]) => {
-        var newArray = []
-        if(typeof newValue === "number")
-            newArray = [newValue, 10]
-        else
-            newArray = [newValue[0], newValue[1]]
+	const setAgeRange = (event: any, newValue: number | number[]) => {
+		let newArray = []
+		if (typeof newValue === "number")
+			newArray = [newValue, 10]
+		else
+			newArray = [newValue[0], newValue[1]]
 
-        setSliderValue(newArray)
+		setSliderValue(newArray)
 
-        const newOffering: IHousingOffer = {
-            ...offerContext.offer,
-            ageRange: {
-                minAge: newArray[0],
-                maxAge: newArray[1],
-            }
-        }
-        offerContext.setOffer(newOffering)
-    }
+		const newOffering: IHousingOffer = {
+			...offerContext.offer,
+			ageRange: {
+				minAge: newArray[0],
+				maxAge: newArray[1],
+			}
+		}
+		offerContext.setOffer(newOffering)
+	}
 
-    const setMoveInDate = (date: Date | null) => {
-        const newOffering: IHousingOffer = {
-            ...offerContext.offer,
-            moveInDate: date
-        }
-        offerContext.setOffer(newOffering)
-    }
+	const setMoveInDate = (date: Date | null) => {
+		const newOffering: IHousingOffer = {
+			...offerContext.offer,
+			moveInDate: date
+		}
+		offerContext.setOffer(newOffering)
+	}
 
-    const setFurnished = (event: React.ChangeEvent<{ value: unknown }>) => {
-        let isFurnished = false
-        if (event.target.value as string === "Yes") {
-            isFurnished = true
-        }
-        const newOffering: IHousingOffer = {
-            ...offerContext.offer,
-            furnished: isFurnished,
-        }
-        offerContext.setOffer(newOffering)
-    }
+	const setFurnished = (event: React.ChangeEvent<{ value: unknown }>) => {
+		let isFurnished = false
+		if (event.target.value as string === "Yes") {
+			isFurnished = true
+		}
+		const newOffering: IHousingOffer = {
+			...offerContext.offer,
+			furnished: isFurnished,
+		}
+		offerContext.setOffer(newOffering)
+	}
 
-    const setNumberOfRooms = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newOffering: IHousingOffer = {
-            ...offerContext.offer,
-            numberOfRooms: event.target.valueAsNumber,
-        }
-        offerContext.setOffer(newOffering)
-    }
+	const setNumberOfRooms = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newOffering: IHousingOffer = {
+			...offerContext.offer,
+			numberOfRooms: event.target.valueAsNumber,
+		}
+		offerContext.setOffer(newOffering)
+	}
 
 
     return (
@@ -439,7 +447,7 @@ export default function AddressForm() {
                     />
                 </Grid>
 
-            </Grid>
-        </React.Fragment>
-    )
+			</Grid>
+		</React.Fragment>
+	)
 }

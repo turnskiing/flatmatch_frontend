@@ -20,7 +20,7 @@ import grey from "@material-ui/core/colors/grey"
 // Context
 import { OfferContext } from "../../App"
 import { useHistory } from "react-router-dom"
-import {AuthRoutes, NonAuthRoutes} from "../../Router"
+import { AuthRoutes, NonAuthRoutes } from "../../Router"
 import OfferService from "../../services/OfferService"
 
 const steps = ["Offering information", "Values"]

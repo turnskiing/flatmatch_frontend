@@ -35,7 +35,7 @@ const defaultOffer: IHousingOffer = {
 	price: {
 		amount: null,
 		currency: "EUR"
-	} ,
+	},
 	images: [],
 	location: {
 		country: "",
@@ -72,11 +72,11 @@ function App() {
 	const [offer, setOffer] = useState(defaultOffer)
 	return (
 		<UserContext.Provider value={{ user, setUser }}>
-		<OfferContext.Provider value = {{ offer, setOffer}}>
-			<Router />
-		</OfferContext.Provider>
+			<OfferContext.Provider value={{ offer, setOffer }}>
+				<Router />
+			</OfferContext.Provider>
 		</UserContext.Provider>
-)
+	)
 }
 
 export default App

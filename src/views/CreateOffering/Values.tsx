@@ -20,84 +20,83 @@ import { IHousingOffer } from "../../models/housingOffer"
 import { ValuesStyle } from "./Values.style"
 import Avatar from "@material-ui/core/Avatar"
 
-
 export default function Interests() {
-    const classes = ValuesStyle()
-    const offerContext = useContext(OfferContext)
-    const [value, setValue] = React.useState("")
-    const [tenant, setTenant] = React.useState("")
+	const classes = ValuesStyle()
+	const offerContext = useContext(OfferContext)
+	const [value, setValue] = React.useState("")
+	const [tenant, setTenant] = React.useState("")
 
-    const setValues = (newValues: string[]) => {
-        const newOffer: IHousingOffer = {
-            ...offerContext.offer,
-            values: newValues,
-        }
-        offerContext.setOffer(newOffer)
-    }
+	const setValues = (newValues: string[]) => {
+		const newOffer: IHousingOffer = {
+			...offerContext.offer,
+			values: newValues,
+		}
+		offerContext.setOffer(newOffer)
+	}
 
-    const setAcceptedTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newOffer: IHousingOffer = {
-            ...offerContext.offer,
-            acceptedTerms: event.target.checked,
-        }
-        offerContext.setOffer(newOffer)
-    }
+	const setAcceptedTerms = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newOffer: IHousingOffer = {
+			...offerContext.offer,
+			acceptedTerms: event.target.checked,
+		}
+		offerContext.setOffer(newOffer)
+	}
 
-    const setDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const newOffering: IHousingOffer = {
-            ...offerContext.offer,
-            description: event.target.value,
-        }
-        offerContext.setOffer(newOffering)
-    }
+	const setDescription = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newOffering: IHousingOffer = {
+			...offerContext.offer,
+			description: event.target.value,
+		}
+		offerContext.setOffer(newOffering)
+	}
 
-    const handleDeleteValues = (valuesToDelete: string) => () => {
-        const newValues = offerContext.offer.values
-        setValues(newValues.filter((existingValue) => existingValue !== valuesToDelete))
-    }
+	const handleDeleteValues = (valuesToDelete: string) => () => {
+		const newValues = offerContext.offer.values
+		setValues(newValues.filter((existingValue) => existingValue !== valuesToDelete))
+	}
 
-    const handleChangeValues = () => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue(event.target.value)
-    }
+	const handleChangeValues = () => (event: React.ChangeEvent<HTMLInputElement>) => {
+		setValue(event.target.value)
+	}
 
-    const addValue = () => {
-        const values = offerContext.offer.values
-        if (value.trim() !== "" && values.length < 6 && values.filter(b => b === value.trim()).length === 0) {
-            const newValues = values
+	const addValue = () => {
+		const values = offerContext.offer.values
+		if (value.trim() !== "" && values.length < 6 && values.filter(b => b === value.trim()).length === 0) {
+			const newValues = values
 
-            newValues.push(value.trim())
-            setValue("")
-            setValues(newValues)
-        }
-    }
+			newValues.push(value.trim())
+			setValue("")
+			setValues(newValues)
+		}
+	}
 
-    const setTenants = (newTenants: string[]) => {
-        const newOffer: IHousingOffer = {
-            ...offerContext.offer,
-            tenants: newTenants,
-        }
-        offerContext.setOffer(newOffer)
-    }
+	const setTenants = (newTenants: string[]) => {
+		const newOffer: IHousingOffer = {
+			...offerContext.offer,
+			tenants: newTenants,
+		}
+		offerContext.setOffer(newOffer)
+	}
 
-    const handleDeleteTenants = (tenantsToDelete: string) => () => {
-        const newTenants = offerContext.offer.tenants
-        setTenants(newTenants.filter((existingValue) => existingValue !== tenantsToDelete))
-    }
+	const handleDeleteTenants = (tenantsToDelete: string) => () => {
+		const newTenants = offerContext.offer.tenants
+		setTenants(newTenants.filter((existingValue) => existingValue !== tenantsToDelete))
+	}
 
-    const handleChangeTenants = () => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setTenant(event.target.value)
-    }
+	const handleChangeTenants = () => (event: React.ChangeEvent<HTMLInputElement>) => {
+		setTenant(event.target.value)
+	}
 
-    const addTenant = () => {
-        const tennants = offerContext.offer.tenants
-        if (tenant.trim() !== "" && tennants.length < 6 && tennants.filter(b => b === value.trim()).length === 0) {
-            const newTenants = tennants
+	const addTenant = () => {
+		const tennants = offerContext.offer.tenants
+		if (tenant.trim() !== "" && tennants.length < 6 && tennants.filter(b => b === value.trim()).length === 0) {
+			const newTenants = tennants
 
-            newTenants.push(value.trim())
-            setTenant("")
-            setTenants(newTenants)
-        }
-    }
+			newTenants.push(value.trim())
+			setTenant("")
+			setTenants(newTenants)
+		}
+	}
 
     return (
         <React.Fragment>
