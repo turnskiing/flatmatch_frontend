@@ -19,7 +19,7 @@ export interface IFilter {
 	}
 	roomMatesNumber?: number
 	furnished?: boolean
-	minYearConstructed?: Date
+	minYearConstructed?: Date | null
 }
 
 export const defaultFilter: IFilter = {

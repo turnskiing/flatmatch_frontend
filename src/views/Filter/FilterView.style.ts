@@ -9,5 +9,9 @@ export const FilterViewStyle = makeStyles((theme) => ({
 	},
 	priceRange: {
 		marginTop: theme.spacing(3),
+	},
+	subtitle: {
+		padding: 0,
+		marginBottom: -20
 	}
 }))
