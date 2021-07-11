@@ -15,7 +15,7 @@ import { FilterViewStyle } from "./FilterView.style";
 import { FilterContext } from "../../App";
 import { IFilter } from "../../models/filter";
 import Typography from "@material-ui/core/Typography";
-import { Checkbox, FormControlLabel, Slider } from "@material-ui/core";
+import { Box, Checkbox, FormControlLabel, Slider } from "@material-ui/core";
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
 import DateFnsUtils from "@date-io/date-fns";
 
@@ -162,13 +162,41 @@ export default function FilterView() {
         onClose={handleClose}
         aria-labelledby="form-dialog-title"
       >
-        <DialogTitle id="form-dialog-title">Filter Appartments</DialogTitle>
+        <DialogTitle id="form-dialog-title" className={classes.dialogBackground}>Filter</DialogTitle>
         <DialogContent>
-          <DialogContentText>
-            Provide us with some details and we will only show appartments to
-            you that match your preferences.
-          </DialogContentText>
-          <Grid container spacing={3} className={classes.priceRange}>
+          <Grid container spacing={3}>
+		  <Grid item xs={12} sm={12}>
+              <Typography variant="h6">
+                Appartment
+              </Typography>
+            </Grid>
+			<Grid item xs={12} sm={6}>
+					<MuiPickersUtilsProvider utils={DateFnsUtils}>
+						<KeyboardDatePicker
+							margin="normal"
+							id="yearOfConstruction"
+							name="yearOfConstruction"
+							label="Year constructed (from)"
+							format="yyyy"
+							fullWidth
+							value={filterContext.filter.minYearConstructed}
+							onChange={setDate}
+							KeyboardButtonProps={{
+								"aria-label": "change date",
+							}}
+						/>
+					</MuiPickersUtilsProvider>
+				</Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControlLabel
+                control={
+				<Checkbox color="primary" checked={filterContext.filter.furnished} onChange={setFurnished}/>
+			}
+                label="Furnished"
+                labelPlacement="start"
+				style={{paddingTop: 27, marginLeft: 0}}
+              />
+            </Grid>
             <Grid item xs={12} sm={12}>
               <Typography variant="subtitle1" className={classes.subtitle}>
                 Monthly rent
@@ -218,33 +246,6 @@ export default function FilterView() {
                 </div>
               </form>
             </Grid>
-			<Grid item xs={12} sm={6}>
-					<MuiPickersUtilsProvider utils={DateFnsUtils}>
-						<KeyboardDatePicker
-							margin="normal"
-							id="yearOfConstruction"
-							name="yearOfConstruction"
-							label="Year constructed (from)"
-							format="yyyy"
-							fullWidth
-							value={filterContext.filter.minYearConstructed}
-							onChange={setDate}
-							KeyboardButtonProps={{
-								"aria-label": "change date",
-							}}
-						/>
-					</MuiPickersUtilsProvider>
-				</Grid>
-            <Grid item xs={12} sm={6}>
-              <FormControlLabel
-                control={
-				<Checkbox color="primary" checked={filterContext.filter.furnished} onChange={setFurnished}/>
-			}
-                label="Furnished"
-                labelPlacement="start"
-				style={{paddingTop: 27, marginLeft: 0}}
-              />
-            </Grid>
             <Grid item xs={12} sm={12}>
               <Typography variant="subtitle1" className={classes.subtitle}>
                 Location
@@ -280,9 +281,14 @@ export default function FilterView() {
                 onChange={setZipcode}
               />
             </Grid>
+			<Grid item xs={12} sm={12}>
+              <Typography variant="h6" style={{paddingTop: 20}}>
+                Roommates
+              </Typography>
+            </Grid>
             <Grid item xs={6} sm={12}>
               <Typography id="ageRange" gutterBottom variant="subtitle1">
-                Age range of room mates
+                Age range
               </Typography>
               <Slider
                 style={{ marginTop: 30 }}
@@ -301,6 +307,7 @@ export default function FilterView() {
                 fullWidth
                 value={filterContext.filter.roomMatesNumber}
                 onChange={setRoomMatesNumber}
+				style={{marginTop: -10, paddingBottom: 30}}
               />
             </Grid>
           </Grid>

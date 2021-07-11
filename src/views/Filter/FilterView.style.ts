@@ -7,11 +7,11 @@ export const FilterViewStyle = makeStyles((theme) => ({
 			width: '20ch',
 		}
 	},
-	priceRange: {
-		marginTop: theme.spacing(3),
-	},
 	subtitle: {
 		padding: 0,
 		marginBottom: -20
-	}
+	},
+	dialogBackground: {
+		backgroundColor: theme.palette.grey[200],
+	},
 }))
