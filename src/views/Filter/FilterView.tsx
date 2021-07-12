@@ -342,7 +342,7 @@ export default function FilterView() {
 					<Button onClick={handleCancel} color="primary">
 						Cancel
 					</Button>
-					<Button onClick={handleSave} color="primary">
+					<Button variant="contained" onClick={handleSave} color="primary">
 						Save
 					</Button>
 				</DialogActions>
