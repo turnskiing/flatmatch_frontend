@@ -41,14 +41,15 @@ export default function FilterView() {
 	const handleSave = async () => {
 		try {
 			await FilterService.updateFilter(filterContext.filter)
+		} catch (response) {
+			// tslint:disable-next-line:no-console
+			console.log("Error when updating filter: " + response)
+		} finally {
 			const newFilter: IFilter = {
 				...filterContext.filter,
 				isShown: false,
 			}
 			filterContext.setFilter(newFilter)
-		} catch (response) {
-			// tslint:disable-next-line:no-console
-			console.log("Error when updating filter: " + response)
 		}
 	}
 
@@ -63,6 +64,11 @@ export default function FilterView() {
 		} catch (response) {
 			// tslint:disable-next-line:no-console
 			console.log("Error when loading filter: " + response)
+			const newFilter: IFilter = {
+				...filterContext.filter,
+				isShown: false,
+			}
+			filterContext.setFilter(newFilter)
 		}
 	}
 
