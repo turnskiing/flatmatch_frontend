@@ -1,6 +1,7 @@
 import { currencies } from "../views/CreateOffering/OfferingInformation"
 
 export interface IFilter {
+	isShown: boolean,
 	priceRange?: {
 		currency: string
 		minPrice?: number
@@ -23,6 +24,7 @@ export interface IFilter {
 }
 
 export const defaultFilter: IFilter = {
+	isShown: false,
 	priceRange: {
 		currency: currencies[1].value
 	},

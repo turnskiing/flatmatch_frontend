@@ -10,7 +10,7 @@ import { Copyright } from "../../components/Copyright"
 import { HomeBreadCrumb } from "../../components/Breadcrumbs"
 import DefaultAppBar from "../../components/DefaultAppBar"
 // Context
-import { UserContext } from "../../App"
+import { FilterContext, UserContext } from "../../App"
 import { useHistory } from "react-router-dom"
 // Styles
 import { HomeScreenStyles } from "./HomeScreen.style"
@@ -26,9 +26,11 @@ import { AuthRoutes } from "../../Router"
 import { useEffect } from "react"
 import UserService from "../../services/UserService"
 import FilterView from "../Filter/FilterView"
+import { IFilter } from "../../models/filter"
 
 export default function HomeScreenView() {
 	const userContext = useContext(UserContext)
+	const filterContext = useContext(FilterContext)
 	const history = useHistory()
 	const classes = HomeScreenStyles()
 
@@ -53,7 +55,11 @@ export default function HomeScreenView() {
 	}
 
 	const handlePersonalPreferences = () => {
-		history.push(AuthRoutes.filter)
+		const newFilter: IFilter = {
+			...filterContext.filter,
+			isShown: true,
+		}
+		filterContext.setFilter(newFilter)
 	}
 
 	useEffect(() => {
@@ -207,12 +213,8 @@ export default function HomeScreenView() {
 												</CardActionArea>
 											</Grid>
 										)}
-										{userContext.user.type === UserType.Applicant && (
-											<Grid item component={Card} xs={12} sm={6} className={classes.card}>
-												<FilterView />
-											</Grid>
-										)}
 									</Grid>
+									< FilterView/>
 								</div>
 							</React.Fragment>
 						</React.Fragment>
