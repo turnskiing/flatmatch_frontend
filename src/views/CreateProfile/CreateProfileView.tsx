@@ -84,7 +84,7 @@ export default function CreateProfileView() {
 		event.preventDefault()
 		try {
 			await UserService.signUp(userContext.user)
-			if(userContext.user.type === UserType.Applicant) {
+			if (userContext.user.type === UserType.Applicant) {
 				// Create Filter with some default values
 				await FilterService.createFilter({
 					isShown: false,

@@ -36,6 +36,7 @@ export default function FilterView() {
 			filterContext.setFilter(newFilter)
 		}
 		fetchUsers()
+		// eslint-disable-next-line
 	}, [])
 
 	const handleSave = async () => {
@@ -198,7 +199,7 @@ export default function FilterView() {
 				<DialogContent>
 					<Grid container spacing={3}>
 						<Grid item xs={12} sm={12}>
-							<Typography variant="h6" style={{marginBottom: -10}}>
+							<Typography variant="h6" style={{ marginBottom: -10 }}>
 								Appartment
 							</Typography>
 						</Grid>

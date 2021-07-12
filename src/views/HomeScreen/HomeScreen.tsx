@@ -76,6 +76,7 @@ export default function HomeScreenView() {
 			userContext.setUser(newUser)
 		}
 		fetchUsers()
+		// eslint-disable-next-line
 	}, [])
 
 	return (
@@ -214,7 +215,7 @@ export default function HomeScreenView() {
 											</Grid>
 										)}
 									</Grid>
-									< FilterView/>
+									< FilterView />
 								</div>
 							</React.Fragment>
 						</React.Fragment>

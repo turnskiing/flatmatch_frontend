@@ -1,5 +1,4 @@
 import { IFilter } from "../models/filter"
-import { IUser, UserType } from "../models/user"
 import HttpService from "./HttpService"
 
 export default class FilterService {
@@ -12,13 +11,13 @@ export default class FilterService {
 			HttpService.post(
 				`${FilterService.baseURL()}`,
 				{
-                    priceRange: filter.priceRange,
-                    ageRange: filter.ageRange,
-                    location: filter.location,
-                    roomMatesNumber: filter.roomMatesNumber,
-                    furnished: filter.furnished,
-                    minYearConstructed: filter.minYearConstructed
-                },
+					priceRange: filter.priceRange,
+					ageRange: filter.ageRange,
+					location: filter.location,
+					roomMatesNumber: filter.roomMatesNumber,
+					furnished: filter.furnished,
+					minYearConstructed: filter.minYearConstructed
+				},
 				(data: any) => {
 					resolve(data)
 				},
@@ -48,13 +47,13 @@ export default class FilterService {
 			HttpService.put(
 				`${FilterService.baseURL()}`,
 				{
-                    priceRange: filter.priceRange,
-                    ageRange: filter.ageRange,
-                    location: filter.location,
-                    roomMatesNumber: filter.roomMatesNumber,
-                    furnished: filter.furnished,
-                    minYearConstructed: filter.minYearConstructed
-                },
+					priceRange: filter.priceRange,
+					ageRange: filter.ageRange,
+					location: filter.location,
+					roomMatesNumber: filter.roomMatesNumber,
+					furnished: filter.furnished,
+					minYearConstructed: filter.minYearConstructed
+				},
 				(data: any) => {
 					resolve(data)
 				},
