@@ -5,34 +5,34 @@ export default class OfferService {
 
 	static baseURL() { return 'http://localhost:8080/api/offers' }
 
-    static createOffer(offer: IHousingOffer) {
-        // TODO: change hardcoded values (image)
-        return new Promise((resolve, reject) => {
-            HttpService.post(`${OfferService.baseURL()}/`, {
-                tenants: offer.tenants,
-                price: {
-                    currency: offer.price.currency,
-                    amount: offer.price.amount
-                },
-                images: ["575d0c22964ddb3b6ba41bed"],
-                location: {
-                    country: offer.location.country,
-                    city: offer.location.city,
-                    zipCode: offer.location.zipCode,
-                    address: offer.location.address
-                },
-                description: offer.description,
-                roomSize: offer.roomSize,
-                yearConstructed: offer.yearConstructed,
-                title: offer.title,
-                ageRange: {
-                    minAge: offer.ageRange.minAge,
-                    maxAge: offer.ageRange.maxAge
-                },
-                moveInDate: offer.moveInDate,
-                furnished: offer.furnished,
-                numberOfRooms: offer.numberOfRooms,
-                values: offer.values
+	static createOffer(offer: IHousingOffer) {
+		// TODO: change hardcoded values (image)
+		return new Promise((resolve, reject) => {
+			HttpService.post(`${OfferService.baseURL()}/`, {
+				tenants: offer.tenants,
+				price: {
+					currency: offer.price.currency,
+					amount: offer.price.amount
+				},
+				images: ["575d0c22964ddb3b6ba41bed"],
+				location: {
+					country: offer.location.country,
+					city: offer.location.city,
+					zipCode: offer.location.zipCode,
+					address: offer.location.address
+				},
+				description: offer.description,
+				roomSize: offer.roomSize,
+				yearConstructed: offer.yearConstructed,
+				title: offer.title,
+				ageRange: {
+					minAge: offer.ageRange.minAge,
+					maxAge: offer.ageRange.maxAge
+				},
+				moveInDate: offer.moveInDate,
+				furnished: offer.furnished,
+				numberOfRooms: offer.numberOfRooms,
+				values: offer.values
 
 			}, (data: any) => {
 				resolve(data)

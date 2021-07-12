@@ -98,148 +98,148 @@ export default function Interests() {
 		}
 	}
 
-    return (
-        <React.Fragment>
-            <Typography variant="h6" gutterBottom>
-                Values
-            </Typography>
-            <Grid container spacing={3}>
-                <Grid item xs={12}>
-                    <Typography variant="subtitle1" gutterBottom>
-                        Description
-                    </Typography>
-                    <TextField
-                        required
-                        id="description"
-                        label="Describe your living situation. What should applicants know about your living situation?"
-                        multiline
-                        fullWidth
-                        rows={4}
-                        inputProps={{
-                            maxLength: 600,
-                        }}
-                        defaultValue=""
-                        variant="outlined"
-                        value={offerContext.offer.description}
-                        onChange={setDescription}
-                    />
-                </Grid>
-                <Grid item xs={12} sm={5}>
-                    <Typography variant="subtitle1" gutterBottom>
-                        What does your Flat value highly?
-                    </Typography>
-                    <Typography variant="subtitle2" gutterBottom>
-                        I. e. Cleanliness, Spending time together
-                    </Typography>
-                    <FormControl fullWidth className={classes.margin}>
-                        <InputLabel htmlFor="standard-adornment-values">
-                            Value *
-                        </InputLabel>
-                        <Input
-                            id="values-textfield"
-                            value={value}
-                            onChange={handleChangeValues()}
-                            onKeyPress = {(e) => {
-                                if(e.key === 'Enter') {
-                                    addValue()
-                                }
-                            }}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="add value"
-                                        onClick={addValue}
-                                    >
-                                        {<AddIcon />}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={7}>
-                    <Paper component="ul" className={classes.root} elevation={0}>
-                        {offerContext.offer.values.map((existingValue) => {
-                            return (
-                                <li key={existingValue} style={{ listStyle: "none" }}>
-                                    <Chip
-                                        label={existingValue}
-                                        variant="outlined"
-                                        color="primary"
-                                        onDelete={handleDeleteValues(existingValue)}
-                                        className={classes.chip}
-                                    />
-                                </li>
-                            )
-                        })}
-                    </Paper>
-                </Grid>
-                <Grid item xs={12} sm={5}>
-                    <Typography variant="subtitle1" gutterBottom>
-                        Let your Applicants know, whom they will be living with!
-                    </Typography>
-                    <Typography variant="subtitle2" gutterBottom>
-                        Add profiles of your Flatmates
-                    </Typography>
-                    <FormControl fullWidth className={classes.margin}>
-                        <InputLabel htmlFor="standard-adornment-tenants">
-                            Tenants emails  *
-                        </InputLabel>
-                        <Input
-                            id="tenants-textfield"
-                            value={tenant}
-                            onChange={handleChangeTenants()}
-                            onKeyPress = {(e) => {
-                                if(e.key === 'Enter') {
-                                    addTenant()
-                                }
-                            }}
-                            endAdornment={
-                                <InputAdornment position="end">
-                                    <IconButton
-                                        aria-label="add tenant"
-                                        onClick={addTenant}
+	return (
+		<React.Fragment>
+			<Typography variant="h6" gutterBottom>
+				Values
+			</Typography>
+			<Grid container spacing={3}>
+				<Grid item xs={12}>
+					<Typography variant="subtitle1" gutterBottom>
+						Description
+					</Typography>
+					<TextField
+						required
+						id="description"
+						label="Describe your living situation. What should applicants know about your living situation?"
+						multiline
+						fullWidth
+						rows={4}
+						inputProps={{
+							maxLength: 600,
+						}}
+						defaultValue=""
+						variant="outlined"
+						value={offerContext.offer.description}
+						onChange={setDescription}
+					/>
+				</Grid>
+				<Grid item xs={12} sm={5}>
+					<Typography variant="subtitle1" gutterBottom>
+						What does your Flat value highly?
+					</Typography>
+					<Typography variant="subtitle2" gutterBottom>
+						I. e. Cleanliness, Spending time together
+					</Typography>
+					<FormControl fullWidth className={classes.margin}>
+						<InputLabel htmlFor="standard-adornment-values">
+							Value *
+						</InputLabel>
+						<Input
+							id="values-textfield"
+							value={value}
+							onChange={handleChangeValues()}
+							onKeyPress={(e) => {
+								if (e.key === 'Enter') {
+									addValue()
+								}
+							}}
+							endAdornment={
+								<InputAdornment position="end">
+									<IconButton
+										aria-label="add value"
+										onClick={addValue}
+									>
+										{<AddIcon />}
+									</IconButton>
+								</InputAdornment>
+							}
+						/>
+					</FormControl>
+				</Grid>
+				<Grid item xs={12} sm={7}>
+					<Paper component="ul" className={classes.root} elevation={0}>
+						{offerContext.offer.values.map((existingValue) => {
+							return (
+								<li key={existingValue} style={{ listStyle: "none" }}>
+									<Chip
+										label={existingValue}
+										variant="outlined"
+										color="primary"
+										onDelete={handleDeleteValues(existingValue)}
+										className={classes.chip}
+									/>
+								</li>
+							)
+						})}
+					</Paper>
+				</Grid>
+				<Grid item xs={12} sm={5}>
+					<Typography variant="subtitle1" gutterBottom>
+						Let your Applicants know, whom they will be living with!
+					</Typography>
+					<Typography variant="subtitle2" gutterBottom>
+						Add profiles of your Flatmates
+					</Typography>
+					<FormControl fullWidth className={classes.margin}>
+						<InputLabel htmlFor="standard-adornment-tenants">
+							Tenants emails  *
+						</InputLabel>
+						<Input
+							id="tenants-textfield"
+							value={tenant}
+							onChange={handleChangeTenants()}
+							onKeyPress={(e) => {
+								if (e.key === 'Enter') {
+									addTenant()
+								}
+							}}
+							endAdornment={
+								<InputAdornment position="end">
+									<IconButton
+										aria-label="add tenant"
+										onClick={addTenant}
 
-                                    >
-                                        {<AddIcon />}
-                                    </IconButton>
-                                </InputAdornment>
-                            }
-                        />
-                    </FormControl>
-                </Grid>
-                <Grid item xs={12} sm={7}>
-                    <Paper component="ul" className={classes.root} elevation={0}>
-                        {offerContext.offer.tenants.map((existingValue) => {
-                            return (
-                                <li key={existingValue} style={{ listStyle: "none" }}>
-                                    <Chip
-                                        label={existingValue}
-                                        variant="outlined"
-                                        color="primary"
-                                        avatar={<Avatar src="../../images/avatar.png" />}
-                                        onDelete={handleDeleteTenants(existingValue)}
-                                        className={classes.chip}
-                                    />
-                                </li>
-                            )
-                        })}
-                    </Paper>
-                </Grid>
-                <Grid item xs={12}>
-                    <FormControlLabel
-                        control={
-                            <Checkbox
-                                color="primary"
-                                name="termsOfService"
-                                checked={offerContext.offer.acceptedTerms}
-                                onChange={setAcceptedTerms}
-                            />
-                        }
-                        label="I accept the Terms of Service"
-                    />
-                </Grid>
-            </Grid>
-        </React.Fragment>
-    )
+									>
+										{<AddIcon />}
+									</IconButton>
+								</InputAdornment>
+							}
+						/>
+					</FormControl>
+				</Grid>
+				<Grid item xs={12} sm={7}>
+					<Paper component="ul" className={classes.root} elevation={0}>
+						{offerContext.offer.tenants.map((existingValue) => {
+							return (
+								<li key={existingValue} style={{ listStyle: "none" }}>
+									<Chip
+										label={existingValue}
+										variant="outlined"
+										color="primary"
+										avatar={<Avatar src="../../images/avatar.png" />}
+										onDelete={handleDeleteTenants(existingValue)}
+										className={classes.chip}
+									/>
+								</li>
+							)
+						})}
+					</Paper>
+				</Grid>
+				<Grid item xs={12}>
+					<FormControlLabel
+						control={
+							<Checkbox
+								color="primary"
+								name="termsOfService"
+								checked={offerContext.offer.acceptedTerms}
+								onChange={setAcceptedTerms}
+							/>
+						}
+						label="I accept the Terms of Service"
+					/>
+				</Grid>
+			</Grid>
+		</React.Fragment>
+	)
 }
