@@ -23,6 +23,8 @@ import { UserContext } from "../../App"
 import { useHistory } from "react-router-dom"
 import UserService from "../../services/UserService"
 import { AuthRoutes, NonAuthRoutes } from "../../Router"
+import { UserType } from "../../models/user"
+import FilterService from "../../services/FilterService"
 
 const steps = ["Welcome", "Personal information", "Interests"]
 
@@ -82,6 +84,18 @@ export default function CreateProfileView() {
 		event.preventDefault()
 		try {
 			await UserService.signUp(userContext.user)
+			if(userContext.user.type === UserType.Applicant) {
+				// Create Filter with some default values
+				await FilterService.createFilter({
+					isShown: false,
+					priceRange: {
+						currency: 'EUR'
+					},
+					location: {
+						country: 'DE'
+					}
+				})
+			}
 			history.push(AuthRoutes.home)
 		} catch (response) {
 			history.push(NonAuthRoutes.signIn)

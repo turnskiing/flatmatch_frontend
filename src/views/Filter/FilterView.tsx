@@ -1,10 +1,9 @@
-import React, { useContext } from "react"
+import React, { useContext, useEffect } from "react"
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
 import Dialog from "@material-ui/core/Dialog"
 import DialogActions from "@material-ui/core/DialogActions"
 import DialogContent from "@material-ui/core/DialogContent"
-import DialogContentText from "@material-ui/core/DialogContentText"
 import DialogTitle from "@material-ui/core/DialogTitle"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
 import Grid from "@material-ui/core/Grid"
@@ -15,23 +14,56 @@ import { FilterViewStyle } from "./FilterView.style"
 import { FilterContext } from "../../App"
 import { IFilter } from "../../models/filter"
 import Typography from "@material-ui/core/Typography"
-import { Box, Checkbox, FormControlLabel, Slider } from "@material-ui/core"
+import { Checkbox, FormControlLabel, Slider } from "@material-ui/core"
 import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
+import FilterService from "../../services/FilterService"
 
 export default function FilterView() {
 	const filterContext = useContext(FilterContext)
 	const classes = FilterViewStyle()
 	const theme = useTheme()
 	const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
-	const [sliderValue, setSliderValue] = React.useState([0, 100])
 
-	const handleClose = () => {
-		const newFilter: IFilter = {
-			...filterContext.filter,
-			isShown: false,
+	useEffect(() => {
+		const fetchUsers = async () => {
+			// Overwrite the local state with the response from the server
+			const receivedFilter = await FilterService.getFilter()
+			const newFilter: IFilter = {
+				...receivedFilter,
+				isShown: filterContext.filter.isShown
+			}
+			filterContext.setFilter(newFilter)
 		}
-		filterContext.setFilter(newFilter)
+		fetchUsers()
+	}, [])
+
+	const handleSave = async () => {
+		try {
+			await FilterService.updateFilter(filterContext.filter)
+			const newFilter: IFilter = {
+				...filterContext.filter,
+				isShown: false,
+			}
+			filterContext.setFilter(newFilter)
+		} catch (response) {
+			// tslint:disable-next-line:no-console
+			console.log("Error when updating filter: " + response)
+		}
+	}
+
+	const handleCancel = async () => {
+		try {
+			const receivedFilter = await FilterService.getFilter()
+			const newFilter: IFilter = {
+				...receivedFilter,
+				isShown: false,
+			}
+			filterContext.setFilter(newFilter)
+		} catch (response) {
+			// tslint:disable-next-line:no-console
+			console.log("Error when loading filter: " + response)
+		}
 	}
 
 	const setCurrencys = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,8 +106,6 @@ export default function FilterView() {
 		let newArray = []
 		if (typeof newValue === "number") newArray = [newValue, 10]
 		else newArray = [newValue[0], newValue[1]]
-
-		setSliderValue(newArray)
 
 		const newFilter: IFilter = {
 			...filterContext.filter,
@@ -155,7 +185,7 @@ export default function FilterView() {
 			<Dialog
 				fullScreen={fullScreen}
 				open={filterContext.filter.isShown}
-				onClose={handleClose}
+				onClose={handleCancel}
 				aria-labelledby="form-dialog-title"
 			>
 				<DialogTitle id="form-dialog-title" className={classes.dialogBackground}>Filter</DialogTitle>
@@ -288,7 +318,7 @@ export default function FilterView() {
 							</Typography>
 							<Slider
 								style={{ marginTop: 30 }}
-								value={sliderValue}
+								value={[filterContext.filter.ageRange?.minAge || 0, filterContext.filter.ageRange?.maxAge || 100]}
 								onChange={setAgeRange}
 								valueLabelDisplay="on"
 								aria-labelledby="range-slider"
@@ -309,10 +339,10 @@ export default function FilterView() {
 					</Grid>
 				</DialogContent>
 				<DialogActions>
-					<Button onClick={handleClose} color="primary">
+					<Button onClick={handleCancel} color="primary">
 						Cancel
 					</Button>
-					<Button onClick={handleClose} color="primary">
+					<Button onClick={handleSave} color="primary">
 						Save
 					</Button>
 				</DialogActions>
