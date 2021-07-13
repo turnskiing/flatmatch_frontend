@@ -63,7 +63,7 @@ export default class UserService {
 		})
 	}
 
-	static async getUserInfo(): Promise<IRecievedUser> {
+	static async getUserInfo(): Promise<IReceivedUser> {
 		return new Promise((resolve, reject) => {
 			HttpService.get(
 				`${UserService.baseURL()}/user`,
@@ -77,7 +77,7 @@ export default class UserService {
 		})
 	}
 
-	static async updateUser(user: IUser): Promise<IRecievedUser> {
+	static async updateUser(user: IUser): Promise<IReceivedUser> {
 		// TODO: change hardcoded values (image)
 		return new Promise((resolve, reject) => {
 			HttpService.put(
@@ -131,7 +131,7 @@ export default class UserService {
 	}
 }
 
-export interface IRecievedUser {
+export interface IReceivedUser {
 	email: string
 	first_name: string
 	last_name: string
