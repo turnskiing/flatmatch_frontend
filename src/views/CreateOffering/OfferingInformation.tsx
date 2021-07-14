@@ -54,10 +54,10 @@ export const currencies = [
 ]
 
 export default function AddressForm() {
-    const offerContext = useContext(OfferContext)
-    const classes = OfferingInformationStyle()
-    const maxNumber = 5
-    const [sliderValue, setSliderValue] = React.useState([19, 80])
+	const offerContext = useContext(OfferContext)
+	const classes = OfferingInformationStyle()
+	const maxNumber = 5
+	const [sliderValue, setSliderValue] = React.useState([19, 80])
 
 
 	const setPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
