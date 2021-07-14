@@ -13,7 +13,7 @@ import Typography from "@material-ui/core/Typography"
 import StepConnector from '@material-ui/core/StepConnector'
 
 // Context
-import { UserContext } from "../../App"
+import { OfferContext, UserContext } from "../../App"
 import { useHistory } from "react-router-dom"
 import UserService from "../../services/UserService"
 import { AuthRoutes, NonAuthRoutes } from "../../Router"
@@ -23,17 +23,27 @@ import grey from "@material-ui/core/colors/grey"
 
 import { FindOfferingBreadCrumb } from "../../components/Breadcrumbs"
 import DefaultAppBar from "../../components/DefaultAppBar"
+import OfferService from "../../services/OfferService";
 
 
 function FindOffering() {
 	const userContext = useContext(UserContext)
+	const offerContext = useContext(OfferContext)
+	const history = useHistory()
 
+
+	const getOffers = async () => {
+		try {
+			await OfferService.getAllOffers()
+		} catch (response) {
+		}
+	}
 
 
 	return (
 		<React.Fragment>
 			{DefaultAppBar(userContext.user.first_name, FindOfferingBreadCrumb(), "")}
-
+			<div>{getOffers()}</div>
 			<div className="app">
 				<TinderCards />
 				<SwipeButtons />
