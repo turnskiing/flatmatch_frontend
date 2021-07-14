@@ -19,7 +19,6 @@ import { IHousingOffer } from "../../models/housingOffer"
 // Styles
 import { ValuesStyle } from "./Values.style"
 import Avatar from "@material-ui/core/Avatar"
-import {Card, CardActionArea, CardContent, CardMedia} from "@material-ui/core"
 
 
 export default function Interests() {

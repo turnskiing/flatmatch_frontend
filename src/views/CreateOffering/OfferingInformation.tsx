@@ -1,11 +1,5 @@
 import "date-fns"
-import React, {ChangeEvent, useContext} from "react"
-import {
-    faTransgenderAlt,
-    faVenus,
-    faMars,
-} from "@fortawesome/free-solid-svg-icons"
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome"
+import React, {useContext} from "react"
 import AccountCircleIcon from "@material-ui/icons/AccountCircle"
 import DeleteIcon from "@material-ui/icons/Delete"
 import SyncIcon from "@material-ui/icons/Sync"
@@ -14,14 +8,11 @@ import Typography from "@material-ui/core/Typography"
 import TextField from "@material-ui/core/TextField"
 import Button from "@material-ui/core/Button"
 import IconButton from "@material-ui/core/IconButton"
-import ToggleButton from "@material-ui/lab/ToggleButton"
-import ToggleButtonGroup from "@material-ui/lab/ToggleButtonGroup"
 import DateFnsUtils from "@date-io/date-fns"
 import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
-import {createStyles, makeStyles, Theme} from '@material-ui/core/styles'
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
@@ -34,7 +25,6 @@ import {OfferContext} from "../../App"
 // Models
 import {IHousingOffer} from "../../models/housingOffer"
 import {Slider} from "@material-ui/core"
-import value from "*.png"
 
 const currencies = [
     {
