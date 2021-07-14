@@ -49,7 +49,23 @@ export default class OfferService {
 					if (data !== undefined || Object.keys(data).length !== 0) {
 						resolve(data)
 					} else {
-						reject("Error while retrieving movie")
+						reject("Error while retrieving Offering")
+					}
+				},
+				(textStatus) => {
+					reject(textStatus)
+				})
+		})
+	}
+
+	static async getAllOffers() {
+		return new Promise((resolve, reject) => {
+			HttpService.get(`${OfferService.baseURL()}`,
+				(data) => {
+					if (data !== undefined || Object.keys(data).length !== 0) {
+						resolve(data)
+					} else {
+						reject("Error while retrieving Offers")
 					}
 				},
 				(textStatus) => {
