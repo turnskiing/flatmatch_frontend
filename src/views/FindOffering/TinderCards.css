@@ -38,7 +38,7 @@
     position:   absolute;
     top: 1vh;
     left: 1vh;
-    right: 50vh;
+    right: 40vh;
     float: left;
     padding: 0 1vw 1vh 1vw ;
     color: #f5edee;
@@ -51,7 +51,7 @@
 .badges {
     position:   absolute;
     top: 1vh;
-    left: 50vh;
+    left: 40vh;
     right: 1vh;
     float: right;
     padding: 0 1vw 1vh 1vw ;
