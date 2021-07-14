@@ -206,6 +206,7 @@ export default function FilterView() {
 						<Grid item xs={12} sm={6}>
 							<MuiPickersUtilsProvider utils={DateFnsUtils}>
 								<KeyboardDatePicker
+									views={["year"]}
 									margin="normal"
 									id="yearOfConstruction"
 									name="yearOfConstruction"
