@@ -6,7 +6,7 @@ export default class UserService {
 		return "http://localhost:8080/api/auth"
 	}
 
-	static signUp(user: IUser) {
+	static async signUp(user: IUser) {
 		// TODO: change hardcoded values (image)
 		return new Promise((resolve, reject) => {
 			HttpService.post(
