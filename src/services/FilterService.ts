@@ -83,7 +83,10 @@ export interface IRecievedFilter {
 		address?: string
 		distance?: number
 	}
-	roomMatesNumber?: number
+	roomMatesNumber?: {
+		minNumber?: number
+		maxNumber?: number
+	}
 	furnished?: boolean
 	minYearConstructed?: Date
 }

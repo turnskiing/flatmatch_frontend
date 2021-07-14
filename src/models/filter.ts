@@ -18,7 +18,10 @@ export interface IFilter {
 		address?: string
 		distance?: number
 	}
-	roomMatesNumber?: number
+	roomMatesNumber?: {
+		minNumber?: number
+		maxNumber?: number
+	}
 	furnished?: boolean
 	minYearConstructed?: Date | null
 }
@@ -30,5 +33,13 @@ export const defaultFilter: IFilter = {
 	},
 	location: {
 		country: "DE"
+	},
+	ageRange: {
+		minAge: 0,
+		maxAge: 100
+	},
+	roomMatesNumber: {
+		minNumber: 0,
+		maxNumber: 20
 	}
 }

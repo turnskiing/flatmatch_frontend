@@ -124,10 +124,17 @@ export default function FilterView() {
 		filterContext.setFilter(newFilter)
 	}
 
-	const setRoomMatesNumber = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const setRoomMatesNumber = (event: any, newValue: number | number[]) => {
+		let newArray = []
+		if (typeof newValue === "number") newArray = [newValue, 10]
+		else newArray = [newValue[0], newValue[1]]
+
 		const newFilter: IFilter = {
 			...filterContext.filter,
-			roomMatesNumber: event.target.valueAsNumber,
+			roomMatesNumber: {
+				minNumber: newArray[0],
+				maxNumber: newArray[1],
+			},
 		}
 		filterContext.setFilter(newFilter)
 	}
@@ -332,16 +339,18 @@ export default function FilterView() {
 								aria-labelledby="range-slider"
 							/>
 						</Grid>
-						<Grid item xs={12} sm={6}>
-							<TextField
-								id="roommatesNumber"
-								name="roommatesNumber"
-								label="Number of roommates"
-								type="number"
-								fullWidth
-								value={filterContext.filter.roomMatesNumber}
+						<Grid item xs={12} sm={12}>
+							<Typography id="ageRange" gutterBottom variant="subtitle1">
+								Number of roommates
+							</Typography>
+							<Slider
+								style={{ marginTop: 30 }}
+								max={20}
+								min={0}
+								value={[filterContext.filter.roomMatesNumber?.minNumber || 0, filterContext.filter.roomMatesNumber?.maxNumber || 20]}
 								onChange={setRoomMatesNumber}
-								style={{ marginTop: -10, paddingBottom: 30 }}
+								valueLabelDisplay="on"
+								aria-labelledby="range-slider"
 							/>
 						</Grid>
 					</Grid>
