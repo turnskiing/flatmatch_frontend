@@ -206,7 +206,7 @@ export default function FilterView() {
 				<DialogContent>
 					<Grid container spacing={3}>
 						<Grid item xs={12} sm={12}>
-							<Typography variant="h6" style={{ marginBottom: -10 }}>
+							<Typography variant="h6" style={{ marginBottom: -25 }}>
 								Appartment
 							</Typography>
 						</Grid>
@@ -220,7 +220,7 @@ export default function FilterView() {
 									label="Year constructed (from)"
 									format="yyyy"
 									fullWidth
-									value={filterContext.filter.minYearConstructed}
+									value={filterContext.filter.minYearConstructed || null}
 									onChange={setDate}
 									KeyboardButtonProps={{
 										"aria-label": "change date",

@@ -41,5 +41,6 @@ export const defaultFilter: IFilter = {
 	roomMatesNumber: {
 		minNumber: 0,
 		maxNumber: 20
-	}
+	},
+	minYearConstructed: null
 }
