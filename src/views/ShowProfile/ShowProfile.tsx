@@ -64,6 +64,7 @@ export default function ShowProfile() {
 			userContext.setUser(newUser)
 		}
 		fetchUsers()
+		// eslint-disable-next-line
 	}, [])
 
 	return (

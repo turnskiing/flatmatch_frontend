@@ -20,6 +20,28 @@ export interface IUser {
 	type: UserType | null
 }
 
+export const defaultUser: IUser = {
+	email: "",
+	password: "",
+	first_name: "",
+	last_name: "",
+	gender: null,
+	images: [],
+	bio: "",
+	date_of_birth: null,
+	occupation: "",
+	place_of_residency: {
+		country: "",
+		city: "",
+		zipCode: "",
+		address: "",
+	},
+	interests: [],
+	acceptedTerms: false,
+	smoker: false,
+	type: null
+}
+
 export enum UserType {
 	Applicant,
 	Tenant
