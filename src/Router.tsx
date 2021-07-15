@@ -6,6 +6,7 @@ import UserService from './services/UserService'
 import HomeScreenView from './views/HomeScreen/HomeScreen'
 import ShowProfile from './views/ShowProfile/ShowProfile'
 import CreateOfferingView from './views/CreateOffering/CreateOfferingView'
+import CreateProfileView from "./views/CreateProfile/CreateProfileView";
 
 export enum AuthRoutes {
 	findRoom = '/home/find_room',
@@ -29,7 +30,7 @@ const Router = () => {
 			<Switch>
 				<Route exact path={NonAuthRoutes.default} component={SignInView} />
 				<Route path={NonAuthRoutes.signIn} component={SignInView} />
-				<Route path={NonAuthRoutes.createProfile} component={CreateOfferingView} />
+				<Route path={NonAuthRoutes.createProfile} component={CreateProfileView} />
 				<AuthRoute exact path={AuthRoutes.home} Component={HomeScreenView} />
 				<AuthRoute path={AuthRoutes.findRoom} Component={FindOfferingView} />
 				<AuthRoute path={AuthRoutes.profile} Component={ShowProfile} />
