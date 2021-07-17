@@ -1,5 +1,6 @@
 export interface IHousingOffer {
-	tenants: string[]
+	tenant: string
+	flatmates: string[]
 	price: {
 		amount: number | null
 		currency: string
@@ -27,7 +28,8 @@ export interface IHousingOffer {
 }
 
 export const defaultOffer: IHousingOffer = {
-	tenants: [],
+	tenant: "",
+	flatmates: [],
 	price: {
 		amount: null,
 		currency: "EUR"
@@ -44,8 +46,8 @@ export const defaultOffer: IHousingOffer = {
 	yearConstructed: null,
 	title: "",
 	ageRange: {
-		minAge: 0,
-		maxAge: 100
+		minAge: 18,
+		maxAge: 80
 	},
 	moveInDate: null,
 	furnished: false,

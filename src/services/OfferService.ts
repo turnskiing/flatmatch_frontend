@@ -1,5 +1,6 @@
 import { IHousingOffer } from '../models/housingOffer'
 import HttpService from './HttpService'
+import UserService from "./UserService"
 
 export default class OfferService {
 
@@ -9,7 +10,8 @@ export default class OfferService {
 		// TODO: change hardcoded values (image)
 		return new Promise((resolve, reject) => {
 			HttpService.post(`${OfferService.baseURL()}/`, {
-				tenants: offer.tenants,
+				tenant: UserService.getCurrentUser()._id,  // input as userId from Token
+				flatmates: offer.flatmates,  // user input email addresses -> needs to be transformed to ids in the backend
 				price: {
 					currency: offer.price.currency,
 					amount: offer.price.amount
@@ -42,14 +44,30 @@ export default class OfferService {
 		})
 	}
 
-	static async getOffer(id: string) {
+	static async getOffer(offerId: string) {
 		return new Promise((resolve, reject) => {
-			HttpService.get(`${OfferService.baseURL()}/${id}`,
+			HttpService.get(`${OfferService.baseURL()}/${offerId}`,
 				(data) => {
 					if (data !== undefined || Object.keys(data).length !== 0) {
 						resolve(data)
 					} else {
-						reject("Error while retrieving movie")
+						reject("Error while retrieving offer")
+					}
+				},
+				(textStatus) => {
+					reject(textStatus)
+				})
+		})
+	}
+
+	static async getOffers(userId: string) {
+		return new Promise((resolve, reject) => {
+			HttpService.get(`${OfferService.baseURL()}/getOffers/id?${userId}`,
+				(data) => {
+					if (data !== undefined || Object.keys(data).length !== 0) {
+						resolve(data)
+					} else {
+						reject("Error while retrieving offers")
 					}
 				},
 				(textStatus) => {
@@ -63,7 +81,8 @@ export default class OfferService {
 		return new Promise((resolve, reject) => {
 			HttpService.put(`${OfferService.baseURL()}/${id}`,
 				{
-					tennants: offer.tenants,
+					tenant: offer.tenant,
+					flatmates: offer.flatmates,
 					price: {
 						currency: offer.price.currency,
 						amount: offer.price.amount
@@ -121,7 +140,8 @@ export default class OfferService {
 }
 
 export interface IReceivedHousingOffer {
-	tennants: string
+	tenant: string
+	flatmates: [string]
 	price: {
 		currency: string
 		amount: number

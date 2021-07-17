@@ -103,8 +103,9 @@ export default function CreateOfferingView() {
 			offer.price !== null &&
 			offer.roomSize !== null &&
 			offer.moveInDate !== null &&
-			offer.numberOfRooms !== null &&
-			offer.location !== null
+			offer.location.country !== "" &&
+			offer.location.city !== "" &&
+			offer.location.zipCode !== ""
 	}
 
 	const isValuesValid = (): boolean => {
