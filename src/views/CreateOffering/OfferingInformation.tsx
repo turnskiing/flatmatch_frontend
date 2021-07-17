@@ -145,10 +145,10 @@ export default function AddressForm() {
 		offerContext.setOffer(newOffering)
 	}
 
-	const setYearConstructed = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const setYearConstructed = (date: Date | null) => {
 		const newOffering: IHousingOffer = {
 			...offerContext.offer,
-			yearConstructed: event.target.valueAsNumber,
+			yearConstructed: date,
 		}
 		offerContext.setOffer(newOffering)
 	}
@@ -333,15 +333,23 @@ export default function AddressForm() {
 						onChange={setNumberOfRooms}
 					/>
 				</Grid>
-				<Grid item xs={12} md={6}>
-					<TextField
-						id="yearConstructed"
-						name="yearConstructed"
-						label="Year Constructed"
-						type="number"
-						value={offerContext.offer.yearConstructed}
-						onChange={setYearConstructed}
-					/>
+				<Grid item xs={12} sm={6}>
+					<MuiPickersUtilsProvider utils={DateFnsUtils}>
+						<KeyboardDatePicker
+							views={["year"]}
+							margin="normal"
+							id="yearOfConstruction"
+							name="yearOfConstruction"
+							label="Year constructed (from)"
+							format="yyyy"
+							fullWidth
+							value={offerContext.offer.yearConstructed || null}
+							onChange={setYearConstructed}
+							KeyboardButtonProps={{
+								"aria-label": "change date",
+							}}
+						/>
+					</MuiPickersUtilsProvider>
 				</Grid>
 				<Grid item xs={6} sm={3}>
 					<FormControl className={classes.dateSelector}>

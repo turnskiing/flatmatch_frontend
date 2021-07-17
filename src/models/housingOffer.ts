@@ -14,7 +14,7 @@ export interface IHousingOffer {
 	}
 	description: string
 	roomSize: number | null
-	yearConstructed: number | null
+	yearConstructed: Date | null
 	title: string
 	ageRange: {
 		minAge: number | null
