@@ -1,11 +1,5 @@
 import "date-fns"
-import React, { ChangeEvent, useContext } from "react"
-import {
-	faTransgenderAlt,
-	faVenus,
-	faMars,
-} from "@fortawesome/free-solid-svg-icons"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
+import React, { useContext } from "react"
 import AccountCircleIcon from "@material-ui/icons/AccountCircle"
 import DeleteIcon from "@material-ui/icons/Delete"
 import SyncIcon from "@material-ui/icons/Sync"
@@ -19,7 +13,6 @@ import InputLabel from '@material-ui/core/InputLabel'
 import MenuItem from '@material-ui/core/MenuItem'
 import FormControl from '@material-ui/core/FormControl'
 import Select from '@material-ui/core/Select'
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles'
 import {
 	MuiPickersUtilsProvider,
 	KeyboardDatePicker,
@@ -32,7 +25,6 @@ import { OfferContext } from "../../App"
 // Models
 import { IHousingOffer } from "../../models/housingOffer"
 import { Slider } from "@material-ui/core"
-import value from "*.png"
 
 export const currencies = [
 	{
@@ -57,11 +49,10 @@ export default function AddressForm() {
 	const offerContext = useContext(OfferContext)
 	const classes = OfferingInformationStyle()
 	const maxNumber = 5
-	const [sliderValue, setSliderValue] = React.useState([19, 80])
+	const [sliderValue, setSliderValue] = React.useState([18, 80])
 
 
 	const setPrice = (event: React.ChangeEvent<HTMLInputElement>) => {
-
 		const newOffering: IHousingOffer = {
 			...offerContext.offer,
 			price: {
@@ -272,7 +263,7 @@ export default function AddressForm() {
 						)}
 					</ImageUploading>
 				</Grid>
-				<Grid item xs={12} sm={6}>
+				<Grid item xs={12} sm={12}>
 					<TextField
 						required
 						id="title"
@@ -386,16 +377,18 @@ export default function AddressForm() {
 						</Select>
 					</FormControl>
 				</Grid>
-				<Grid item xs={6} sm={3} className={classes.ageSelector}>
-					<Typography id="ageRange" gutterBottom>
+				<Grid item xs={12} sm={12} className={classes.ageSelector}>
+					<Typography id="ageRange" gutterBottom variant="subtitle1">
 						Age range of Applicants
 					</Typography>
 					<Slider
+						style={{ marginTop: 30 }}
+						max={80}
+						min={18}
 						value={sliderValue}
 						onChange={setAgeRange}
-						valueLabelDisplay="auto"
+						valueLabelDisplay="on"
 						aria-labelledby="range-slider"
-					// getAriaValueText={"valuetext"}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={12} className={classes.location}>

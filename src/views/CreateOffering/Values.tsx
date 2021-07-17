@@ -20,11 +20,12 @@ import { IHousingOffer } from "../../models/housingOffer"
 import { ValuesStyle } from "./Values.style"
 import Avatar from "@material-ui/core/Avatar"
 
-export default function Interests() {
+
+export default function Values() {
 	const classes = ValuesStyle()
 	const offerContext = useContext(OfferContext)
 	const [value, setValue] = React.useState("")
-	const [tenant, setTenant] = React.useState("")
+	const [flatmate, setFlatmate] = React.useState("")
 
 	const setValues = (newValues: string[]) => {
 		const newOffer: IHousingOffer = {
@@ -70,33 +71,35 @@ export default function Interests() {
 		}
 	}
 
-	const setTenants = (newTenants: string[]) => {
+	const setFlatmates = (newFlatmates: string[]) => {
 		const newOffer: IHousingOffer = {
 			...offerContext.offer,
-			tenants: newTenants,
+			flatmates: newFlatmates,
 		}
 		offerContext.setOffer(newOffer)
 	}
 
-	const handleDeleteTenants = (tenantsToDelete: string) => () => {
-		const newTenants = offerContext.offer.tenants
-		setTenants(newTenants.filter((existingValue) => existingValue !== tenantsToDelete))
+	const handleDeleteFlatmates = (flatmatesToDelete: string) => () => {
+		const newFlatmates = offerContext.offer.flatmates
+		setFlatmates(newFlatmates.filter((existingValue) => existingValue !== flatmatesToDelete))
 	}
 
-	const handleChangeTenants = () => (event: React.ChangeEvent<HTMLInputElement>) => {
-		setTenant(event.target.value)
+	const handleChangeFlatmates = () => (event: React.ChangeEvent<HTMLInputElement>) => {
+		setFlatmate(event.target.value)
 	}
 
-	const addTenant = () => {
-		const tennants = offerContext.offer.tenants
-		if (tenant.trim() !== "" && tennants.length < 6 && tennants.filter(b => b === value.trim()).length === 0) {
-			const newTenants = tennants
+	const addFlatmate = () => {
+		const flatmates = offerContext.offer.flatmates
+		if (flatmate.trim() !== "" && flatmates.length < 6 && flatmates.filter(b => b === value.trim()).length === 0) {
+			const newFlatmates = flatmates
 
-			newTenants.push(value.trim())
-			setTenant("")
-			setTenants(newTenants)
+			newFlatmates.push(value.trim())
+			setFlatmate("")
+			setFlatmates(newFlatmates)
 		}
 	}
+
+
 
 	return (
 		<React.Fragment>
@@ -182,23 +185,23 @@ export default function Interests() {
 						Add profiles of your Flatmates
 					</Typography>
 					<FormControl fullWidth className={classes.margin}>
-						<InputLabel htmlFor="standard-adornment-tenants">
-							Tenants emails  *
+						<InputLabel htmlFor="standard-adornment-flatmates">
+							Flatmates emails
 						</InputLabel>
 						<Input
-							id="tenants-textfield"
-							value={tenant}
-							onChange={handleChangeTenants()}
+							id="flatmate-textfield"
+							value={flatmate}
+							onChange={handleChangeFlatmates()}
 							onKeyPress={(e) => {
 								if (e.key === 'Enter') {
-									addTenant()
+									addFlatmate()
 								}
 							}}
 							endAdornment={
 								<InputAdornment position="end">
 									<IconButton
-										aria-label="add tenant"
-										onClick={addTenant}
+										aria-label="add flatemate"
+										onClick={addFlatmate}
 
 									>
 										{<AddIcon />}
@@ -210,7 +213,7 @@ export default function Interests() {
 				</Grid>
 				<Grid item xs={12} sm={7}>
 					<Paper component="ul" className={classes.root} elevation={0}>
-						{offerContext.offer.tenants.map((existingValue) => {
+						{offerContext.offer.flatmates.map((existingValue) => {
 							return (
 								<li key={existingValue} style={{ listStyle: "none" }}>
 									<Chip
@@ -218,7 +221,7 @@ export default function Interests() {
 										variant="outlined"
 										color="primary"
 										avatar={<Avatar src="../../images/avatar.png" />}
-										onDelete={handleDeleteTenants(existingValue)}
+										onDelete={handleDeleteFlatmates(existingValue)}
 										className={classes.chip}
 									/>
 								</li>

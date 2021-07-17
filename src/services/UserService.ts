@@ -117,13 +117,23 @@ export default class UserService {
 	static getCurrentUser() {
 		const token = window.localStorage.jwtToken
 		if (!token) return {}
+		const tokenPayload = this.parseJwt(token)
 
-		const base64Url = token.split(".")[1]
-		const base64 = base64Url.replace("-", "+").replace("_", "/")
 		return {
-			id: JSON.parse(window.atob(base64)).id,
-			username: JSON.parse(window.atob(base64)).username,
+			_id: tokenPayload._id,
+			first_name: tokenPayload.first_name,
+			last_name: tokenPayload.last_name
 		}
+	}
+
+	static parseJwt(token: any) {
+		const base64Url = token.split('.')[1]
+		const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/')
+		const jsonPayload = decodeURIComponent(atob(base64).split('').map((c: string) => {
+			return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2)
+		}).join(''))
+
+		return JSON.parse(jsonPayload)
 	}
 
 	static isAuthenticated() {
