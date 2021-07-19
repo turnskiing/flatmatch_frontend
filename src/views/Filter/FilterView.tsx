@@ -11,7 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem"
 import { useTheme } from "@material-ui/core/styles"
 import { currencies } from "../CreateOffering/OfferingInformation"
 import { FilterViewStyle } from "./FilterView.style"
-import { FilterContext } from "../../App"
+import { FilterContext, UserContext } from "../../App"
 import { IFilter } from "../../models/filter"
 import Typography from "@material-ui/core/Typography"
 import {
@@ -28,25 +28,29 @@ import DateFnsUtils from "@date-io/date-fns"
 import FilterService from "../../services/FilterService"
 import LocationOnIcon from "@material-ui/icons/LocationOn"
 import LocationService from "../../services/LocationService"
+import { UserType } from "../../models/user"
 
 export default function FilterView() {
 	const filterContext = useContext(FilterContext)
+	const userContext = useContext(UserContext)
 	const classes = FilterViewStyle()
 	const theme = useTheme()
 	const [isLoading, setLoading] = useState<boolean>(false)
 	const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
 
 	useEffect(() => {
-		const fetchUsers = async () => {
-			// Overwrite the local state with the response from the server
-			const receivedFilter = await FilterService.getFilter()
-			const newFilter: IFilter = {
-				...receivedFilter,
-				isShown: filterContext.filter.isShown,
+		const fetchFilter = async () => {
+			if (userContext.user.type === UserType.Applicant) {
+				// Overwrite the local state with the response from the server
+				const receivedFilter = await FilterService.getFilter()
+				const newFilter: IFilter = {
+					...receivedFilter,
+					isShown: filterContext.filter.isShown
+				}
+				filterContext.setFilter(newFilter)
 			}
-			filterContext.setFilter(newFilter)
 		}
-		fetchUsers()
+		fetchFilter()
 		// eslint-disable-next-line
 	}, [])
 

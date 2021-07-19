@@ -26,6 +26,7 @@ import { AuthRoutes, NonAuthRoutes } from "../../Router"
 import { UserType } from "../../models/user"
 import FilterService from "../../services/FilterService"
 import { defaultFilter } from "../../models/filter"
+import ProfileService from "../../services/ProfileService"
 
 const steps = ["Welcome", "Personal information", "Interests"]
 
@@ -85,12 +86,20 @@ export default function CreateProfileView() {
 		event.preventDefault()
 		try {
 			await UserService.signUp(userContext.user)
+			await UserService.updateUser(userContext.user)
 			if (userContext.user.type === UserType.Applicant) {
 				// Create Filter with some default values
 				await FilterService.createFilter({
 					...defaultFilter
 				})
 			}
+
+			userContext.user.images.map(async (image) => {
+				// Upload all new images
+				if (!image.file?.name.startsWith(UserService.getCurrentUser()._id, 0)) {
+					await ProfileService.uploadProfilePicture(image.file)
+				}
+			})
 			history.push(AuthRoutes.home)
 		} catch (response) {
 			history.push(NonAuthRoutes.signIn)

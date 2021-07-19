@@ -44,7 +44,7 @@ export default function PersonalInformation(isEditable: boolean) {
 	) => {
 		const newUser: IUser = {
 			...userContext.user,
-			images: imageList as never[],
+			images: imageList,
 		}
 		userContext.setUser(newUser)
 	}
