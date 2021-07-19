@@ -2,7 +2,7 @@ import { currencies } from "../views/CreateOffering/OfferingInformation"
 
 export interface IFilter {
 	isShown: boolean,
-	priceRange?: {
+	priceRange: {
 		currency: string
 		minPrice?: number
 		maxPrice?: number
@@ -11,7 +11,7 @@ export interface IFilter {
 		minAge?: number
 		maxAge?: number
 	}
-	location?: {
+	location: {
 		country: string
 		city?: string
 		zipCode?: string
@@ -32,7 +32,10 @@ export const defaultFilter: IFilter = {
 		currency: currencies[1].value
 	},
 	location: {
-		country: "DE"
+		country: "DE",
+		city: "",
+		zipCode: "",
+		address: ""
 	},
 	ageRange: {
 		minAge: 0,

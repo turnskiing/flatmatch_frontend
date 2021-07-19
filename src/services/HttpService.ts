@@ -34,6 +34,25 @@ export default class HttpService {
 		}
 	}
 
+	static async getNoAuth(url: string, onSuccess: (data: any) => any, onError: (teststatus: any) => any) {
+		try {
+			const resp = await fetch(url, {
+				method: 'GET'
+			})
+
+			const response = await resp.json()
+
+			if (response.errors) {
+				onError(response.errors)
+			}
+			else {
+				onSuccess(response)
+			}
+		} catch (err) {
+			onError(err.message)
+		}
+	}
+
 	static async post(url: string, bodyData: any, onSuccess: (data: any) => any, onError: (teststatus: any) => any) {
 		const token = window.localStorage.jwtToken
 		const header = new Headers()

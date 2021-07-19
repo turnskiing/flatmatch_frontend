@@ -67,7 +67,7 @@ export default class FilterService {
 
 export interface IRecievedFilter {
 	applicant: string
-	priceRange?: {
+	priceRange: {
 		currency: string
 		minPrice?: number
 		maxPrice?: number
@@ -76,7 +76,7 @@ export interface IRecievedFilter {
 		minAge?: number
 		maxAge?: number
 	}
-	location?: {
+	location: {
 		country: string
 		city?: string
 		zipCode?: string

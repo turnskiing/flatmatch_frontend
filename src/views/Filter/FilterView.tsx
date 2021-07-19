@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import Button from "@material-ui/core/Button"
 import TextField from "@material-ui/core/TextField"
 import Dialog from "@material-ui/core/Dialog"
@@ -14,15 +14,26 @@ import { FilterViewStyle } from "./FilterView.style"
 import { FilterContext } from "../../App"
 import { IFilter } from "../../models/filter"
 import Typography from "@material-ui/core/Typography"
-import { Checkbox, FormControlLabel, Slider } from "@material-ui/core"
-import { KeyboardDatePicker, MuiPickersUtilsProvider } from "@material-ui/pickers"
+import {
+	Checkbox,
+	CircularProgress,
+	FormControlLabel,
+	Slider,
+} from "@material-ui/core"
+import {
+	KeyboardDatePicker,
+	MuiPickersUtilsProvider,
+} from "@material-ui/pickers"
 import DateFnsUtils from "@date-io/date-fns"
 import FilterService from "../../services/FilterService"
+import LocationOnIcon from "@material-ui/icons/LocationOn"
+import LocationService from "../../services/LocationService"
 
 export default function FilterView() {
 	const filterContext = useContext(FilterContext)
 	const classes = FilterViewStyle()
 	const theme = useTheme()
+	const [isLoading, setLoading] = useState<boolean>(false)
 	const fullScreen = useMediaQuery(theme.breakpoints.down("sm"))
 
 	useEffect(() => {
@@ -31,7 +42,7 @@ export default function FilterView() {
 			const receivedFilter = await FilterService.getFilter()
 			const newFilter: IFilter = {
 				...receivedFilter,
-				isShown: filterContext.filter.isShown
+				isShown: filterContext.filter.isShown,
 			}
 			filterContext.setFilter(newFilter)
 		}
@@ -77,8 +88,7 @@ export default function FilterView() {
 		const newFilter: IFilter = {
 			...filterContext.filter,
 			priceRange: {
-				minPrice: filterContext.filter.priceRange?.minPrice,
-				maxPrice: filterContext.filter.priceRange?.maxPrice,
+				...filterContext.filter.priceRange,
 				currency: event.target.value,
 			},
 		}
@@ -89,9 +99,8 @@ export default function FilterView() {
 		const newFilter: IFilter = {
 			...filterContext.filter,
 			priceRange: {
+				...filterContext.filter.priceRange,
 				minPrice: event.target.valueAsNumber,
-				maxPrice: filterContext.filter.priceRange?.maxPrice,
-				currency: filterContext.filter.priceRange?.currency || "EUR",
 			},
 		}
 		filterContext.setFilter(newFilter)
@@ -101,9 +110,8 @@ export default function FilterView() {
 		const newFilter: IFilter = {
 			...filterContext.filter,
 			priceRange: {
-				minPrice: filterContext.filter.priceRange?.minPrice,
+				...filterContext.filter.priceRange,
 				maxPrice: event.target.valueAsNumber,
-				currency: filterContext.filter.priceRange?.currency || "EUR",
 			},
 		}
 		filterContext.setFilter(newFilter)
@@ -159,10 +167,8 @@ export default function FilterView() {
 		const newFilter: IFilter = {
 			...filterContext.filter,
 			location: {
+				...filterContext.filter.location,
 				country: event.target.value.trim(),
-				city: filterContext.filter.location?.city,
-				zipCode: filterContext.filter.location?.zipCode,
-				address: filterContext.filter.location?.address,
 			},
 		}
 		filterContext.setFilter(newFilter)
@@ -172,10 +178,8 @@ export default function FilterView() {
 		const newFilter: IFilter = {
 			...filterContext.filter,
 			location: {
-				country: filterContext.filter.location?.country || "DE",
+				...filterContext.filter.location,
 				city: event.target.value.trim(),
-				zipCode: filterContext.filter.location?.zipCode,
-				address: filterContext.filter.location?.address,
 			},
 		}
 		filterContext.setFilter(newFilter)
@@ -185,13 +189,72 @@ export default function FilterView() {
 		const newFilter: IFilter = {
 			...filterContext.filter,
 			location: {
-				country: filterContext.filter.location?.country || "DE",
-				city: filterContext.filter.location?.city,
+				...filterContext.filter.location,
 				zipCode: event.target.value.trim(),
-				address: filterContext.filter.location?.address,
 			},
 		}
 		filterContext.setFilter(newFilter)
+	}
+
+	const setAddress = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newFilter: IFilter = {
+			...filterContext.filter,
+			location: {
+				...filterContext.filter.location,
+				address: event.target.value.trim(),
+			},
+		}
+		filterContext.setFilter(newFilter)
+	}
+
+	const setDistance = (event: React.ChangeEvent<HTMLInputElement>) => {
+		const newFilter: IFilter = {
+			...filterContext.filter,
+			location: {
+				...filterContext.filter.location,
+				distance: event.target.valueAsNumber,
+			},
+		}
+		filterContext.setFilter(newFilter)
+	}
+
+	const setCurrentLocationToFilter = async () => {
+		setLoading(true)
+		try {
+			navigator.geolocation.getCurrentPosition(
+				async (position: any) => {
+					const response =
+						await LocationService.getCurrentLocationFromCoordinates(
+							position.coords.latitude,
+							position.coords.longitude
+						)
+
+					if (response.data !== undefined) {
+						const data = response.data[0]
+						let newFilter: IFilter
+						newFilter = {
+							...filterContext.filter,
+							location: {
+								country: data.country ?? filterContext.filter.location.country,
+								city: data.locality ?? filterContext.filter.location.city,
+								zipCode: data.postal_code ?? filterContext.filter.location.zipCode,
+								address:
+									data.street === null || data.number === null
+										? filterContext.filter.location.address
+										: data.street + " " + data.number,
+								distance: filterContext.filter.location.distance,
+							},
+						}
+						filterContext.setFilter(newFilter)
+					}
+					setLoading(false)
+					// tslint:disable-next-line
+				}, () => { }, { enableHighAccuracy: false }
+			)
+		} catch (error) {
+			// tslint:disable-next-line:no-console
+			console.log(error)
+		}
 	}
 
 	return (
@@ -202,7 +265,12 @@ export default function FilterView() {
 				onClose={handleCancel}
 				aria-labelledby="form-dialog-title"
 			>
-				<DialogTitle id="form-dialog-title" className={classes.dialogBackground}>Filter</DialogTitle>
+				<DialogTitle
+					id="form-dialog-title"
+					className={classes.dialogBackground}
+				>
+					Filter
+				</DialogTitle>
 				<DialogContent>
 					<Grid container spacing={3}>
 						<Grid item xs={12} sm={12}>
@@ -231,7 +299,11 @@ export default function FilterView() {
 						<Grid item xs={12} sm={6}>
 							<FormControlLabel
 								control={
-									<Checkbox color="primary" checked={filterContext.filter.furnished} onChange={setFurnished} />
+									<Checkbox
+										color="primary"
+										checked={filterContext.filter.furnished}
+										onChange={setFurnished}
+									/>
 								}
 								label="Furnished"
 								labelPlacement="start"
@@ -322,6 +394,47 @@ export default function FilterView() {
 								onChange={setZipcode}
 							/>
 						</Grid>
+						<Grid item xs={12} sm={6}>
+							<TextField
+								id="address"
+								name="address"
+								label="Address"
+								fullWidth
+								value={filterContext.filter.location?.address}
+								onChange={setAddress}
+							/>
+						</Grid>
+						<Grid item xs={12} sm={6}>
+							<TextField
+								id="distance"
+								name="distance"
+								label="Max. distance (km)"
+								type="number"
+								fullWidth
+								autoComplete="distance"
+								value={filterContext.filter.location?.distance}
+								onChange={setDistance}
+							/>
+						</Grid>
+						<Grid item xs={12} sm={6}>
+							{isLoading ? (
+								<CircularProgress color="secondary" />
+							) : (
+								<Button
+									variant="outlined"
+									style={{ marginTop: 12 }}
+									onClick={async () => {
+										await setCurrentLocationToFilter()
+									}}
+								>
+									<LocationOnIcon
+										color="primary"
+										style={{ paddingRight: 10 }}
+									/>
+									Get current location
+								</Button>
+							)}
+						</Grid>
 						<Grid item xs={12} sm={12}>
 							<Typography variant="h6" style={{ paddingTop: 20 }}>
 								Roommates
@@ -333,7 +446,10 @@ export default function FilterView() {
 							</Typography>
 							<Slider
 								style={{ marginTop: 30 }}
-								value={[filterContext.filter.ageRange?.minAge || 0, filterContext.filter.ageRange?.maxAge || 100]}
+								value={[
+									filterContext.filter.ageRange?.minAge || 0,
+									filterContext.filter.ageRange?.maxAge || 100,
+								]}
 								onChange={setAgeRange}
 								valueLabelDisplay="on"
 								aria-labelledby="range-slider"
@@ -347,7 +463,10 @@ export default function FilterView() {
 								style={{ marginTop: 30 }}
 								max={20}
 								min={0}
-								value={[filterContext.filter.roomMatesNumber?.minNumber || 0, filterContext.filter.roomMatesNumber?.maxNumber || 20]}
+								value={[
+									filterContext.filter.roomMatesNumber?.minNumber || 0,
+									filterContext.filter.roomMatesNumber?.maxNumber || 20,
+								]}
 								onChange={setRoomMatesNumber}
 								valueLabelDisplay="on"
 								aria-labelledby="range-slider"

@@ -25,6 +25,7 @@ import UserService from "../../services/UserService"
 import { AuthRoutes, NonAuthRoutes } from "../../Router"
 import { UserType } from "../../models/user"
 import FilterService from "../../services/FilterService"
+import { defaultFilter } from "../../models/filter"
 
 const steps = ["Welcome", "Personal information", "Interests"]
 
@@ -87,13 +88,7 @@ export default function CreateProfileView() {
 			if (userContext.user.type === UserType.Applicant) {
 				// Create Filter with some default values
 				await FilterService.createFilter({
-					isShown: false,
-					priceRange: {
-						currency: 'EUR'
-					},
-					location: {
-						country: 'DE'
-					}
+					...defaultFilter
 				})
 			}
 			history.push(AuthRoutes.home)
