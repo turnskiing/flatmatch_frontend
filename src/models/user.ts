@@ -1,10 +1,12 @@
+import { ImageListType } from "react-images-uploading"
+
 export interface IUser {
 	email: string
 	password: any
 	first_name: string
 	last_name: string
 	gender: string | null
-	images: never[]
+	images: ImageListType
 	bio: string
 	date_of_birth: Date | null
 	occupation: string

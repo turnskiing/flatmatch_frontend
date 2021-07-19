@@ -69,7 +69,7 @@ export default function HomeScreenView() {
 			const newUser: IUser = {
 				...receivedUser,
 				password: "",
-				images: [],
+				images: userContext.user.images,
 				acceptedTerms: true,
 				type: receivedUser.userType === "Applicant" ? UserType.Applicant : UserType.Tenant
 			}
