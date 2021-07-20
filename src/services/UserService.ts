@@ -1,4 +1,5 @@
 import { IUser, UserType } from "../models/user"
+import { parseJwt } from "../shared/parseJwt"
 import HttpService from "./HttpService"
 
 export default class UserService {
@@ -6,8 +7,7 @@ export default class UserService {
 		return "http://localhost:8080/api/auth"
 	}
 
-	static async signUp(user: IUser) {
-		// TODO: change hardcoded values (image)
+	static signUp(user: IUser) {
 		return new Promise((resolve, reject) => {
 			HttpService.post(
 				`${UserService.baseURL()}/signup`,
@@ -17,7 +17,6 @@ export default class UserService {
 					first_name: user.first_name,
 					last_name: user.last_name,
 					gender: user.gender,
-					image: ["575d0c22964ddb3b6ba41bed"],
 					bio: user.bio,
 					date_of_birth: user.date_of_birth,
 					occupation: user.occupation,
@@ -78,7 +77,6 @@ export default class UserService {
 	}
 
 	static async updateUser(user: IUser): Promise<IReceivedUser> {
-		// TODO: change hardcoded values (image)
 		return new Promise((resolve, reject) => {
 			HttpService.put(
 				`${UserService.baseURL()}/user`,
@@ -86,7 +84,6 @@ export default class UserService {
 					first_name: user.first_name,
 					last_name: user.last_name,
 					gender: user.gender,
-					image: ["575d0c22964ddb3b6ba41bed"],
 					bio: user.bio,
 					date_of_birth: user.date_of_birth,
 					occupation: user.occupation,
@@ -117,12 +114,12 @@ export default class UserService {
 	static getCurrentUser() {
 		const token = window.localStorage.jwtToken
 		if (!token) return {}
+		const tokenPayload = parseJwt(token)
 
-		const base64Url = token.split(".")[1]
-		const base64 = base64Url.replace("-", "+").replace("_", "/")
 		return {
-			id: JSON.parse(window.atob(base64)).id,
-			username: JSON.parse(window.atob(base64)).username,
+			_id: tokenPayload._id,
+			first_name: tokenPayload.first_name,
+			last_name: tokenPayload.last_name
 		}
 	}
 
@@ -136,7 +133,6 @@ export interface IReceivedUser {
 	first_name: string
 	last_name: string
 	gender: string
-	images: string[]
 	bio: string
 	date_of_birth: Date
 	occupation: string

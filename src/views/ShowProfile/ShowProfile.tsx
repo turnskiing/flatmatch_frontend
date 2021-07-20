@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Paper } from "@material-ui/core"
 import Avatar from "@material-ui/core/Avatar"
 import EditIcon from '@material-ui/icons/Edit'
@@ -17,23 +17,47 @@ import { ShowProfileStyles } from "./ShowProfile.style"
 import { IUser, UserType } from "../../models/user"
 import { UserContext } from "../../App"
 import UserService from "../../services/UserService"
-import { Box } from "@material-ui/core"
+import { Box, CircularProgress } from "@material-ui/core"
 import PersonalInfromation from "../CreateProfile/PersonalInformation"
 import Interests from "../CreateProfile/Interests"
+import ProfileService, { IReceivedImageMetaData } from "../../services/ProfileService"
+import { ImageListType } from "react-images-uploading"
+import { convertDataUrlToBlob } from "../../shared/convertDataUrlToBlob"
 
 export default function ShowProfile() {
 	const userContext = useContext(UserContext)
 	const classes = ShowProfileStyles()
 	const [isEditable, setIsEditable] = React.useState(false)
+	const [isLoading, setLoading] = useState<boolean>(false)
 
 	const handleEdit = async (event: React.MouseEvent<HTMLElement>) => {
 		event.preventDefault()
 		setIsEditable(!isEditable)
-		try {
-			await UserService.updateUser(userContext.user)
-		} catch (response) {
-			// tslint:disable-next-line:no-console
-			console.log("Error when updating user: " + response)
+		// Execute only on save
+		if (isEditable) {
+			try {
+				await UserService.updateUser(userContext.user)
+
+				// Get MetaData of saved pictures
+				const metaData = await ProfileService.getProfilePicturesMetaData()
+				// Delete all unused images
+				metaData.map(async (image) => {
+					const foundImages = userContext.user.images.filter(i => i.file?.name === image.fileName)
+					if (foundImages.length === 0) {
+						await ProfileService.deleteProfilePicture(image.fileName)
+					}
+				})
+
+				userContext.user.images.map(async (image) => {
+					// Upload all new images
+					if (!image.file?.name.startsWith(UserService.getCurrentUser()._id, 0)) {
+						await ProfileService.uploadProfilePicture(image.file)
+					}
+				})
+			} catch (response) {
+				// tslint:disable-next-line:no-console
+				console.log("Error when updating user: " + response)
+			}
 		}
 	}
 
@@ -48,13 +72,28 @@ export default function ShowProfile() {
 	}
 
 	useEffect(() => {
+		setLoading(true)
 		const fetchUsers = async () => {
 			// Overwrite the local state with the response from the server
 			const receivedUser = await UserService.getUserInfo()
+			const metaData: [IReceivedImageMetaData] = await ProfileService.getProfilePicturesMetaData()
+
+			const receivedImages: ImageListType = []
+			for (const data of metaData) {
+				const receivedImage = await ProfileService.getProfilePicture(data.fileName)
+				const blob = convertDataUrlToBlob(receivedImage.file, receivedImage.mime)
+				const objectURL = URL.createObjectURL(blob)
+				const createdFile = new File([blob], data.fileName, { type: receivedImage.mime })
+				receivedImages.push({
+					dataURL: objectURL,
+					file: createdFile
+				})
+			}
+
 			const newUser: IUser = {
 				...receivedUser,
 				password: "",
-				images: [],
+				images: receivedImages,
 				acceptedTerms: true,
 				type:
 					receivedUser.userType === "Applicant"
@@ -62,8 +101,10 @@ export default function ShowProfile() {
 						: UserType.Tenant,
 			}
 			userContext.setUser(newUser)
+			setLoading(false)
 		}
 		fetchUsers()
+		// eslint-disable-next-line
 	}, [])
 
 	return (
@@ -88,12 +129,16 @@ export default function ShowProfile() {
 								alignItems="center"
 								justify="center"
 							>
-								<Grid item xs={12}>
-									<Avatar
-										src={userContext.user.images[0]}
-										className={classes.avatar}
-									></Avatar>
-								</Grid>
+								{isLoading ? (
+									<CircularProgress color="secondary" />
+								) : (
+									<Grid item xs={12}>
+										<Avatar
+											src={userContext.user.images[0] !== undefined ? userContext.user.images[0].dataURL : ""}
+											className={classes.avatar}
+										></Avatar>
+									</Grid>
+								)}
 								<Grid item xs={12}>
 									<Typography variant="h6">
 										{userContext.user.first_name +

@@ -34,6 +34,25 @@ export default class HttpService {
 		}
 	}
 
+	static async getNoAuth(url: string, onSuccess: (data: any) => any, onError: (teststatus: any) => any) {
+		try {
+			const resp = await fetch(url, {
+				method: 'GET'
+			})
+
+			const response = await resp.json()
+
+			if (response.errors) {
+				onError(response.errors)
+			}
+			else {
+				onSuccess(response)
+			}
+		} catch (err) {
+			onError(err.message)
+		}
+	}
+
 	static async post(url: string, bodyData: any, onSuccess: (data: any) => any, onError: (teststatus: any) => any) {
 		const token = window.localStorage.jwtToken
 		const header = new Headers()
@@ -110,7 +129,7 @@ export default class HttpService {
 		const token = window.localStorage.jwtToken
 		const header = new Headers()
 		if (token) {
-			header.append("Authorization", `JWT ${token}`)
+			header.append('Authorization', `Bearer "token": "${token}"`)
 		}
 
 		try {
@@ -147,4 +166,32 @@ export default class HttpService {
 		return false
 	}
 
+	static async postFile(url: string, file: any, onSuccess: (data: any) => any, onError: (teststatus: any) => any) {
+		const token = window.localStorage.jwtToken
+		const header = new Headers()
+		if (token) {
+			header.append('Authorization', `Bearer "token": "${token}"`)
+		}
+
+		try {
+			const formData = new FormData()
+			formData.append('image', file)
+			const resp = await fetch(url, {
+				method: 'POST',
+				headers: header,
+				body: formData
+			})
+
+			const response = await resp.json()
+
+			if (response.errors) {
+				onError(response.errors)
+			}
+			else {
+				onSuccess(response)
+			}
+		} catch (err) {
+			onError(err.message)
+		}
+	}
 }
