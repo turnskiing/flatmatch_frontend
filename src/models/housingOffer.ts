@@ -25,6 +25,7 @@ export interface IHousingOffer {
 	numberOfRooms: number | null
 	values: string[]
 	acceptedTerms: boolean
+	smoking: boolean
 }
 
 export const defaultOffer: IHousingOffer = {
@@ -54,4 +55,5 @@ export const defaultOffer: IHousingOffer = {
 	numberOfRooms: null,
 	values: [],
 	acceptedTerms: false,
+	smoking: false
 }

@@ -200,6 +200,18 @@ export default function AddressForm() {
 		offerContext.setOffer(newOffering)
 	}
 
+	const setSmoking = (event: React.ChangeEvent<{ value: unknown }>) => {
+		let smoking = false
+		if (event.target.value as string === "Yes") {
+			smoking = true
+		}
+		const newOffering: IHousingOffer = {
+			...offerContext.offer,
+			smoking,
+		}
+		offerContext.setOffer(newOffering)
+	}
+
 	const setNumberOfRooms = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const newOffering: IHousingOffer = {
 			...offerContext.offer,
@@ -385,8 +397,22 @@ export default function AddressForm() {
 						</Select>
 					</FormControl>
 				</Grid>
+				<Grid item xs={6} sm={3}>
+					<FormControl className={classes.choiceSelector}>
+						<InputLabel id="select-smoking">Smoking *</InputLabel>
+						<Select
+							labelId="select-smoking"
+							id="select-smoking"
+							value={(offerContext.offer.smoking === true) ? "Yes" : "No"}
+							onChange={setSmoking}
+						>
+							<MenuItem value={"Yes"}>Yes</MenuItem>
+							<MenuItem value={"No"}>No</MenuItem>
+						</Select>
+					</FormControl>
+				</Grid>
 				<Grid item xs={12} sm={12} className={classes.ageSelector}>
-					<Typography id="ageRange" gutterBottom variant="subtitle1">
+					<Typography id="ageRange" gutterBottom>
 						Age range of Applicants
 					</Typography>
 					<Slider
