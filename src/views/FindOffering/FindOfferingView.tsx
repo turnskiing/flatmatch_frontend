@@ -34,7 +34,6 @@ function FindOffering() {
 
 	const getOffers = async () => {
 		try {
-			await OfferService.getAllOffers()
 		} catch (response) {
 		}
 	}
