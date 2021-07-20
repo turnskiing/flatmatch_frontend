@@ -34,8 +34,8 @@ export default class OfferService {
 				moveInDate: offer.moveInDate,
 				furnished: offer.furnished,
 				numberOfRooms: offer.numberOfRooms,
-				values: offer.values
-
+				values: offer.values,
+				smoking: offer.smoking
 			}, (data: any) => {
 				resolve(data)
 			}, (textStatus: any) => {
@@ -105,7 +105,8 @@ export default class OfferService {
 					moveInDate: offer.moveInDate,
 					furnished: offer.furnished,
 					numberOfRooms: offer.numberOfRooms,
-					values: offer.values
+					values: offer.values,
+					smoking: offer.smoking
 				},
 				(data) => {
 					resolve(data)

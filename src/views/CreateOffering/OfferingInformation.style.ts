@@ -17,16 +17,12 @@ export const OfferingInformationStyle = makeStyles((theme) => ({
 		minWidth: 150,
 	},
 	dateSelector: {
-		// marginTop: theme.spacing(0),
 	},
 	location: {
 		marginTop: theme.spacing(4),
 		marginBottom: theme.spacing(-2),
 	},
 	currency: {
-		// '& .MuiTextField-root': {
-		// 	//margin: theme.spacing(0),
-		// }
 	},
 	ageSelector: {
 		marginTop: theme.spacing(1.5),
