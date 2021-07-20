@@ -23,7 +23,7 @@ import grey from "@material-ui/core/colors/grey"
 
 import { FindOfferingBreadCrumb } from "../../components/Breadcrumbs"
 import DefaultAppBar from "../../components/DefaultAppBar"
-import OfferService from "../../services/OfferService";
+import OfferService from "../../services/OfferService"
 
 
 function FindOffering() {
@@ -32,17 +32,17 @@ function FindOffering() {
 	const history = useHistory()
 
 
-	const getOffers = async () => {
-		try {
-		} catch (response) {
-		}
-	}
+	// const getOffers = async () => {
+	// 	try {
+	// 	} catch (response) {
+	// 	}
+	// }
 
 
 	return (
 		<React.Fragment>
 			{DefaultAppBar(userContext.user.first_name, FindOfferingBreadCrumb(), "")}
-			<div>{getOffers()}</div>
+			{/*<div>{getOffers()}</div>*/}
 			<div className="app">
 				<TinderCards />
 				<SwipeButtons />
