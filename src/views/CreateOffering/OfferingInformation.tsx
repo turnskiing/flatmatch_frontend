@@ -45,7 +45,7 @@ export const currencies = [
 	},
 ]
 
-export default function AddressForm() {
+export default function OfferingInformation(isEditable: boolean) {
 	const offerContext = useContext(OfferContext)
 	const classes = OfferingInformationStyle()
 	const maxNumber = 5
@@ -80,7 +80,7 @@ export default function AddressForm() {
 	) => {
 		const newOffering: IHousingOffer = {
 			...offerContext.offer,
-			images: imageList as never[]
+			images: imageList,
 		}
 		offerContext.setOffer(newOffering)
 	}
@@ -252,25 +252,29 @@ export default function AddressForm() {
 								>
 									Add Offer pictures *
 								</Button>
-								{imageList.map((image, index) => (
-									<div key={index} className="image-item">
-										<img src={image.dataURL} alt="" width="150" />
-										<div className="image-item__btn-wrapper">
-											<IconButton
-												className={classes.imageButtons}
-												onClick={() => onImageUpdate(index)}
-											>
-												<SyncIcon />
-											</IconButton>
-											<IconButton
-												className={classes.imageButtons}
-												onClick={() => onImageRemove(index)}
-											>
-												<DeleteIcon />
-											</IconButton>
-										</div>
-									</div>
-								))}
+								<Grid container spacing={3} justify='center' alignItems="center" alignContent='space-around'>
+									{imageList.map((image, index) => (
+										<Grid item xs={12} sm={4} key={index}>
+											<img src={image.dataURL} alt="" width="150" />
+											<div className="image-item__btn-wrapper">
+												<IconButton
+													className={classes.imageButtons}
+													onClick={() => onImageUpdate(index)}
+													disabled={!isEditable}
+												>
+													<SyncIcon />
+												</IconButton>
+												<IconButton
+													className={classes.imageButtons}
+													onClick={() => onImageRemove(index)}
+													disabled={!isEditable}
+												>
+													<DeleteIcon />
+												</IconButton>
+											</div>
+										</Grid>
+									))}
+								</Grid>
 							</div>
 						)}
 					</ImageUploading>
@@ -343,16 +347,17 @@ export default function AddressForm() {
 						autoComplete="numberOfRooms"
 						value={offerContext.offer.numberOfRooms}
 						onChange={setNumberOfRooms}
+						helperText="Flat's total number of rooms"
 					/>
 				</Grid>
-				<Grid item xs={12} sm={6}>
+				<Grid item xs={6} sm={3}>
 					<MuiPickersUtilsProvider utils={DateFnsUtils}>
 						<KeyboardDatePicker
 							views={["year"]}
 							margin="normal"
 							id="yearOfConstruction"
 							name="yearOfConstruction"
-							label="Year constructed (from)"
+							label="Year constructed"
 							format="yyyy"
 							fullWidth
 							value={offerContext.offer.yearConstructed || null}

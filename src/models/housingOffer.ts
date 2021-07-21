@@ -1,3 +1,5 @@
+import { ImageListType } from "react-images-uploading"
+
 export interface IHousingOffer {
 	tenant: string
 	flatmates: string[]
@@ -5,7 +7,7 @@ export interface IHousingOffer {
 		amount: number | null
 		currency: string
 	}
-	images: never[]
+	images: ImageListType
 	location: {
 		country: string
 		city: string
