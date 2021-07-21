@@ -21,7 +21,7 @@ import grey from "@material-ui/core/colors/grey"
 import { OfferContext } from "../../App"
 import { useHistory } from "react-router-dom"
 import { AuthRoutes, NonAuthRoutes } from "../../Router"
-import OfferService from "../../services/OfferService"
+import OfferService, { IReceivedHousingOffer } from "../../services/OfferService"
 
 const steps = ["Offering information", "Values"]
 
@@ -46,7 +46,7 @@ const ColorStepConnector = withStyles((theme) => ({
 function getStepContent(step: number) {
 	switch (step) {
 		case 0:
-			return <OfferingInformation />
+			return <OfferingInformation{...true} />
 		case 1:
 			return <Values />
 		default:
@@ -78,7 +78,12 @@ export default function CreateOfferingView() {
 	const handleCreateOffer = async (event: React.MouseEvent<HTMLElement>) => {
 		event.preventDefault()
 		try {
-			await OfferService.createOffer(offerContext.offer)
+			const newOffer: IReceivedHousingOffer = await OfferService.createOffer(offerContext.offer)
+			offerContext.offer.images.map(async (image) => {
+				// Upload new images
+				OfferService.uploadOfferPicture(image.file, newOffer._id)
+			})
+
 			history.push(AuthRoutes.home)
 		} catch (response) {
 			history.push(NonAuthRoutes.signIn)

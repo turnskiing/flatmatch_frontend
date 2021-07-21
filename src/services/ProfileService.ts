@@ -64,6 +64,7 @@ export default class ProfileService {
 	}
 }
 
+
 export interface IReceivedImageMetaData {
 	fileName: string
 	uploadData: Date

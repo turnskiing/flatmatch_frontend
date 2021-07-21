@@ -1,14 +1,15 @@
 import { IHousingOffer } from '../models/housingOffer'
 import HttpService from './HttpService'
 import UserService from "./UserService"
+import IReceivedImageMetaData from "./UserService"
+import IReceivedImage from "./UserService"
 
 export default class OfferService {
 
 	static baseURL() { return 'http://localhost:8080/api/offers' }
 
 	static createOffer(offer: IHousingOffer) {
-		// TODO: change hardcoded values (image)
-		return new Promise((resolve, reject) => {
+		return new Promise<IReceivedHousingOffer>((resolve, reject) => {
 			HttpService.post(`${OfferService.baseURL()}/`, {
 				tenant: UserService.getCurrentUser()._id,  // input as userId from Token
 				flatmates: offer.flatmates,  // user input email addresses -> needs to be transformed to ids in the backend
@@ -16,7 +17,6 @@ export default class OfferService {
 					currency: offer.price.currency,
 					amount: offer.price.amount
 				},
-				images: ["575d0c22964ddb3b6ba41bed"],
 				location: {
 					country: offer.location.country,
 					city: offer.location.city,
@@ -76,7 +76,6 @@ export default class OfferService {
 		})
 	}
 
-	// TODO: change hardcoded values (image)
 	static async updateOffer(id: string, offer: IHousingOffer): Promise<IReceivedHousingOffer> {
 		return new Promise((resolve, reject) => {
 			HttpService.put(`${OfferService.baseURL()}/${id}`,
@@ -87,7 +86,6 @@ export default class OfferService {
 						currency: offer.price.currency,
 						amount: offer.price.amount
 					},
-					images: ["575d0c22964ddb3b6ba41bed"],
 					location: {
 						country: offer.location.country,
 						city: offer.location.city,
@@ -134,6 +132,63 @@ export default class OfferService {
 		})
 	}
 
+	static async getOfferPicturesMetaData(id: string): Promise<[IReceivedImageMetaData]> {
+		return new Promise((resolve, reject) => {
+			HttpService.get(
+				// Input offer id to return offer pictures meta data
+				`${OfferService.baseURL()}/getOfferPicturesMetaData/${id}`,
+				(data: any) => {
+					resolve(data)
+				},
+				(textStatus: any) => {
+					reject(textStatus)
+				}
+			)
+		})
+	}
+
+	static async getOfferPicture(fileName: string): Promise<IReceivedImage> {
+		return new Promise((resolve, reject) => {
+			HttpService.get(
+				`${OfferService.baseURL()}/getOfferPicture/${fileName}`,
+				(data: any) => {
+					resolve(data)
+				},
+				(textStatus: any) => {
+					reject(textStatus)
+				}
+			)
+		})
+	}
+
+	static async uploadOfferPicture(file: any, id: string): Promise<any> {
+		return new Promise((resolve, reject) => {
+			HttpService.postFile(
+				`${OfferService.baseURL()}/uploadOfferPicture/${id}`,
+				file,
+				(data: any) => {
+					resolve(data)
+				},
+				(textStatus: any) => {
+					reject(textStatus)
+				}
+			)
+		})
+	}
+
+	static async deleteOfferPicture(fileName: string): Promise<any> {
+		return new Promise((resolve, reject) => {
+			HttpService.remove(
+				`${OfferService.baseURL()}/deleteOfferPicture/${fileName}`,
+				(data: any) => {
+					resolve(data)
+				},
+				(textStatus: any) => {
+					reject(textStatus)
+				}
+			)
+		})
+	}
 
 	static isAuthenticated() {
 		return !!window.localStorage.jwtToken
@@ -147,7 +202,6 @@ export interface IReceivedHousingOffer {
 		currency: string
 		amount: number
 	}
-	images: [string]
 	location: {
 		country: string
 		city: string
@@ -166,4 +220,5 @@ export interface IReceivedHousingOffer {
 	furnished: boolean
 	numberOfRooms: number
 	values: [string]
+	_id: string
 }
