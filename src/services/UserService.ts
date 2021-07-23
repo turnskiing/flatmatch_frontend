@@ -76,6 +76,20 @@ export default class UserService {
 		})
 	}
 
+	static async isEmailAvailable(email: string): Promise<any> {
+		return new Promise((resolve, reject) => {
+			HttpService.get(
+				`${UserService.baseURL()}/email/${email}`,
+				(data) => {
+					resolve(data)
+				},
+				(textStatus) => {
+					reject(textStatus)
+				}
+			)
+		})
+	}
+
 	static async updateUser(user: IUser): Promise<IReceivedUser> {
 		return new Promise((resolve, reject) => {
 			HttpService.put(
