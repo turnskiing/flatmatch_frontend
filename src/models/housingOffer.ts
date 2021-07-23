@@ -49,7 +49,7 @@ export const defaultOffer: IHousingOffer = {
 	yearConstructed: null,
 	title: "",
 	ageRange: {
-		minAge: 18,
+		minAge: 17,
 		maxAge: 80
 	},
 	moveInDate: null,

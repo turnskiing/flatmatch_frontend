@@ -215,7 +215,9 @@ export default function HomeScreenView() {
 											</Grid>
 										)}
 									</Grid>
-									< FilterView />
+									{userContext.user.type === UserType.Applicant && (
+										< FilterView />
+									)}
 								</div>
 							</React.Fragment>
 						</React.Fragment>

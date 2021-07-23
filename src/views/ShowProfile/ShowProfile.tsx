@@ -130,7 +130,9 @@ export default function ShowProfile() {
 								justify="center"
 							>
 								{isLoading ? (
-									<CircularProgress color="secondary" />
+									<Grid item xs={12} style={{ padding: 70 }}>
+										<CircularProgress color="secondary" />
+									</Grid>
 								) : (
 									<Grid item xs={12}>
 										<Avatar

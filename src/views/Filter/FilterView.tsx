@@ -11,7 +11,7 @@ import MenuItem from "@material-ui/core/MenuItem"
 import { useTheme } from "@material-ui/core/styles"
 import { currencies } from "../CreateOffering/OfferingInformation"
 import { FilterViewStyle } from "./FilterView.style"
-import { FilterContext, UserContext } from "../../App"
+import { FilterContext } from "../../App"
 import { IFilter } from "../../models/filter"
 import Typography from "@material-ui/core/Typography"
 import {
@@ -28,11 +28,9 @@ import DateFnsUtils from "@date-io/date-fns"
 import FilterService from "../../services/FilterService"
 import LocationOnIcon from "@material-ui/icons/LocationOn"
 import LocationService from "../../services/LocationService"
-import { UserType } from "../../models/user"
 
 export default function FilterView() {
 	const filterContext = useContext(FilterContext)
-	const userContext = useContext(UserContext)
 	const classes = FilterViewStyle()
 	const theme = useTheme()
 	const [isLoading, setLoading] = useState<boolean>(false)
@@ -40,15 +38,13 @@ export default function FilterView() {
 
 	useEffect(() => {
 		const fetchFilter = async () => {
-			if (userContext.user.type === UserType.Applicant) {
-				// Overwrite the local state with the response from the server
-				const receivedFilter = await FilterService.getFilter()
-				const newFilter: IFilter = {
-					...receivedFilter,
-					isShown: filterContext.filter.isShown
-				}
-				filterContext.setFilter(newFilter)
+			// Overwrite the local state with the response from the server
+			const receivedFilter = await FilterService.getFilter()
+			const newFilter: IFilter = {
+				...receivedFilter,
+				isShown: filterContext.filter.isShown
 			}
+			filterContext.setFilter(newFilter)
 		}
 		fetchFilter()
 		// eslint-disable-next-line
@@ -450,9 +446,11 @@ export default function FilterView() {
 							</Typography>
 							<Slider
 								style={{ marginTop: 30 }}
+								min={17}
+								max={80}
 								value={[
-									filterContext.filter.ageRange?.minAge || 0,
-									filterContext.filter.ageRange?.maxAge || 100,
+									filterContext.filter.ageRange?.minAge || 17,
+									filterContext.filter.ageRange?.maxAge || 80,
 								]}
 								onChange={setAgeRange}
 								valueLabelDisplay="on"
@@ -460,15 +458,15 @@ export default function FilterView() {
 							/>
 						</Grid>
 						<Grid item xs={12} sm={12}>
-							<Typography id="ageRange" gutterBottom variant="subtitle1">
+							<Typography id="roommatesNumber" gutterBottom variant="subtitle1">
 								Number of roommates
 							</Typography>
 							<Slider
 								style={{ marginTop: 30 }}
 								max={20}
-								min={0}
+								min={1}
 								value={[
-									filterContext.filter.roomMatesNumber?.minNumber || 0,
+									filterContext.filter.roomMatesNumber?.minNumber || 1,
 									filterContext.filter.roomMatesNumber?.maxNumber || 20,
 								]}
 								onChange={setRoomMatesNumber}

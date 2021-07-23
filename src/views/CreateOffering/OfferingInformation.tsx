@@ -423,7 +423,7 @@ export default function OfferingInformation(isEditable: boolean) {
 					<Slider
 						style={{ marginTop: 30 }}
 						max={80}
-						min={18}
+						min={17}
 						value={sliderValue}
 						onChange={setAgeRange}
 						valueLabelDisplay="on"
