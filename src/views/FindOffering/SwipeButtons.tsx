@@ -9,7 +9,7 @@ import IconButton from "@material-ui/core/IconButton"
 import { IFilter } from "../../models/filter"
 import { FilterContext, UserContext } from "../../App"
 import { useHistory } from "react-router-dom"
-import FilterView from "../Filter/FilterView";
+import FilterView from "../Filter/FilterView"
 
 
 function SwipeButtons() {
@@ -43,8 +43,8 @@ function SwipeButtons() {
 				<IconButton className="swipeButtons__lightning" onClick={handlePersonalPreferences}>
 					<FlashOnIcon fontSize="large" />
 				</IconButton>
-                < FilterView />
-            </div>
+				< FilterView />
+			</div>
 		</div>
 	)
 }
