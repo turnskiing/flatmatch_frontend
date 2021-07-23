@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react"
-import { Paper } from "@material-ui/core"
+import { Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Paper } from "@material-ui/core"
 import Avatar from "@material-ui/core/Avatar"
 import EditIcon from '@material-ui/icons/Edit'
+import DeleteIcon from '@material-ui/icons/Delete'
 import SaveIcon from '@material-ui/icons/Save'
 import Grid from "@material-ui/core/Grid"
 import Typography from "@material-ui/core/Typography"
@@ -29,6 +30,7 @@ export default function ShowProfile() {
 	const classes = ShowProfileStyles()
 	const [isEditable, setIsEditable] = React.useState(false)
 	const [isLoading, setLoading] = useState<boolean>(false)
+	const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
 
 	const handleEdit = async (event: React.MouseEvent<HTMLElement>) => {
 		event.preventDefault()
@@ -59,6 +61,27 @@ export default function ShowProfile() {
 				console.log("Error when updating user: " + response)
 			}
 		}
+	}
+
+	const handleDelete = async (event: React.MouseEvent<HTMLElement>) => {
+		try {
+			if (await UserService.deleteUser()) {
+				handleClose()
+				UserService.logout()
+			}
+		} catch (response) {
+			// tslint:disable-next-line:no-console
+			console.log("Error when deleting user: " + response)
+			handleClose()
+		}
+	}
+
+	const handleClose = () => {
+		setShowDeleteDialog(false)
+	}
+
+	const handleShowDeleteDialog = (event: React.MouseEvent<HTMLElement>) => {
+		setShowDeleteDialog(true)
 	}
 
 	const isFormValid = (): boolean => {
@@ -120,6 +143,9 @@ export default function ShowProfile() {
 							>
 								{isEditable ? <SaveIcon /> : <EditIcon />}
 							</IconButton>
+							<IconButton onClick={handleShowDeleteDialog}>
+								<DeleteIcon />
+							</IconButton>
 						</Box>
 						<React.Fragment>
 							<Grid
@@ -154,6 +180,27 @@ export default function ShowProfile() {
 							<Box style={{ padding: 20 }} />
 							{Interests(isEditable, false)}
 							<Box style={{ padding: 30 }} />
+							<Dialog
+								open={showDeleteDialog}
+								onClose={handleClose}
+								aria-labelledby="alert-dialog-title"
+								aria-describedby="alert-dialog-description"
+							>
+								<DialogTitle id="alert-dialog-title">{"Do you want to DELETE your account?"}</DialogTitle>
+								<DialogContent>
+									<DialogContentText id="alert-dialog-description">
+										Deleting the account is permanent and can not be undone. Are you sure you want to delete it?
+									</DialogContentText>
+								</DialogContent>
+								<DialogActions>
+									<Button onClick={handleClose} color="primary">
+										Cancle
+									</Button>
+									<Button onClick={handleDelete} color="primary" autoFocus>
+										Delete
+									</Button>
+								</DialogActions>
+							</Dialog>
 						</React.Fragment>
 					</Paper>
 					<Copyright />

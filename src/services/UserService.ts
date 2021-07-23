@@ -120,6 +120,20 @@ export default class UserService {
 		})
 	}
 
+	static async deleteUser(): Promise<any> {
+		return new Promise((resolve, reject) => {
+			HttpService.remove(
+				`${UserService.baseURL()}/user`,
+				(data: any) => {
+					resolve(data)
+				},
+				(textStatus: any) => {
+					reject(textStatus)
+				}
+			)
+		})
+	}
+
 	static logout() {
 		window.location.href = "/sign_in"
 		window.localStorage.removeItem("jwtToken")
