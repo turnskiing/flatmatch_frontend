@@ -21,12 +21,14 @@ import { UserContext } from "../../App"
 import { IUser } from "../../models/user"
 import UserService from "../../services/UserService"
 import { AuthRoutes, NonAuthRoutes } from "../../Router"
+import { Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle } from "@material-ui/core"
 
 export default function SignInSide() {
 	const userContext = useContext(UserContext)
 	const classes = SignInStyles()
 	const [signUp, setSignUp] = useState(false)
 	const [passwordAgain, setPasswordAgain] = useState<string>("")
+	const [showDialog, setShowDialog] = useState<boolean>(false)
 	const history = useHistory()
 
 	const handleSignIn = async (event: React.MouseEvent<HTMLElement>) => {
@@ -39,9 +41,19 @@ export default function SignInSide() {
 		}
 	}
 
-	const handleSignUp = () => {
-		history.push(NonAuthRoutes.createProfile)
+	const handleSignUp = async (event: React.MouseEvent<HTMLElement>) => {
+		event.preventDefault()
+		if (await UserService.isEmailAvailable(userContext.user.email)) {
+			history.push(NonAuthRoutes.createProfile)
+		} else {
+			setShowDialog(true)
+		}
 	}
+
+	const handleClose = () => {
+		setShowDialog(false)
+	}
+
 
 	const isDisabled = (): boolean => {
 		return signUp
@@ -174,6 +186,25 @@ export default function SignInSide() {
 						</Box>
 					</form>
 				</div>
+				<Dialog
+					open={showDialog}
+					onClose={handleClose}
+					aria-labelledby="alert-dialog-title"
+					aria-describedby="alert-dialog-description"
+				>
+					<DialogTitle id="alert-dialog-title">{"This email address is already taken"}</DialogTitle>
+					<DialogContent>
+						<DialogContentText id="alert-dialog-description">
+							Please sign in with your existing account or create a new account with a different email address.
+						</DialogContentText>
+					</DialogContent>
+					<DialogActions>
+						<Button onClick={handleClose} color="primary">
+							Ok
+						</Button>
+					</DialogActions>
+				</Dialog>
+
 			</Grid>
 		</Grid>
 	)
