@@ -1,11 +1,12 @@
 import { makeStyles } from '@material-ui/core/styles'
+import startImage from '../../images/start_view.jpg'
 
 export const SignInStyles = makeStyles((theme) => ({
 	root: {
 		height: '100vh',
 	},
 	image: {
-		backgroundImage: 'url(https://pictures.immobilienscout24.de/listings/81ea8e03-c3b1-4771-a7f7-4bd2bdf455ed-1445457548.jpg/ORIG/resize/1106x830%3E/format/webp/quality/73)',
+		backgroundImage: `url(${startImage})`,
 		backgroundRepeat: 'no-repeat',
 		backgroundColor:
 			theme.palette.type === 'light' ? theme.palette.grey[50] : theme.palette.grey[900],

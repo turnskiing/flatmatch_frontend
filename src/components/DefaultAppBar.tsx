@@ -6,7 +6,7 @@ import MenuItem from "@material-ui/core/MenuItem"
 import Menu from "@material-ui/core/Menu"
 import { Grid, IconButton } from "@material-ui/core"
 
-import Logo from "../images/FlatMatch.png"
+import Logo from "../images/FlatMatch_scaled_down.png"
 import React from "react"
 import UserService from "../services/UserService"
 import { AuthRoutes } from "../Router"
@@ -26,8 +26,9 @@ const useStyles = makeStyles((theme) => ({
 		backgroundColor: theme.palette.primary.main,
 	},
 	logo: {
-		width: 150,
-		height: 75,
+		position: "absolute",
+		left: "50%",
+		transform: "translate(-50%, 0%)"
 	},
 }))
 
@@ -91,8 +92,8 @@ export default function DefaultAppBar(
 						spacing={0}
 					>
 						<Grid item>{breadcrumb}</Grid>
-						<Grid item>
-							<img src={Logo} className={classes.logo} alt="" />
+						<Grid item className={classes.logo}>
+							<img src={Logo} alt="" />
 						</Grid>
 						<Grid item>
 							<IconButton

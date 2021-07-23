@@ -38,11 +38,11 @@ export const defaultFilter: IFilter = {
 		address: ""
 	},
 	ageRange: {
-		minAge: 0,
-		maxAge: 100
+		minAge: 17,
+		maxAge: 80
 	},
 	roomMatesNumber: {
-		minNumber: 0,
+		minNumber: 1,
 		maxNumber: 20
 	},
 	minYearConstructed: null
