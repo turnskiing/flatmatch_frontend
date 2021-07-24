@@ -92,7 +92,10 @@ export default function OfferingInformation(isEditable: boolean) {
 				country: event.target.value.trim(),
 				city: offerContext.offer.location.city,
 				zipCode: offerContext.offer.location.zipCode,
-				address: offerContext.offer.location.address
+				address: offerContext.offer.location.address,
+				latitude: null,
+				longitude: null,
+				distance: null
 			}
 		}
 		offerContext.setOffer(newOffer)
@@ -105,7 +108,10 @@ export default function OfferingInformation(isEditable: boolean) {
 				country: offerContext.offer.location.country,
 				city: event.target.value.trim(),
 				zipCode: offerContext.offer.location.zipCode,
-				address: offerContext.offer.location.address
+				address: offerContext.offer.location.address,
+				latitude: null,
+				longitude: null,
+				distance: null
 			}
 		}
 		offerContext.setOffer(newOffer)
@@ -118,7 +124,10 @@ export default function OfferingInformation(isEditable: boolean) {
 				country: offerContext.offer.location.country,
 				city: offerContext.offer.location.city,
 				zipCode: event.target.value.trim(),
-				address: offerContext.offer.location.address
+				address: offerContext.offer.location.address,
+				latitude: null,
+				longitude: null,
+				distance: null
 			}
 		}
 		offerContext.setOffer(newOffer)
@@ -132,6 +141,9 @@ export default function OfferingInformation(isEditable: boolean) {
 				city: offerContext.offer.location.city,
 				zipCode: offerContext.offer.location.zipCode,
 				address: event.target.value.trim(),
+				latitude: null,
+				longitude: null,
+				distance: null
 			}
 		}
 		offerContext.setOffer(newOffer)
