@@ -3,6 +3,8 @@ import "./TinderCards.css"
 import TinderCard from "react-tinder-card"
 import DetailPage from "./DetailPage"
 import { render } from "react-dom"
+import { OffersContext, UserContext } from "../../App"
+import { IHousingOffer } from "../../models/housingOffer"
 
 interface Props {
 	title?: string
@@ -11,7 +13,7 @@ interface Props {
 const TinderCards: FC<Props> = ({ title }): ReactElement => {
 	const [listings, setPeople] = useState([
 		{
-			tenants: ["tomwenzel@hotmail.de"],
+			flatmates: ["tomwenzel@hotmail.de"],
 			price: {
 				amount: 400,
 				currency: "EUR"
@@ -37,7 +39,7 @@ const TinderCards: FC<Props> = ({ title }): ReactElement => {
 			values: [],
 			acceptedTerms: false,
 		}, {
-			tenants: ["tomwenzel@hotmail.de"],
+			flatmates: ["tomwenzel@hotmail.de"],
 			price: {
 				amount: 400,
 				currency: "EUR"
@@ -63,7 +65,7 @@ const TinderCards: FC<Props> = ({ title }): ReactElement => {
 			values: [],
 			acceptedTerms: false,
 		}, {
-			tenants: ["tomwenzel@hotmail.de"],
+			flatmates: ["tomwenzel@hotmail.de"],
 			price: {
 				amount: 400,
 				currency: "EUR"
@@ -89,7 +91,7 @@ const TinderCards: FC<Props> = ({ title }): ReactElement => {
 			values: [],
 			acceptedTerms: false,
 		}, {
-			tenants: ["tomwenzel@hotmail.de"],
+			flatmates: ["tomwenzel@hotmail.de"],
 			price: {
 				amount: 400,
 				currency: "EUR"
@@ -115,7 +117,7 @@ const TinderCards: FC<Props> = ({ title }): ReactElement => {
 			values: [],
 			acceptedTerms: false,
 		}, {
-			tenants: ["tomwenzel@hotmail.de"],
+			flatmates: ["tomwenzel@hotmail.de"],
 			price: {
 				amount: 400,
 				currency: "EUR"
@@ -141,7 +143,7 @@ const TinderCards: FC<Props> = ({ title }): ReactElement => {
 			values: [],
 			acceptedTerms: false,
 		}, {
-			tenants: ["tomwenzel@hotmail.de", 'werner.herzog@banane.com'],
+			flatmates: ["tomwenzel@hotmail.de", 'werner.herzog@banane.com'],
 			price: {
 				amount: 900,
 				currency: "EUR"
@@ -167,7 +169,7 @@ const TinderCards: FC<Props> = ({ title }): ReactElement => {
 			values: [],
 			acceptedTerms: false,
 		}, {
-			tenants: ["tomwenzel@hotmail.de"],
+			flatmates: ["tomwenzel@hotmail.de"],
 			price: {
 				amount: 780,
 				currency: "EUR"
@@ -194,7 +196,7 @@ const TinderCards: FC<Props> = ({ title }): ReactElement => {
 			acceptedTerms: false,
 		}
 	])
-
+	const [l, setOffer] = useState(OffersContext)
 	const swiped = (direction: string, nameToDelete: string) => {
 		// console.log("removing" + nameToDelete + direction)
 		if (direction === 'up') {
@@ -208,7 +210,6 @@ const TinderCards: FC<Props> = ({ title }): ReactElement => {
 
 	return (
 		<div className={"tinderCards"}>
-
 			<div className={"tinderCards_cardContainer"}>
 				{listings.map((listing) => (
 					<div className={"swipe"}>
@@ -231,7 +232,7 @@ const TinderCards: FC<Props> = ({ title }): ReactElement => {
 									<div className={"details_text"}>{listing.location.address + ", " + listing.location.zipCode + ", " + listing.location.city}</div>
 								</div>
 								<div className={'badges'}>
-									<p id={'details_title'}>{"Roommates: " + listing.tenants.length}</p>
+									<p id={'details_title'}>{"Roommates: " + listing.flatmates.length}</p>
 									<div className={"details_text"}>{"Room size : " + listing.roomSize}</div>
 									<div className={"details_text"}>{"Year constructed: " + listing.yearConstructed}</div>
 									<div className={"details_text"}>{"Furnished : " + listing.furnished}</div>
