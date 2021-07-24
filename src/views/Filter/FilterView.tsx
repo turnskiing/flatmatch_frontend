@@ -84,7 +84,7 @@ export default function FilterView() {
 		}
 	}
 
-	const setCurrencys = (event: React.ChangeEvent<HTMLInputElement>) => {
+	const setCurrencies = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const newFilter: IFilter = {
 			...filterContext.filter,
 			priceRange: {
@@ -348,7 +348,7 @@ export default function FilterView() {
 										label="Select"
 										helperText="Please select your currency"
 										value={filterContext.filter.priceRange?.currency}
-										onChange={setCurrencys}
+										onChange={setCurrencies}
 									>
 										{currencies.map((option) => (
 											<MenuItem key={option.value} value={option.value}>
