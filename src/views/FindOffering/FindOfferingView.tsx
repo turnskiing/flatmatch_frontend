@@ -1,50 +1,94 @@
 import TinderCards from "./TinderCards"
 import SwipeButtons from './SwipeButtons'
-import Header from "../../components/Header"
-
-
-import React, { useContext } from "react"
-import Paper from "@material-ui/core/Paper"
-import Stepper from "@material-ui/core/Stepper"
-import Step from "@material-ui/core/Step"
-import StepLabel from "@material-ui/core/StepLabel"
-import Button from "@material-ui/core/Button"
-import Typography from "@material-ui/core/Typography"
-import StepConnector from '@material-ui/core/StepConnector'
-
+/* tslint:disable */
+import React, { useContext, useEffect, useState } from "react"
 // Context
-import { OfferContext, UserContext } from "../../App"
+import { OffersContext, UserContext } from "../../App"
 import { useHistory } from "react-router-dom"
-import UserService from "../../services/UserService"
-import { AuthRoutes, NonAuthRoutes } from "../../Router"
-// Styles
-import grey from "@material-ui/core/colors/grey"
-
-
 import { FindOfferingBreadCrumb } from "../../components/Breadcrumbs"
 import DefaultAppBar from "../../components/DefaultAppBar"
-import OfferService from "../../services/OfferService"
+import OfferService, { IReceivedHousingOffer } from "../../services/OfferService"
+import { defaultOffers, IHousingOffer } from "../../models/housingOffer";
+import { CircularProgress } from "@material-ui/core";
 
+import "./OfferingViewStyles.css"
 
-function FindOffering() {
+// Styles
+
+function FindOffering(this: any) {
 	const userContext = useContext(UserContext)
-	const offerContext = useContext(OfferContext)
+	const offersContext = useContext(OffersContext)
+	const [data, setData] = useState(defaultOffers);
+
 	const history = useHistory()
+	const [isLoading, setLoading] = useState<boolean>(false)
 
 
-	// const getOffers = async () => {
-	// 	try {
-	// 	} catch (response) {
-	// 	}
-	// }
+
+	// @ts-ignore
+	useEffect(() => {
+		setLoading(true)
+		const fetchUsers = async () => {
+			const receivedOffers: Array<IReceivedHousingOffer> = await OfferService.getFilteredOffers()
+			let offerList: IHousingOffer[] = []
+			for (const offer of receivedOffers) {
+				let newOffer: IHousingOffer = {
+					"id": offer._id,
+					"flatmates": offer.flatmates,
+					"images": [],
+					acceptedTerms: undefined,
+					"values": offer.hasOwnProperty("values") ? offer.values : [],
+					"tenant": offer.tenant,
+					"price": {
+						"currency": offer.price.currency,
+						"amount": offer.price.amount
+					},
+					"location": {
+						"country": offer.location.country,
+						"city": offer.location.city,
+						"zipCode": offer.location.zipCode,
+						"address": offer.location.address,
+						latitude: offer.hasOwnProperty("latitude") ? offer.location.latitude : null,
+						longitude: offer.hasOwnProperty("longitude") ? offer.location.longitude : null,
+						distance: offer.hasOwnProperty("distance") ? offer.location.distance : null,
+					},
+					"description": offer.description,
+					"roomSize": offer.roomSize,
+					"yearConstructed": offer.hasOwnProperty("yearConstructed") ? offer.yearConstructed : null,
+					"title": offer.title === null ? "404 title not found in record" : offer.title,
+					"ageRange": {
+						"minAge": offer.ageRange.minAge,
+						"maxAge": offer.ageRange.maxAge
+					},
+					"moveInDate": offer.hasOwnProperty("moveInDate") ? offer.moveInDate : null,
+					"furnished": offer.furnished,
+					"numberOfRooms": offer.numberOfRooms,
+					"smoking": offer.hasOwnProperty("moveInDate") ? offer.smoking : null,
+				}
+				offerList.push(newOffer)
+			}
+			offersContext.setOffers(offerList)
+			setLoading(false)
+		}
+
+		let asd = fetchUsers()
+		// eslint-disable-next-line
+	}, [])
 
 
+	// @ts-ignore
 	return (
 		<React.Fragment>
 			{DefaultAppBar(userContext.user.first_name, FindOfferingBreadCrumb(), "")}
-			{/*<div>{getOffers()}</div>*/}
 			<div className="app">
-				<TinderCards />
+				{isLoading ? (
+					<div className={"loading_circle"}>
+						<CircularProgress color="secondary" />
+					</div>
+				) : (
+					<TinderCards />
+				)}
+
 				<SwipeButtons />
 			</div>
 		</React.Fragment>
