@@ -1,6 +1,7 @@
 import { ImageListType } from "react-images-uploading"
 
 export interface IHousingOffer {
+	id: string
 	tenant: string
 	flatmates: string[]
 	price: {
@@ -9,28 +10,32 @@ export interface IHousingOffer {
 	}
 	images: ImageListType
 	location: {
-		country: string
-		city: string
-		zipCode: string
-		address: string
+		country: string | null
+		city: string | null
+		zipCode: string | null
+		address: string | null
+		latitude: number | null
+		longitude: number | null
+		distance: number | null
 	}
 	description: string
 	roomSize: number | null
-	yearConstructed: Date | null
+	yearConstructed: Date | null | undefined
 	title: string
 	ageRange: {
 		minAge: number | null
 		maxAge: number | null
 	}
 	moveInDate: Date | null
-	furnished: boolean
+	furnished: boolean | null
 	numberOfRooms: number | null
 	values: string[]
-	acceptedTerms: boolean
-	smoking: boolean
+	acceptedTerms: boolean | undefined
+	smoking: boolean | null
 }
 
 export const defaultOffer: IHousingOffer = {
+	id: "",
 	tenant: "",
 	flatmates: [],
 	price: {
@@ -42,7 +47,10 @@ export const defaultOffer: IHousingOffer = {
 		country: "",
 		city: "",
 		zipCode: "",
-		address: ""
+		address: "",
+		latitude: null,
+		longitude: null,
+		distance: null
 	},
 	description: "",
 	roomSize: null,
@@ -59,3 +67,5 @@ export const defaultOffer: IHousingOffer = {
 	acceptedTerms: false,
 	smoking: false
 }
+
+export const defaultOffers: IHousingOffer[] = [defaultOffer]
