@@ -6,7 +6,9 @@ import IReceivedImage from "./UserService"
 
 export default class OfferService {
 
-	static baseURL() { return 'http://localhost:8080/api/offers' }
+	static baseURL() {
+		return 'http://localhost:8080/api/offers'
+	}
 
 	static createOffer(offer: IHousingOffer) {
 		return new Promise<IReceivedHousingOffer>((resolve, reject) => {
@@ -52,6 +54,22 @@ export default class OfferService {
 						resolve(data)
 					} else {
 						reject("Error while retrieving offer")
+					}
+				},
+				(textStatus) => {
+					reject(textStatus)
+				})
+		})
+	}
+
+	static async getFilteredOffers(): Promise<IReceivedHousingOffer[]> {
+		return new Promise((resolve, reject) => {
+			HttpService.get(`${OfferService.baseURL()}/getFilteredOffers/`,
+				(data) => {
+					if (data !== undefined || Object.keys(data).length !== 0) {
+						resolve(data)
+					} else {
+						reject("Error while retrieving offers")
 					}
 				},
 				(textStatus) => {
@@ -196,6 +214,7 @@ export default class OfferService {
 }
 
 export interface IReceivedHousingOffer {
+	id: string
 	tenant: string
 	flatmates: [string]
 	price: {
@@ -203,22 +222,28 @@ export interface IReceivedHousingOffer {
 		amount: number
 	}
 	location: {
-		country: string
-		city: string
-		zipCode: string
-		address: string
+
+		country: string | null
+		city: string | null
+		zipCode: string | null
+		address: string | null
+		latitude: number | null
+		longitude: number | null
+		distance: number | null
+
 	}
 	description: string
-	roomSize: number
-	yearConstructed?: Date
-	title: string
+	roomSize: number | null
+	yearConstructed?: Date | null
+	title: string | null
 	ageRange: {
-		minAge: number
-		maxAge: number
+		minAge: number | null
+		maxAge: number | null
 	}
-	moveInDate: number
-	furnished: boolean
-	numberOfRooms: number
-	values: [string]
+	moveInDate: Date | null
+	furnished: boolean | null
+	numberOfRooms: number | null
+	smoking: boolean | null
+	values: [string] | []
 	_id: string
 }
