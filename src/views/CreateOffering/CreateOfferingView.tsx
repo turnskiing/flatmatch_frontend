@@ -115,8 +115,7 @@ export default function CreateOfferingView() {
 
 	const isValuesValid = (): boolean => {
 		const offer = offerContext.offer
-		return offer.values.filter(b => b.trim() !== "").length !== 0 && offer.acceptedTerms &&
-			offer.description !== ""
+		return offer.values.filter(b => b.trim() !== "").length !== 0 && (offer.acceptedTerms ?? true) && offer.description !== ""
 	}
 
 	return (

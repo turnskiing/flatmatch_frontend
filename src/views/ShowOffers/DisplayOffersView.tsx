@@ -3,7 +3,7 @@ import UserService from "../../services/UserService"
 import React, { useContext, useEffect, useState } from "react"
 import { UserContext } from "../../App"
 import { DisplayOffersStyle } from "./DisplayOffers.style"
-import {CircularProgress, Grid} from "@material-ui/core"
+import { CircularProgress, Grid } from "@material-ui/core"
 import { ImageListType } from "react-images-uploading"
 import { convertDataUrlToBlob } from "../../shared/convertDataUrlToBlob"
 import { IHousingOffer } from "../../models/housingOffer"
@@ -63,10 +63,10 @@ export default function DisplayOffersView() {
 				<Grid container spacing={3} className={classes.gridContainer}
 					justify={"flex-start"}>
 					{isLoading ? (
-							<Grid item xs={12} alignContent={"center"} style={{ padding: 70 }}>
-								<CircularProgress color="secondary" />
-							</Grid>
-						): ( offers.map((offer) => (
+						<Grid item xs={12} alignContent={"center"} style={{ padding: 70 }}>
+							<CircularProgress color="secondary" />
+						</Grid>
+					) : (offers.map((offer) => (
 						<Grid item xs={12} sm={6} md={4}>
 							<OfferCard {...offer} />
 						</Grid>

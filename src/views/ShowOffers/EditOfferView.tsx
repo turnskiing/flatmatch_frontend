@@ -26,9 +26,9 @@ import Values from "../CreateOffering/Values"
 import { ImageListType } from "react-images-uploading"
 import { convertDataUrlToBlob } from "../../shared/convertDataUrlToBlob"
 import { IHousingOffer } from "../../models/housingOffer"
-import DeleteIcon from "@material-ui/icons/Delete";
-import {useHistory, useLocation} from "react-router-dom";
-import {AuthRoutes} from "../../Router";
+import DeleteIcon from "@material-ui/icons/Delete"
+import { useHistory, useLocation } from "react-router-dom"
+import { AuthRoutes } from "../../Router"
 
 
 export default function EditOfferView() {
@@ -40,7 +40,7 @@ export default function EditOfferView() {
 	const [showDeleteDialog, setShowDeleteDialog] = useState<boolean>(false)
 	const history = useHistory()
 	const location = useLocation()
-	let offerID: any = location.state
+	const offerID: any = location.state
 
 
 	const handleEdit = async (event: React.MouseEvent<HTMLElement>) => {
@@ -107,35 +107,35 @@ export default function EditOfferView() {
 			offerCheck.values.filter(b => b.trim() !== "").length !== 0
 	}
 
-	useEffect( () => {
-	    setLoading(true)
-	    const fetchOffer = async () => {
-	        // Overwrite the local state with the response from the server
-	        const receivedOffer = await OfferService.getOffer(offerID)
-	        const metaData: [IReceivedImageMetaData] = await OfferService.getOfferPicturesMetaData(receivedOffer._id)
+	useEffect(() => {
+		setLoading(true)
+		const fetchOffer = async () => {
+			// Overwrite the local state with the response from the server
+			const receivedOffer = await OfferService.getOffer(offerID)
+			const metaData: [IReceivedImageMetaData] = await OfferService.getOfferPicturesMetaData(receivedOffer._id)
 
 			const receivedImages: ImageListType = []
-	        for (const data of metaData) {
-	            const receivedImage = await OfferService.getOfferPicture(data.fileName)
-	            const blob = convertDataUrlToBlob(receivedImage.file, receivedImage.mime)
-	            const objectURL = URL.createObjectURL(blob)
-	            const createdFile = new File([blob], data.fileName, {type: receivedImage.mime})
-	            receivedImages.push({
-	                dataURL: objectURL,
-	                file: createdFile
-	            })
-	        }
-	        const newOffer: IHousingOffer = {
-	            ...receivedOffer,
-	            images: receivedImages,
-	            acceptedTerms: true,
-	            _id: receivedOffer._id
-	        }
-	        offerContext.setOffer(newOffer)
-	        setLoading(false)
-	    }
-	    fetchOffer()
-	    // eslint-disable-next-line
+			for (const data of metaData) {
+				const receivedImage = await OfferService.getOfferPicture(data.fileName)
+				const blob = convertDataUrlToBlob(receivedImage.file, receivedImage.mime)
+				const objectURL = URL.createObjectURL(blob)
+				const createdFile = new File([blob], data.fileName, { type: receivedImage.mime })
+				receivedImages.push({
+					dataURL: objectURL,
+					file: createdFile
+				})
+			}
+			const newOffer: IHousingOffer = {
+				...receivedOffer,
+				images: receivedImages,
+				acceptedTerms: true,
+				_id: receivedOffer._id
+			}
+			offerContext.setOffer(newOffer)
+			setLoading(false)
+		}
+		fetchOffer()
+		// eslint-disable-next-line
 	}, [])
 
 	return (
