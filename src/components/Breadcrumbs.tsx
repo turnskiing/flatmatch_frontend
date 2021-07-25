@@ -1,16 +1,5 @@
 import { Breadcrumbs, Link, Typography } from "@material-ui/core"
 
-export function CreateOfferingBreadCrumb() {
-	return (
-		<Breadcrumbs maxItems={1} aria-label="breadcrumb">
-			<Link color="inherit" href="/home">
-				Home
-			</Link>
-			<Typography color="textPrimary">CreateOffering</Typography>
-		</Breadcrumbs>
-	)
-}
-
 export function CreateProfileBreadCrumb() {
 	return (
 		<Breadcrumbs maxItems={2} aria-label="breadcrumb">
@@ -45,6 +34,28 @@ export function ShowProfileBreadCrumb() {
 				Home
 			</Link>
 			<Typography color="textPrimary">ViewProfile</Typography>
+		</Breadcrumbs>
+	)
+}
+
+export function CreateOfferingBreadCrumb() {
+	return (
+		<Breadcrumbs maxItems={1} aria-label="breadcrumb">
+			<Link color="inherit" href="/home">
+				Home
+			</Link>
+			<Typography color="textPrimary">CreateOffering</Typography>
+		</Breadcrumbs>
+	)
+}
+
+export function ShowOfferingBreadCrumb() {
+	return (
+		<Breadcrumbs maxItems={1} aria-label="breadcrumb">
+			<Link color="inherit" href="/home">
+				Home
+			</Link>
+			<Typography color="textPrimary">ViewOffers</Typography>
 		</Breadcrumbs>
 	)
 }

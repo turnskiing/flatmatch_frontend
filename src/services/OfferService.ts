@@ -45,8 +45,8 @@ export default class OfferService {
 		})
 	}
 
-	static async getOffer(offerId: string): Promise<IReceivedHousingOffer> {
-		return new Promise((resolve, reject) => {
+	static async getOffer(offerId: string) {
+		return new Promise<IReceivedHousingOffer>((resolve, reject) => {
 			HttpService.get(`${OfferService.baseURL()}/${offerId}`,
 				(data) => {
 					if (data !== undefined || Object.keys(data).length !== 0) {
@@ -78,8 +78,8 @@ export default class OfferService {
 	}
 
 	static async getOffers(userId: string): Promise<IReceivedHousingOffer[]> {
-		return new Promise((resolve, reject) => {
-			HttpService.get(`${OfferService.baseURL()}/getOffers/id?${userId}`,
+		return new Promise<IReceivedHousingOffer[]>((resolve, reject) => {
+			HttpService.get(`${OfferService.baseURL()}/getOffers/${userId}`,
 				(data) => {
 					if (data !== undefined || Object.keys(data).length !== 0) {
 						resolve(data)
@@ -93,9 +93,9 @@ export default class OfferService {
 		})
 	}
 
-	static async updateOffer(id: string, offer: IHousingOffer): Promise<IReceivedHousingOffer> {
+	static async updateOffer(offer: IHousingOffer): Promise<IReceivedHousingOffer> {
 		return new Promise((resolve, reject) => {
-			HttpService.put(`${OfferService.baseURL()}/${id}`,
+			HttpService.put(`${OfferService.baseURL()}/${offer._id}`,
 				{
 					tenant: offer.tenant,
 					flatmates: offer.flatmates,
@@ -230,18 +230,18 @@ export interface IReceivedHousingOffer {
 		longitude: number | null
 	}
 	description: string
-	roomSize: number | null
-	yearConstructed?: Date | null
-	title: string | null
+	roomSize: number
+	yearConstructed: Date
+	title: string
 	ageRange: {
-		minAge: number | null
-		maxAge: number | null
+		minAge: number
+		maxAge: number
 	}
-	moveInDate: Date | null
-	furnished: boolean | null
-	numberOfRooms: number | null
-	smoking: boolean | null
-	values: [string] | []
+	moveInDate: Date
+	furnished: boolean
+	numberOfRooms: number
+	values: [string]| []
+	smoking: boolean
 	_id: string
 }
 

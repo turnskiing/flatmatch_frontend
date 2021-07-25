@@ -260,6 +260,7 @@ export default function OfferingInformation(isEditable: boolean) {
 									variant="contained"
 									startIcon={<AccountCircleIcon color="primary" />}
 									onClick={onImageUpload}
+									disabled={!isEditable}
 									{...dragProps}
 								>
 									Add Offer pictures *
@@ -301,6 +302,7 @@ export default function OfferingInformation(isEditable: boolean) {
 						autoComplete="title"
 						value={offerContext.offer.title}
 						onChange={setTitle}
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={6} sm={3}>
@@ -314,6 +316,7 @@ export default function OfferingInformation(isEditable: boolean) {
 						autoComplete="price"
 						value={offerContext.offer.price.amount}
 						onChange={setPrice}
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={6} sm={3}>
@@ -326,6 +329,7 @@ export default function OfferingInformation(isEditable: boolean) {
 								value={offerContext.offer.price.currency}
 								onChange={setCurrencys}
 								helperText="Please select your currency"
+								disabled={!isEditable}
 							>
 								{currencies.map((option) => (
 									<MenuItem key={option.value} value={option.value}>
@@ -347,6 +351,7 @@ export default function OfferingInformation(isEditable: boolean) {
 						autoComplete="roomSize"
 						value={offerContext.offer.roomSize}
 						onChange={setRoomSize}
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={6} sm={3}>
@@ -359,6 +364,7 @@ export default function OfferingInformation(isEditable: boolean) {
 						autoComplete="numberOfRooms"
 						value={offerContext.offer.numberOfRooms}
 						onChange={setNumberOfRooms}
+						disabled={!isEditable}
 						helperText="Flat's total number of rooms"
 					/>
 				</Grid>
@@ -374,6 +380,7 @@ export default function OfferingInformation(isEditable: boolean) {
 							fullWidth
 							value={offerContext.offer.yearConstructed || null}
 							onChange={setYearConstructed}
+							disabled={!isEditable}
 							KeyboardButtonProps={{
 								"aria-label": "change date",
 							}}
@@ -393,6 +400,7 @@ export default function OfferingInformation(isEditable: boolean) {
 								required
 								value={offerContext.offer.moveInDate}
 								onChange={setMoveInDate}
+								disabled={!isEditable}
 								KeyboardButtonProps={{
 									"aria-label": "change date",
 								}}
@@ -408,6 +416,7 @@ export default function OfferingInformation(isEditable: boolean) {
 							id="select-furnished"
 							value={(offerContext.offer.furnished === true) ? "Yes" : "No"}
 							onChange={setFurnished}
+							disabled={!isEditable}
 						>
 							<MenuItem value={"Yes"}>Yes</MenuItem>
 							<MenuItem value={"No"}>No</MenuItem>
@@ -422,6 +431,7 @@ export default function OfferingInformation(isEditable: boolean) {
 							id="select-smoking"
 							value={(offerContext.offer.smoking === true) ? "Yes" : "No"}
 							onChange={setSmoking}
+							disabled={!isEditable}
 						>
 							<MenuItem value={"Yes"}>Yes</MenuItem>
 							<MenuItem value={"No"}>No</MenuItem>
@@ -440,6 +450,7 @@ export default function OfferingInformation(isEditable: boolean) {
 						onChange={setAgeRange}
 						valueLabelDisplay="on"
 						aria-labelledby="range-slider"
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={12} className={classes.location}>
@@ -456,6 +467,7 @@ export default function OfferingInformation(isEditable: boolean) {
 						fullWidth
 						value={offerContext.offer.location.country}
 						onChange={setCountry}
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
@@ -467,6 +479,7 @@ export default function OfferingInformation(isEditable: boolean) {
 						fullWidth
 						value={offerContext.offer.location.city}
 						onChange={setCity}
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
@@ -478,6 +491,7 @@ export default function OfferingInformation(isEditable: boolean) {
 						fullWidth
 						value={offerContext.offer.location.zipCode}
 						onChange={setZipcode}
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={6}>
@@ -488,6 +502,7 @@ export default function OfferingInformation(isEditable: boolean) {
 						fullWidth
 						value={offerContext.offer.location.address}
 						onChange={setAddress}
+						disabled={!isEditable}
 					/>
 				</Grid>
 
