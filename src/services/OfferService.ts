@@ -1,8 +1,7 @@
 import { IHousingOffer } from '../models/housingOffer'
 import HttpService from './HttpService'
 import UserService from "./UserService"
-import IReceivedImageMetaData from "./UserService"
-import IReceivedImage from "./UserService"
+
 
 export default class OfferService {
 
@@ -46,7 +45,7 @@ export default class OfferService {
 		})
 	}
 
-	static async getOffer(offerId: string) {
+	static async getOffer(offerId: string): Promise<IReceivedHousingOffer> {
 		return new Promise((resolve, reject) => {
 			HttpService.get(`${OfferService.baseURL()}/${offerId}`,
 				(data) => {
@@ -78,7 +77,7 @@ export default class OfferService {
 		})
 	}
 
-	static async getOffers(userId: string) {
+	static async getOffers(userId: string): Promise<IReceivedHousingOffer[]> {
 		return new Promise((resolve, reject) => {
 			HttpService.get(`${OfferService.baseURL()}/getOffers/id?${userId}`,
 				(data) => {
@@ -151,7 +150,7 @@ export default class OfferService {
 	}
 
 	static async getOfferPicturesMetaData(id: string): Promise<[IReceivedImageMetaData]> {
-		return new Promise((resolve, reject) => {
+		return new Promise<[IReceivedImageMetaData]>((resolve, reject) => {
 			HttpService.get(
 				// Input offer id to return offer pictures meta data
 				`${OfferService.baseURL()}/getOfferPicturesMetaData/${id}`,
@@ -246,4 +245,17 @@ export interface IReceivedHousingOffer {
 	smoking: boolean | null
 	values: [string] | []
 	_id: string
+}
+
+
+export interface IReceivedImageMetaData {
+	fileName: string
+	uploadData: Date
+	_id: string
+}
+
+export interface IReceivedImage {
+	success: boolean
+	file: string
+	mime: string
 }
