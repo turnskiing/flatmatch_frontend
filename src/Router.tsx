@@ -10,6 +10,7 @@ import CreateProfileView from "./views/CreateProfile/CreateProfileView"
 import DisplayOffersView from "./views/ShowOffers/DisplayOffersView"
 import EditOfferView from "./views/ShowOffers/EditOfferView"
 import FindRoommateView from './views/FindRoommate/FindRoommateView'
+import ShowMessagesView from './views/ShowMessages/ShowMessagesView'
 
 export enum AuthRoutes {
 	findRoom = '/home/find_room',
@@ -43,6 +44,7 @@ const Router = () => {
 				<AuthRoute exact path={AuthRoutes.offers} Component={DisplayOffersView} />
 				<AuthRoute path={AuthRoutes.editOffer} Component={EditOfferView} />
 				<AuthRoute path={AuthRoutes.findRoommate} Component={FindRoommateView} />
+				<AuthRoute path={AuthRoutes.messages} Component={ShowMessagesView} />
 				{/* Not Found */}
 				<Route component={() => <Redirect to={NonAuthRoutes.default} />} />
 			</Switch>

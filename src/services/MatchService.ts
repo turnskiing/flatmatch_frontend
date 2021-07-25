@@ -6,7 +6,7 @@ export default class MatchService {
 		return "http://localhost:8080/api/match"
 	}
 
-	static async getMatchOfApplicant(): Promise<IReceivedMatch> {
+	static async getMatchOfApplicant(): Promise<IReceivedMatch[]> {
 		return new Promise((resolve, reject) => {
 			HttpService.get(
 				`${MatchService.baseURL()}/applicant`,
@@ -20,7 +20,7 @@ export default class MatchService {
 		})
 	}
 
-	static async getMatchOfTenant(): Promise<IReceivedMatch> {
+	static async getMatchOfTenant(): Promise<IReceivedMatch[]> {
 		return new Promise((resolve, reject) => {
 			HttpService.get(
 				`${MatchService.baseURL()}/tenant`,
