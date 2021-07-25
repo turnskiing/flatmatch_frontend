@@ -54,6 +54,10 @@ export default function HomeScreenView() {
 		history.push(AuthRoutes.profile)
 	}
 
+	const handleDisplayOffers = () => {
+		history.push(AuthRoutes.offers)
+	}
+
 	const handlePersonalPreferences = () => {
 		const newFilter: IFilter = {
 			...filterContext.filter,
@@ -140,7 +144,7 @@ export default function HomeScreenView() {
 										)}
 										{userContext.user.type === UserType.Tenant && (
 											<Grid item component={Card} xs={12} sm={6} className={classes.card}>
-												<CardActionArea onClick={handleFindRoommates}>
+												<CardActionArea onClick={handleDisplayOffers}>
 													<CardContent>
 														<Box display="flex" bgcolor="grey.200" justifyContent="center" className={classes.box}>
 															<SearchIcon className={classes.icon} />
@@ -152,7 +156,7 @@ export default function HomeScreenView() {
 															component="h2"
 															style={{ paddingTop: 40, paddingBottom: 0 }}
 														>
-															Find roommate
+															Find Roommates
 														</Typography>
 													</CardContent>
 												</CardActionArea>
@@ -171,7 +175,7 @@ export default function HomeScreenView() {
 														component="h2"
 														style={{ paddingTop: 40, paddingBottom: 0 }}
 													>
-														My messages
+														My Messages
 													</Typography>
 												</CardContent>
 											</CardActionArea>

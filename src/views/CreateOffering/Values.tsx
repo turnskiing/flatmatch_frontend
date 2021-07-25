@@ -21,7 +21,7 @@ import { ValuesStyle } from "./Values.style"
 import Avatar from "@material-ui/core/Avatar"
 
 
-export default function Values() {
+export default function Values(isEditable: boolean, termsOfService: boolean) {
 	const classes = ValuesStyle()
 	const offerContext = useContext(OfferContext)
 	const [value, setValue] = React.useState("")
@@ -99,8 +99,6 @@ export default function Values() {
 		}
 	}
 
-
-
 	return (
 		<React.Fragment>
 			<Typography variant="h6" gutterBottom>
@@ -125,6 +123,7 @@ export default function Values() {
 						variant="outlined"
 						value={offerContext.offer.description}
 						onChange={setDescription}
+						disabled={!isEditable}
 					/>
 				</Grid>
 				<Grid item xs={12} sm={5}>
@@ -147,11 +146,13 @@ export default function Values() {
 									addValue()
 								}
 							}}
+							disabled={!isEditable}
 							endAdornment={
 								<InputAdornment position="end">
 									<IconButton
 										aria-label="add value"
 										onClick={addValue}
+										disabled={!isEditable}
 									>
 										{<AddIcon />}
 									</IconButton>
@@ -170,6 +171,7 @@ export default function Values() {
 										variant="outlined"
 										color="primary"
 										onDelete={handleDeleteValues(existingValue)}
+										disabled={!isEditable}
 										className={classes.chip}
 									/>
 								</li>
@@ -197,11 +199,13 @@ export default function Values() {
 									addFlatmate()
 								}
 							}}
+							disabled={!isEditable}
 							endAdornment={
 								<InputAdornment position="end">
 									<IconButton
 										aria-label="add flatemate"
 										onClick={addFlatmate}
+										disabled={!isEditable}
 
 									>
 										{<AddIcon />}
@@ -222,6 +226,7 @@ export default function Values() {
 										color="primary"
 										avatar={<Avatar src="../../images/avatar.png" />}
 										onDelete={handleDeleteFlatmates(existingValue)}
+										disabled={!isEditable}
 										className={classes.chip}
 									/>
 								</li>
@@ -229,19 +234,21 @@ export default function Values() {
 						})}
 					</Paper>
 				</Grid>
-				<Grid item xs={12}>
-					<FormControlLabel
-						control={
-							<Checkbox
-								color="primary"
-								name="termsOfService"
-								checked={offerContext.offer.acceptedTerms}
-								onChange={setAcceptedTerms}
-							/>
-						}
-						label="I accept the Terms of Service"
-					/>
-				</Grid>
+				{termsOfService && (
+					<Grid item xs={12}>
+						<FormControlLabel
+							control={
+								<Checkbox
+									color="primary"
+									name="termsOfService"
+									checked={offerContext.offer.acceptedTerms}
+									onChange={setAcceptedTerms}
+								/>
+							}
+							label="I accept the Terms of Service"
+						/>
+					</Grid>
+				)}
 			</Grid>
 		</React.Fragment>
 	)
