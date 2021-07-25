@@ -1,4 +1,3 @@
-
 /* tslint:disable */
 
 import React, { useContext, useEffect, useState } from "react"
@@ -30,7 +29,7 @@ import {
 	KeyboardDatePicker,
 } from "@material-ui/pickers"
 import { MaterialUiPickersDate } from "@material-ui/pickers/typings/date"
-import OfferService, {IReceivedHousingOffer, IReceivedImage} from "../../services/OfferService"
+import OfferService, { IReceivedHousingOffer, IReceivedImage } from "../../services/OfferService"
 import { defaultOffer, IHousingOffer } from "../../models/housingOffer"
 
 
@@ -48,7 +47,7 @@ export default function OfferDetailsView() {
 			try {
 				if (currentOfferContext.currentOffer._id) {
 					const newlyReceivedOffer: IReceivedHousingOffer = await OfferService.getOffer(currentOfferContext.currentOffer._id)
-					const metaData: any = await OfferService.getOfferPicturesMetaData(newlyReceivedOffer._id || "")
+					const metaData: Array<IReceivedImageMetaData> = await OfferService.getOfferPicturesMetaData(newlyReceivedOffer._id || "")
 					const receivedImages: ImageListType = []
 					for (const data of metaData) {
 						const receivedImage: IReceivedImage = await OfferService.getOfferPicture(data.fileName)
@@ -95,6 +94,9 @@ export default function OfferDetailsView() {
 	const isLocationProvided = (): boolean => {
 		return receivedOffer.location.country !== "" || receivedOffer.location.city !== ""
 	}
+	const isDistanceProvided = (): boolean => {
+		return receivedOffer.location.distance !== null
+	}
 
 	return (
 		<React.Fragment>
@@ -108,7 +110,7 @@ export default function OfferDetailsView() {
 					id="form-dialog-title"
 					className={classes.dialogBackground}
 				>
-					Details
+					Offer Details
 				</DialogTitle>
 				<DialogContent>
 					<Grid container spacing={3} justify="space-around" alignItems="center">
@@ -117,7 +119,7 @@ export default function OfferDetailsView() {
 								<ImageList rowHeight={160} className={classes.imageList} cols={2.5}>
 									{receivedOffer.images.map((image, index) => (
 										<ImageListItem key={index}>
-											<img src={image.dataURL} />
+											<img src={image.dataURL} alt={"https://picsum.photos/seed/picsum/500/500"} />
 										</ImageListItem>
 									))}
 								</ImageList>
@@ -125,12 +127,12 @@ export default function OfferDetailsView() {
 						</Grid>
 						<Grid item xs={12} sm={12}>
 							<Typography variant="h5" gutterBottom>
-								Personal Information
+								Offer Information
 							</Typography>
 						</Grid>
 						<Grid item xs={12} sm={6}>
 							<TextField
-								label="First name"
+								label="Title"
 								fullWidth
 								value={receivedOffer.title}
 								disabled={true}
@@ -139,9 +141,9 @@ export default function OfferDetailsView() {
 						</Grid>
 						<Grid item xs={12} sm={6}>
 							<TextField
-								label="Last name"
+								label="Size (sqm)}"
 								fullWidth
-								value={receivedOffer.title}
+								value={receivedOffer.roomSize}
 								disabled={true}
 								className={classes.disabledInput}
 							/>
@@ -152,7 +154,7 @@ export default function OfferDetailsView() {
 									margin="normal"
 									id="dateOfBirth"
 									name="dateOfBirth"
-									label="Date of birth"
+									label="Move-in Date"
 									format="MM/dd/yyyy"
 									fullWidth
 									required
@@ -167,56 +169,29 @@ export default function OfferDetailsView() {
 								/>
 							</MuiPickersUtilsProvider>
 						</Grid>
-						{/*<Grid item xs={12} sm={6} style={{marginTop: theme.spacing(2)}}>*/}
-						{/*    <Typography color="textSecondary" component="span">*/}
-						{/*        Gender {" "}*/}
-						{/*    </Typography>*/}
-						{/*    <ToggleButtonGroup*/}
-						{/*        value={receivedOffer.gender}*/}
-						{/*        size="medium"*/}
-						{/*        exclusive*/}
-						{/*        aria-label="select gender"*/}
-						{/*    >*/}
-						{/*        <ToggleButton*/}
-						{/*            value="Female"*/}
-						{/*            aria-label="female"*/}
-						{/*            style={{padding: 15}}*/}
-						{/*            disabled={true}*/}
-						{/*        >*/}
-						{/*            <FontAwesomeIcon icon={faVenus}/>*/}
-						{/*        </ToggleButton>*/}
-						{/*        <ToggleButton*/}
-						{/*            value="Male"*/}
-						{/*            aria-label="male"*/}
-						{/*            style={{padding: 15}}*/}
-						{/*            disabled={true}*/}
-						{/*        >*/}
-						{/*            <FontAwesomeIcon icon={faMars}/>*/}
-						{/*        </ToggleButton>*/}
-						{/*        <ToggleButton*/}
-						{/*            value="Prefer not to say"*/}
-						{/*            aria-label="Prefer not to say"*/}
-						{/*            style={{padding: 15}}*/}
-						{/*            disabled={true}*/}
-						{/*        >*/}
-						{/*            <FontAwesomeIcon icon={faTransgenderAlt}/>*/}
-						{/*        </ToggleButton>*/}
-						{/*    </ToggleButtonGroup>*/}
-						{/*</Grid>*/}
 						<Grid item xs={12} sm={6}>
 							<TextField
-								label="Occupation / Field of Study"
+								label="Flatmates"
 								fullWidth
-								value={receivedOffer.title}
+								value={receivedOffer.flatmates}
 								disabled={true}
 								className={classes.disabledInput}
 							/>
 						</Grid>
 						<Grid item xs={12} sm={6}>
 							<TextField
-								label="Smoker"
+								label="Smoking WG"
 								fullWidth
 								value={receivedOffer.smoking === true ? "Yes" : "No"}
+								disabled={true}
+								className={classes.disabledInput}
+							/>
+						</Grid>
+						<Grid item xs={12} sm={6}>
+							<TextField
+								label="Furnished"
+								fullWidth
+								value={receivedOffer.furnished === true ? "Yes" : "No"}
 								disabled={true}
 								className={classes.disabledInput}
 							/>
@@ -224,7 +199,7 @@ export default function OfferDetailsView() {
 						{isLocationProvided() && (
 							<Grid item xs={12} sm={12} className={classes.place_of_residency}>
 								<Typography variant="h6">
-									Place of residency
+									Location
 								</Typography>
 							</Grid>)}
 						{isLocationProvided() && (
@@ -265,7 +240,7 @@ export default function OfferDetailsView() {
 						{receivedOffer.description.trim() && (
 							<Grid item xs={12} className={classes.bio}>
 								<Typography variant="h6" gutterBottom>
-									Bio
+									Description
 								</Typography>
 								<TextField
 									id="bio"
@@ -281,9 +256,19 @@ export default function OfferDetailsView() {
 									className={classes.disabledInput}
 								/>
 							</Grid>)}
+						{isDistanceProvided() && (
+							<Grid item xs={12} sm={6}>
+								<TextField
+									label="Distance"
+									fullWidth
+									value={receivedOffer.location.distance || "Not provided"}
+									disabled={true}
+									className={classes.disabledInput}
+								/>
+							</Grid>)}
 						<Grid item xs={12} sm={6}>
 							<Typography variant="h6">
-								Interests
+								Values
 							</Typography>
 							<Paper component="ul" className={classes.chipRoot} elevation={0}>
 								{receivedOffer.values.map((existingInterest) => {
