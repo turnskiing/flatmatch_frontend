@@ -17,6 +17,8 @@ import { CurrentOfferContext } from "./FindOfferingView"
 import { defaultCurrentOffer, ICurrentOffer } from "../../models/currentOffer"
 import { Grid, Typography } from "@material-ui/core"
 import "./SwipeButtons.css"
+import OfferService from "../../services/OfferService";
+import { userInfo } from "os";
 
 interface Props {
 	title?: string
@@ -52,16 +54,22 @@ const TinderCards = (): ReactElement => {
 		// eslint-disable-next-line
 	}, [])
 
-	const swiped = (direction: string, emailToDelete: string) => {
+	const swiped = async (direction: string, idToDelete: string) => {
 		if (direction === "up") {
 			const newCurrentOffer: ICurrentOffer = {
-				_id: emailToDelete,
+				_id: idToDelete,
 				isShown: true
 			}
 			currentOfferContext.setCurrentOffer(newCurrentOffer)
 		}
 		if (direction === "right" || direction === "left") {
-			alreadyRemoved.push(emailToDelete)
+			alreadyRemoved.push(idToDelete)
+			if (direction === "right") {
+				await OfferService.addToAcceptedOffer(idToDelete)
+				await OfferService.addApplicantToOffer(idToDelete)
+			} else if (direction === "left") {
+				await OfferService.addToDeclinedOffer(idToDelete)
+			}
 			// update currentApplicant
 			const cardsLeft = offers.filter(applicant => !alreadyRemoved.includes(applicant._id))
 			if (cardsLeft.length) {

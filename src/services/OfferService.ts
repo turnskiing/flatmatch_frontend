@@ -1,12 +1,12 @@
 import { IHousingOffer } from '../models/housingOffer'
 import HttpService from './HttpService'
 import UserService from "./UserService"
-import { IReceivedImageMetaData } from "./ProfileService"
-import { IReceivedImage } from "./ProfileService"
 
 export default class OfferService {
 
-	static baseURL() { return 'http://localhost:8080/api/offers' }
+	static baseURL() {
+		return 'http://localhost:8080/api/offers'
+	}
 
 	static createOffer(offer: IHousingOffer) {
 		return new Promise<IReceivedHousingOffer>((resolve, reject) => {
@@ -52,6 +52,22 @@ export default class OfferService {
 						resolve(data)
 					} else {
 						reject("Error while retrieving offer")
+					}
+				},
+				(textStatus) => {
+					reject(textStatus)
+				})
+		})
+	}
+
+	static async getFilteredOffers(): Promise<IReceivedHousingOffer[]> {
+		return new Promise((resolve, reject) => {
+			HttpService.get(`${OfferService.baseURL()}/getFilteredOffers/`,
+				(data) => {
+					if (data !== undefined || Object.keys(data).length !== 0) {
+						resolve(data)
+					} else {
+						reject("Error while retrieving offers")
 					}
 				},
 				(textStatus) => {
@@ -132,12 +148,27 @@ export default class OfferService {
 		})
 	}
 
+	static async addApplicantToOffer(id: string): Promise<any> {
+		return new Promise((resolve, reject) => {
+			HttpService.put(
+				`${OfferService.baseURL()}/addApplicant/${id}`,
+				{},
+				(data: any) => {
+					resolve(data)
+				},
+				(textStatus: any) => {
+					reject(textStatus)
+				}
+			)
+		})
+	}
+
 	static async removeApplicantFromOffer(id: string, applicantEmail: string): Promise<any> {
 		return new Promise((resolve, reject) => {
 			HttpService.put(
 				`${OfferService.baseURL()}/removeApplicant/${id}`,
 				{
-					applicantEmail: applicantEmail
+					applicantEmail
 				},
 				(data: any) => {
 					resolve(data)
@@ -210,6 +241,36 @@ export default class OfferService {
 	static isAuthenticated() {
 		return !!window.localStorage.jwtToken
 	}
+
+	static async addToAcceptedOffer(id: string) {
+		return new Promise((resolve, reject) => {
+			HttpService.put(
+				`${OfferService.baseURL()}/addToAcceptedOffers/${id}`,
+				{},
+				(data: any) => {
+					resolve(data)
+				},
+				(textStatus: any) => {
+					reject(textStatus)
+				}
+			)
+		})
+	}
+	static async addToDeclinedOffer(id: string) {
+		return new Promise((resolve, reject) => {
+			HttpService.put(
+				`${OfferService.baseURL()}/addToDeclinedOffers/${id}`,
+				{},
+				(data: any) => {
+					resolve(data)
+				},
+				(textStatus: any) => {
+					reject(textStatus)
+				}
+			)
+		})
+	}
+
 }
 
 export interface IReceivedHousingOffer {
@@ -223,8 +284,12 @@ export interface IReceivedHousingOffer {
 		country: string
 		city: string
 		zipCode: string
-		address: string
+		address: string | null
+		latitude: number | null
+		longitude: number | null
+		distance: number | null
 	}
+	distanceToFilterLocation: number | null
 	description: string
 	roomSize: number
 	yearConstructed: Date
@@ -234,10 +299,23 @@ export interface IReceivedHousingOffer {
 		maxAge: number
 	}
 	moveInDate: Date
+
 	furnished: boolean
 	numberOfRooms: number
-	values: [string]
+	values: [string] | []
 	smoking: boolean
 	_id: string
 	applicants: [string]
+}
+
+export interface IReceivedImageMetaData {
+	fileName: string
+	uploadData: Date
+	_id: string
+}
+
+export interface IReceivedImage {
+	success: boolean
+	file: string
+	mime: string
 }

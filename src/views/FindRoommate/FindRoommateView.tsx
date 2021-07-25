@@ -35,8 +35,8 @@ export default function FindRoommateView() {
 	const [applicants, setApplicants] = useState(defaultApplicants)
 	const [currentApplicant, setCurrentApplicant] = useState(defaultCurrentApplicant)
 	const [isLoading, setLoading] = useState<boolean>(false)
-	const location = useLocation();
-	let offerId: any = location.state
+	const location = useLocation()
+	const offerId: any = location.state
 
 	useEffect(() => {
 		const fetchUsers = async () => {

@@ -110,7 +110,6 @@ function FindOffering(this: any) {
 		<React.Fragment>
 			{DefaultAppBar(userContext.user.first_name, FindOfferingBreadCrumb(), "")}
 			<CurrentOfferContext.Provider value={{ currentOffer, setCurrentOffer }}>
-
 				<div className="app">
 					{isLoading ? (
 						<div className={"loading_circle"}>
