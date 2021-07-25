@@ -3,7 +3,7 @@ import { makeStyles } from "@material-ui/core/styles"
 export const RoommateDetailsViewStyle = makeStyles((theme) => ({
 	disabledInput: {
 		"& .MuiInputBase-root.Mui-disabled": {
-			color: "grey"
+			color: "#122130"
 		},
 	},
 	dialogBackground: {
