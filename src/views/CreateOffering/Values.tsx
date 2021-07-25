@@ -115,7 +115,7 @@ export default function Values(isEditable: boolean, termsOfService: boolean) {
 						label="Describe your living situation. What should applicants know about your living situation?"
 						multiline
 						fullWidth
-						rows={4}
+						rows={6}
 						inputProps={{
 							maxLength: 600,
 						}}

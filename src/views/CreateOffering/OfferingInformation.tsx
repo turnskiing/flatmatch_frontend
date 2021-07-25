@@ -253,7 +253,7 @@ export default function OfferingInformation(isEditable: boolean) {
 								>
 									Add Offer pictures *
 								</Button>
-								<Grid container spacing={3} justify='center' alignItems="center" alignContent='space-around'>
+								<Grid container spacing={3} justify='center' alignItems="center" alignContent='space-around' style={{ minHeight: 300 }}>
 									{imageList.map((image, index) => (
 										<Grid item xs={12} sm={4} key={index}>
 											<img src={image.dataURL} alt="" width="150" />
