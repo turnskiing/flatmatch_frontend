@@ -42,10 +42,6 @@ export default function HomeScreenView() {
 		history.push(AuthRoutes.createOffering)
 	}
 
-	const handleFindRoommates = () => {
-		history.push(AuthRoutes.findRoommate)
-	}
-
 	const handleMyMessages = () => {
 		history.push(AuthRoutes.messages)
 	}

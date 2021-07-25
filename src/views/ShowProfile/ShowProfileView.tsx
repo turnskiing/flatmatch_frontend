@@ -194,7 +194,7 @@ export default function ShowProfile() {
 								</DialogContent>
 								<DialogActions>
 									<Button onClick={handleClose} color="primary">
-										Cancle
+										Cancel
 									</Button>
 									<Button onClick={handleDelete} color="primary" autoFocus>
 										Delete
