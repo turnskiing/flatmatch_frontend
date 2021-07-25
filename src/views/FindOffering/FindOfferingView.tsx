@@ -1,7 +1,7 @@
 import TinderCards from "./TinderCards"
 import SwipeButtons from './SwipeButtons'
 /* tslint:disable */
-import React, {useContext, useEffect, useState} from "react"
+import React, {createContext, useContext, useEffect, useState} from "react"
 // Context
 import {OffersContext, UserContext} from "../../App"
 import {useHistory} from "react-router-dom"
@@ -12,12 +12,26 @@ import {defaultOffers, IHousingOffer} from "../../models/housingOffer";
 import {CircularProgress} from "@material-ui/core";
 
 import "./OfferingViewStyles.css"
+import {defaultCurrentOffer, ICurrentOffer} from "../../models/currentOffer";
+import {IReceivedImage, IReceivedImageMetaData} from "../../services/ProfileService";
+import {convertDataUrlToBlob} from "../../shared/convertDataUrlToBlob";
+import {ImageListType} from "react-images-uploading";
 
 // Styles
+
+
+interface ICurrentOfferContextProps {
+    currentOffer: ICurrentOffer
+    setCurrentOffer: React.Dispatch<React.SetStateAction<ICurrentOffer>>
+}
+
+export const CurrentOfferContext = createContext({} as ICurrentOfferContextProps)
+
 
 function FindOffering(this: any) {
     const userContext = useContext(UserContext)
     const offersContext = useContext(OffersContext)
+    const [currentOffer, setCurrentOffer] = useState(defaultCurrentOffer)
 
     const [isLoading, setLoading] = useState<boolean>(false)
 
@@ -34,18 +48,23 @@ function FindOffering(this: any) {
         setLoading(true)
         const fetchUsers = async () => {
             const receivedOffers: Array<IReceivedHousingOffer> = await OfferService.getFilteredOffers()
-            let receivedPictures = []
-            let imageMeta;
-            for (const i of receivedOffers) {
-                imageMeta = await OfferService.getOfferPicturesMetaData(i._id)
-                receivedPictures.push(...imageMeta)
-            }
             let offerList: IHousingOffer[] = []
             for (const offer of receivedOffers) {
+                let receivedImages: ImageListType = []
+                const metaData: [IReceivedImageMetaData] = await OfferService.getOfferPicturesMetaData(offer._id)
+                const receivedImage: IReceivedImage = await OfferService.getOfferPicture(metaData[0].fileName)
+                const blob = convertDataUrlToBlob(receivedImage.file, receivedImage.mime)
+                const objectURL = URL.createObjectURL(blob)
+                const createdFile = new File([blob], metaData[0].fileName, {type: receivedImage.mime})
+                receivedImages.push({
+                    dataURL: objectURL,
+                    file: createdFile
+                })
+                debugger
                 let newOffer: IHousingOffer = {
-                    "id": offer._id,
+                    "_id": offer._id,
                     "flatmates": offer.flatmates,
-                    "images": [],
+                    "images": [receivedImages.map(a => a.dataURL)],
                     acceptedTerms: undefined,
                     "values": offer.hasOwnProperty("values") ? offer.values : [],
                     "tenant": offer.tenant,
@@ -77,7 +96,6 @@ function FindOffering(this: any) {
                 }
                 offerList.push(newOffer)
             }
-            debugger
             offersContext.setOffers(offerList)
         }
 
@@ -90,16 +108,21 @@ function FindOffering(this: any) {
     return (
         <React.Fragment>
             {DefaultAppBar(userContext.user.first_name, FindOfferingBreadCrumb(), "")}
-            <div className="app">
-                {isLoading ? (
-                    <div className={"loading_circle"}>
-                        <CircularProgress color="secondary"/>
-                    </div>
-                ) : (
-                    <TinderCards/>
-                )}
-                <SwipeButtons/>
-            </div>
+            <CurrentOfferContext.Provider value={{currentOffer, setCurrentOffer}}>
+
+                <div className="app">
+                    {isLoading ? (
+                        <div className={"loading_circle"}>
+                            <CircularProgress color="secondary"/>
+                        </div>
+                    ) : (
+                        <TinderCards/>
+                    )}
+                    {/*<SwipeButtons/>*/}
+                </div>
+            </CurrentOfferContext.Provider>
+
+
         </React.Fragment>
 
     )
