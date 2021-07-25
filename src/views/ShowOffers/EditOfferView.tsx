@@ -72,40 +72,40 @@ export default function EditOfferView() {
 			offerCheck.values.filter(b => b.trim() !== "").length !== 0
 	}
 
-	useEffect( () => {
-	    setLoading(true)
-	    const fetchOffer = async () => {
-	        // Overwrite the local state with the response from the server
-	        if(offerContext.offer._id)
-	            setOfferId(JSON.parse(window.localStorage.getItem('offerId') as string))
-	        else
-	            setOfferId(offerContext.offer._id)
-	        const receivedOffer = await OfferService.getOffer(offerId)
+	useEffect(() => {
+		setLoading(true)
+		const fetchOffer = async () => {
+			// Overwrite the local state with the response from the server
+			if (offerContext.offer._id)
+				setOfferId(JSON.parse(window.localStorage.getItem('offerId') as string))
+			else
+				setOfferId(offerContext.offer._id)
+			const receivedOffer = await OfferService.getOffer(offerId)
 
-	        const metaData: [IReceivedImageMetaData] = await OfferService.getOfferPicturesMetaData(receivedOffer._id)
-	        const receivedImages: ImageListType = []
-	        for (const data of metaData) {
-	            const receivedImage = await OfferService.getOfferPicture(data.fileName)
-	            const blob = convertDataUrlToBlob(receivedImage.file, receivedImage.mime)
-	            const objectURL = URL.createObjectURL(blob)
-	            const createdFile = new File([blob], data.fileName, {type: receivedImage.mime})
-	            receivedImages.push({
-	                dataURL: objectURL,
-	                file: createdFile
-	            })
-	        }
-	        const newOffer: IHousingOffer = {
-	            ...receivedOffer,
-	            images: receivedImages,
-	            acceptedTerms: true,
-	            _id: receivedOffer._id
-	        }
-	        offerContext.setOffer(newOffer)
-	        window.localStorage.setItem("offerId", offerContext.offer._id)
-	        setLoading(false)
-	    }
-	    fetchOffer()
-	    // eslint-disable-next-line
+			const metaData: [IReceivedImageMetaData] = await OfferService.getOfferPicturesMetaData(receivedOffer._id)
+			const receivedImages: ImageListType = []
+			for (const data of metaData) {
+				const receivedImage = await OfferService.getOfferPicture(data.fileName)
+				const blob = convertDataUrlToBlob(receivedImage.file, receivedImage.mime)
+				const objectURL = URL.createObjectURL(blob)
+				const createdFile = new File([blob], data.fileName, { type: receivedImage.mime })
+				receivedImages.push({
+					dataURL: objectURL,
+					file: createdFile
+				})
+			}
+			const newOffer: IHousingOffer = {
+				...receivedOffer,
+				images: receivedImages,
+				acceptedTerms: true,
+				_id: receivedOffer._id,
+			}
+			offerContext.setOffer(newOffer)
+			window.localStorage.setItem("offerId", offerContext.offer._id)
+			setLoading(false)
+		}
+		fetchOffer()
+		// eslint-disable-next-line
 	}, [])
 
 	return (

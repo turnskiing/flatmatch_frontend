@@ -222,12 +222,13 @@ export interface IReceivedHousingOffer {
 		amount: number
 	}
 	location: {
-		country: string | null
-		city: string | null
-		zipCode: string | null
+		country: string
+		city: string
+		zipCode: string
 		address: string | null
 		latitude: number | null
 		longitude: number | null
+		distance: number | null
 	}
 	description: string
 	roomSize: number
@@ -240,7 +241,7 @@ export interface IReceivedHousingOffer {
 	moveInDate: Date
 	furnished: boolean
 	numberOfRooms: number
-	values: [string]| []
+	values: [string] | []
 	smoking: boolean
 	_id: string
 }
