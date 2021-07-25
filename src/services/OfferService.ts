@@ -1,8 +1,8 @@
 import { IHousingOffer } from '../models/housingOffer'
 import HttpService from './HttpService'
 import UserService from "./UserService"
-import IReceivedImageMetaData from "./UserService"
-import IReceivedImage from "./UserService"
+import { IReceivedImageMetaData } from "./ProfileService"
+import { IReceivedImage } from "./ProfileService"
 
 export default class OfferService {
 
@@ -45,7 +45,7 @@ export default class OfferService {
 	}
 
 	static async getOffer(offerId: string) {
-		return new Promise((resolve, reject) => {
+		return new Promise<IReceivedHousingOffer>((resolve, reject) => {
 			HttpService.get(`${OfferService.baseURL()}/${offerId}`,
 				(data) => {
 					if (data !== undefined || Object.keys(data).length !== 0) {
@@ -61,8 +61,8 @@ export default class OfferService {
 	}
 
 	static async getOffers(userId: string) {
-		return new Promise((resolve, reject) => {
-			HttpService.get(`${OfferService.baseURL()}/getOffers/id?${userId}`,
+		return new Promise<IReceivedHousingOffer[]>((resolve, reject) => {
+			HttpService.get(`${OfferService.baseURL()}/getOffers/${userId}`,
 				(data) => {
 					if (data !== undefined || Object.keys(data).length !== 0) {
 						resolve(data)
@@ -76,9 +76,9 @@ export default class OfferService {
 		})
 	}
 
-	static async updateOffer(id: string, offer: IHousingOffer): Promise<IReceivedHousingOffer> {
+	static async updateOffer(offer: IHousingOffer): Promise<IReceivedHousingOffer> {
 		return new Promise((resolve, reject) => {
-			HttpService.put(`${OfferService.baseURL()}/${id}`,
+			HttpService.put(`${OfferService.baseURL()}/${offer._id}`,
 				{
 					tenant: offer.tenant,
 					flatmates: offer.flatmates,
@@ -210,15 +210,16 @@ export interface IReceivedHousingOffer {
 	}
 	description: string
 	roomSize: number
-	yearConstructed?: Date
+	yearConstructed: Date
 	title: string
 	ageRange: {
 		minAge: number
 		maxAge: number
 	}
-	moveInDate: number
+	moveInDate: Date
 	furnished: boolean
 	numberOfRooms: number
 	values: [string]
+	smoking: boolean
 	_id: string
 }

@@ -46,9 +46,9 @@ const ColorStepConnector = withStyles((theme) => ({
 function getStepContent(step: number) {
 	switch (step) {
 		case 0:
-			return <OfferingInformation{...true} />
+			return <OfferingInformation {...true} />
 		case 1:
-			return <Values />
+			return <Values {...true} />
 		default:
 			throw new Error("Unknown step")
 	}

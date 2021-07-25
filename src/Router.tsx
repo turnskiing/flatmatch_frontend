@@ -7,6 +7,8 @@ import HomeScreenView from './views/HomeScreen/HomeScreen'
 import ShowProfile from './views/ShowProfile/ShowProfile'
 import CreateOfferingView from './views/CreateOffering/CreateOfferingView'
 import CreateProfileView from "./views/CreateProfile/CreateProfileView"
+import DisplayOffersView from "./views/ShowOffers/DisplayOffersView"
+import EditOfferView from "./views/ShowOffers/EditOfferView"
 
 export enum AuthRoutes {
 	findRoom = '/home/find_room',
@@ -15,7 +17,9 @@ export enum AuthRoutes {
 	findApplicant = '/home/create_offering',
 	messages = "/home/messages",
 	profile = '/home/profile',
-	filter = '/home/find_room/filter'
+	filter = '/home/find_room/filter',
+	offers = '/home/offers',
+	editOffer = '/home/offers/editOffer'
 }
 
 export enum NonAuthRoutes {
@@ -35,6 +39,8 @@ const Router = () => {
 				<AuthRoute path={AuthRoutes.findRoom} Component={FindOfferingView} />
 				<AuthRoute path={AuthRoutes.profile} Component={ShowProfile} />
 				<AuthRoute path={AuthRoutes.createOffering} Component={CreateOfferingView} />
+				<AuthRoute exact path={AuthRoutes.offers} Component={DisplayOffersView} />
+				<AuthRoute path={AuthRoutes.editOffer} Component={EditOfferView} />
 				{/* Not Found */}
 				<Route component={() => <Redirect to={NonAuthRoutes.default} />} />
 			</Switch>
