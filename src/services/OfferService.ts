@@ -213,6 +213,7 @@ export default class OfferService {
 }
 
 export interface IReceivedHousingOffer {
+	distanceToFilterLocation: number | null
 	id: string
 	tenant: string
 	flatmates: [string]
@@ -221,15 +222,12 @@ export interface IReceivedHousingOffer {
 		amount: number
 	}
 	location: {
-
 		country: string | null
 		city: string | null
 		zipCode: string | null
 		address: string | null
 		latitude: number | null
 		longitude: number | null
-		distance: number | null
-
 	}
 	description: string
 	roomSize: number | null
