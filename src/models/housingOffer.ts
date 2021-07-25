@@ -12,7 +12,10 @@ export interface IHousingOffer {
 		country: string
 		city: string
 		zipCode: string
-		address: string
+		address: string | null
+		latitude: number | null
+		longitude: number | null
+		distance: number | null
 	}
 	description: string
 	roomSize: number | null
@@ -26,12 +29,13 @@ export interface IHousingOffer {
 	furnished: boolean
 	numberOfRooms: number | null
 	values: string[]
-	acceptedTerms: boolean
+	acceptedTerms: boolean | undefined
 	_id: string
-	smoking: boolean
+	smoking: boolean | null
 }
 
 export const defaultOffer: IHousingOffer = {
+	_id: "",
 	tenant: "",
 	flatmates: [],
 	price: {
@@ -43,7 +47,10 @@ export const defaultOffer: IHousingOffer = {
 		country: "",
 		city: "",
 		zipCode: "",
-		address: ""
+		address: null,
+		latitude: null,
+		longitude: null,
+		distance: null
 	},
 	description: "",
 	roomSize: null,
@@ -58,6 +65,7 @@ export const defaultOffer: IHousingOffer = {
 	numberOfRooms: null,
 	values: [],
 	acceptedTerms: false,
-	_id: "",
 	smoking: false
 }
+
+export const defaultOffers: IHousingOffer[] = [defaultOffer]

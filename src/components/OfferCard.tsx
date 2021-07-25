@@ -49,7 +49,7 @@ export default function OfferCard(
 		offerContext.setOffer(offer)
 		history.push({
 			pathname: AuthRoutes.findRoommate,
-			state: offer._id 
+			state: offer._id
 		})
 	}
 

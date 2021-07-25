@@ -21,60 +21,20 @@
     position: absolute;
 }
 
-.offer__description {
-    position:   absolute;
-    bottom: 1vh;
-    left: 1vh;
-    right: 1vh;
-    padding: 1vh 1vw 1vh 1vw ;
-    color: #f5edee;
-    font-family:    Arial, Helvetica, sans-serif;
-    font-size: 2vh;
-    border-radius: 5px;
-    background-color: rgba(55, 54, 48, 0.5);
+.gradient {
+    position: absolute;
+    height: 30%;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: linear-gradient(rgba(55, 54, 48, 0), rgba(55, 54, 48, 0.8));
+    border-radius: 10px;
 }
 
-.toplevel_info {
-    position:   absolute;
-    top: 1vh;
-    left: 1vh;
-    right: 40vh;
-    float: left;
-    padding: 0 1vw 1vh 1vw ;
-    color: #f5edee;
-    font-family:    Arial, Helvetica, sans-serif;
-    font-size: 2vh;
-    border-radius: 5px;
-    background-color: rgba(55, 54, 48, 0.5);
+.loading_circle{
+    display: flex;
+    justify-content: center;
+    margin-top: 30%;
+    background-color: #ffff;
 }
 
-.badges {
-    position:   absolute;
-    top: 1vh;
-    left: 40vh;
-    right: 1vh;
-    float: right;
-    padding: 0 1vw 1vh 1vw ;
-    color: #f5edee;
-    font-family:    Arial, Helvetica, sans-serif;
-    font-size: 2vh;
-    border-radius: 5px;
-    background-color: rgba(55, 54, 48, 0.5);
-}
-
-#listing__title{
-    color: #f7ffff;
-    font-family:    Arial, Helvetica, sans-serif;
-    font-size:      3vh;
-    font-weight:    bold;
-}
-
-#details_title{
-    color: #f7ffff;
-    font-family:    "American Typewriter", Helvetica, sans-serif;
-    font-size:      2vh;
-}
-
-.details_text{color: #f7ffff;
-    font-family:    Avenir, Helvetica, sans-serif;
-    font-size:      2vh;}
