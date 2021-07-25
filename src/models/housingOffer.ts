@@ -1,7 +1,7 @@
 import { ImageListType } from "react-images-uploading"
 
 export interface IHousingOffer {
-	id: string
+	_id: string
 	tenant: string
 	flatmates: string[]
 	price: {
@@ -35,7 +35,7 @@ export interface IHousingOffer {
 }
 
 export const defaultOffer: IHousingOffer = {
-	id: "",
+	_id: "",
 	tenant: "",
 	flatmates: [],
 	price: {
