@@ -7,14 +7,14 @@ import TinderCard from "react-tinder-card"
 import DetailPage from "./DetailPage"
 import { render } from "react-dom"
 import { OfferContext, OffersContext, UserContext } from "../../App"
-import { IHousingOffer } from "../../models/housingOffer"
+import { defaultOffer, IHousingOffer } from "../../models/housingOffer"
 import OfferDetailsView from "./DetailPage"
 import IconButton from "@material-ui/core/IconButton"
 import CloseIcon from "@material-ui/icons/Close"
 import StarIcon from '@material-ui/icons/Star'
 import InfoIcon from '@material-ui/icons/Info'
 import { CurrentOfferContext } from "./FindOfferingView"
-import { ICurrentOffer } from "../../models/currentOffer"
+import { defaultCurrentOffer, ICurrentOffer } from "../../models/currentOffer"
 import { Grid, Typography } from "@material-ui/core"
 import "./SwipeButtons.css"
 
@@ -54,11 +54,11 @@ const TinderCards = (): ReactElement => {
 
 	const swiped = (direction: string, emailToDelete: string) => {
 		if (direction === "up") {
-			const newCurrentApplicant: ICurrentOffer = {
+			const newCurrentOffer: ICurrentOffer = {
 				_id: emailToDelete,
 				isShown: true
 			}
-			currentOfferContext.setCurrentOffer(newCurrentApplicant)
+			currentOfferContext.setCurrentOffer(newCurrentOffer)
 		}
 		if (direction === "right" || direction === "left") {
 			alreadyRemoved.push(emailToDelete)
@@ -108,7 +108,6 @@ const TinderCards = (): ReactElement => {
 			...currentOfferContext.currentOffer,
 			isShown: true,
 		}
-		debugger
 		currentOfferContext.setCurrentOffer(newCurrentApplicant)
 	}
 
@@ -126,7 +125,10 @@ const TinderCards = (): ReactElement => {
 							onCardLeftScreen={() => outOfFrame(listing._id)}
 						>
 							<div
-								style={{ display: 'flex', backgroundImage: `url(${listing.images[0]})` }}
+								style={{
+									display: 'flex',
+									backgroundImage: listing.images[0] ? `url(${listing.images[0]})` : `url(https://picsum.photos/seed/picsum/500/500)`
+								}}
 								className={"card"}
 							>
 								<Grid
@@ -137,7 +139,9 @@ const TinderCards = (): ReactElement => {
 									className="gradient"
 								>
 									<Grid item>
-										<Typography variant="h5" style={{ color: "white", paddingLeft: 30, paddingBottom: 20 }} gutterBottom>
+										<Typography variant="h5"
+											style={{ color: "white", paddingLeft: 30, paddingBottom: 20 }}
+											gutterBottom>
 											{listing.location.city}
 										</Typography>
 									</Grid>
