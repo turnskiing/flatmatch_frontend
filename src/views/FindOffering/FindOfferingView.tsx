@@ -19,7 +19,6 @@ function FindOffering(this: any) {
     const userContext = useContext(UserContext)
     const offersContext = useContext(OffersContext)
 
-    const history = useHistory()
     const [isLoading, setLoading] = useState<boolean>(false)
 
 
@@ -35,6 +34,12 @@ function FindOffering(this: any) {
         setLoading(true)
         const fetchUsers = async () => {
             const receivedOffers: Array<IReceivedHousingOffer> = await OfferService.getFilteredOffers()
+            let receivedPictures = []
+            let imageMeta;
+            for (const i of receivedOffers) {
+                imageMeta = await OfferService.getOfferPicturesMetaData(i._id)
+                receivedPictures.push(...imageMeta)
+            }
             let offerList: IHousingOffer[] = []
             for (const offer of receivedOffers) {
                 let newOffer: IHousingOffer = {
@@ -72,6 +77,7 @@ function FindOffering(this: any) {
                 }
                 offerList.push(newOffer)
             }
+            debugger
             offersContext.setOffers(offerList)
         }
 
