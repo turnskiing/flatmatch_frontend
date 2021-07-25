@@ -14,13 +14,14 @@ import { ApplicantsContext, CurrentApplicantContext } from "./FindRoommateView"
 import { getAge } from "../../shared/calculateAge"
 import RoommateDetailView from "./RoommateDetailsView"
 import OfferService from "../../services/OfferService"
+import MatchService, { IReceivedMatch } from "../../services/MatchService"
+import UserService from "../../services/UserService"
 
 interface Props {
 	offerId: string
 }
 
 const RoommateCards: FC<Props> = ({ offerId }): ReactElement => {
-	// TODO: Exchange with backend-call to receive users
 	const currentApplicantContext = useContext(CurrentApplicantContext)
 	const applicantsContext = useContext(ApplicantsContext)
 	const applicantsData = applicantsContext.applicants
@@ -57,7 +58,19 @@ const RoommateCards: FC<Props> = ({ offerId }): ReactElement => {
 		}
 		if (direction === "right" || direction === "left") {
 			alreadyRemoved.push(emailToDelete)
+
+			// Create match
+			if (direction === "right") {
+				const user = await UserService.getUserByEmail(emailToDelete)
+				const newMatch: IReceivedMatch = {
+					applicant: user._id ?? "",
+					tenant: UserService.getCurrentUser()._id,
+					offer: offerId
+				}
+				await MatchService.createMatch(newMatch)
+			}
 			await OfferService.removeApplicantFromOffer(offerId, emailToDelete)
+
 			// update currentApplicant
 			const cardsLeft = applicants.filter(applicant => !alreadyRemoved.includes(applicant.email))
 			if (cardsLeft.length) {
