@@ -18,15 +18,21 @@ import "./OfferingViewStyles.css"
 function FindOffering(this: any) {
 	const userContext = useContext(UserContext)
 	const offersContext = useContext(OffersContext)
-	const [data, setData] = useState(defaultOffers);
 
 	const history = useHistory()
 	const [isLoading, setLoading] = useState<boolean>(false)
 
 
 
-	// @ts-ignore
 	useEffect(() => {
+		if (offersContext.offers !== defaultOffers){
+			setLoading(false)
+			console.log(offersContext.offers)
+		}
+	}, [offersContext])
+
+	// @ts-ignore
+	useEffect(async () => {
 		setLoading(true)
 		const fetchUsers = async () => {
 			const receivedOffers: Array<IReceivedHousingOffer> = await OfferService.getFilteredOffers()
@@ -68,10 +74,9 @@ function FindOffering(this: any) {
 				offerList.push(newOffer)
 			}
 			offersContext.setOffers(offerList)
-			setLoading(false)
 		}
 
-		let asd = fetchUsers()
+		await fetchUsers()
 		// eslint-disable-next-line
 	}, [])
 
@@ -88,7 +93,6 @@ function FindOffering(this: any) {
 				) : (
 					<TinderCards />
 				)}
-
 				<SwipeButtons />
 			</div>
 		</React.Fragment>
