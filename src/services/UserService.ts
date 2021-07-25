@@ -1,3 +1,4 @@
+import { Http } from "@material-ui/icons"
 import { IUser, UserType } from "../models/user"
 import { parseJwt } from "../shared/parseJwt"
 import HttpService from "./HttpService"
@@ -66,6 +67,34 @@ export default class UserService {
 		return new Promise((resolve, reject) => {
 			HttpService.get(
 				`${UserService.baseURL()}/user`,
+				(data) => {
+					resolve(data)
+				},
+				(textStatus) => {
+					reject(textStatus)
+				}
+			)
+		})
+	}
+
+	static async getUserInfoById(userId: string): Promise<IReceivedUser> {
+		return new Promise((resolve, reject) => {
+			HttpService.get(
+				`${UserService.baseURL()}/user/${userId}`,
+				(data) => {
+					resolve(data)
+				},
+				(textStatus) => {
+					reject(textStatus)
+				}
+			)
+		})
+	}
+
+	static async getUserByEmail(email: string): Promise<IReceivedUser> {
+		return new Promise((resolve, reject) => {
+			HttpService.get(
+				`${UserService.baseURL()}/${email}`,
 				(data) => {
 					resolve(data)
 				},
@@ -176,4 +205,5 @@ export interface IReceivedUser {
 	userType: string
 	declined_ofers: string[]
 	accepted_offers: string[]
+	_id?: string
 }

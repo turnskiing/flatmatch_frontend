@@ -44,6 +44,8 @@ export const defaultUser: IUser = {
 	type: null
 }
 
+export const defaultApplicants: IUser[] = [defaultUser]
+
 export enum UserType {
 	Applicant,
 	Tenant
