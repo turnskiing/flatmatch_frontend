@@ -32,7 +32,7 @@ export const defaultFilter: IFilter = {
 		currency: currencies[1].value
 	},
 	location: {
-		country: "DE",
+		country: "Germany",
 		city: "",
 		zipCode: "",
 		address: ""
