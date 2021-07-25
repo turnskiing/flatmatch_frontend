@@ -3,18 +3,19 @@ import { BrowserRouter, Route, Switch, Redirect, RouteComponentProps } from 'rea
 import SignInView from './views/SignIn/SignInView'
 import FindOfferingView from './views/FindOffering/FindOfferingView'
 import UserService from './services/UserService'
-import HomeScreenView from './views/HomeScreen/HomeScreen'
-import ShowProfile from './views/ShowProfile/ShowProfile'
+import HomeScreenView from './views/HomeScreen/HomeScreenView'
+import ShowProfile from './views/ShowProfile/ShowProfileView'
 import CreateOfferingView from './views/CreateOffering/CreateOfferingView'
 import CreateProfileView from "./views/CreateProfile/CreateProfileView"
 import DisplayOffersView from "./views/ShowOffers/DisplayOffersView"
 import EditOfferView from "./views/ShowOffers/EditOfferView"
+import FindRoommateView from './views/FindRoommate/FindRoommateView'
 
 export enum AuthRoutes {
 	findRoom = '/home/find_room',
 	createOffering = '/home/create_offering',
 	home = '/home',
-	findApplicant = '/home/create_offering',
+	findRoommate = '/home/find_roommate',
 	messages = "/home/messages",
 	profile = '/home/profile',
 	filter = '/home/find_room/filter',
@@ -41,6 +42,7 @@ const Router = () => {
 				<AuthRoute path={AuthRoutes.createOffering} Component={CreateOfferingView} />
 				<AuthRoute exact path={AuthRoutes.offers} Component={DisplayOffersView} />
 				<AuthRoute path={AuthRoutes.editOffer} Component={EditOfferView} />
+				<AuthRoute path={AuthRoutes.findRoommate} Component={FindRoommateView} />
 				{/* Not Found */}
 				<Route component={() => <Redirect to={NonAuthRoutes.default} />} />
 			</Switch>

@@ -1,0 +1,6 @@
+.loading_circle{
+    display: flex;
+    justify-content: center;
+    margin-top: 30%;
+    background-color: #ffff;
+}

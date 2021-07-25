@@ -20,6 +20,20 @@ export default class ProfileService {
 		})
 	}
 
+	static async getProfilePicturesMetaDataOfUser(userId: string): Promise<[IReceivedImageMetaData]> {
+		return new Promise((resolve, reject) => {
+			HttpService.get(
+				`${ProfileService.baseURL()}/getProfilePictureMetaData/${userId}`,
+				(data: any) => {
+					resolve(data)
+				},
+				(textStatus: any) => {
+					reject(textStatus)
+				}
+			)
+		})
+	}
+
 	static async getProfilePicture(fileName: string): Promise<IReceivedImage> {
 		return new Promise((resolve, reject) => {
 			HttpService.get(

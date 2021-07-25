@@ -44,7 +44,7 @@ export default class OfferService {
 		})
 	}
 
-	static async getOffer(offerId: string) {
+	static async getOffer(offerId: string): Promise<IReceivedHousingOffer> {
 		return new Promise<IReceivedHousingOffer>((resolve, reject) => {
 			HttpService.get(`${OfferService.baseURL()}/${offerId}`,
 				(data) => {
@@ -114,7 +114,7 @@ export default class OfferService {
 		})
 	}
 
-	static removeOffer(id: string) {
+	static async removeOffer(id: string) {
 		return new Promise((resolve, reject) => {
 			HttpService.remove(
 				`${OfferService.baseURL()}/${id}`,
@@ -126,6 +126,23 @@ export default class OfferService {
 					}
 				},
 				(textStatus) => {
+					reject(textStatus)
+				}
+			)
+		})
+	}
+
+	static async removeApplicantFromOffer(id: string, applicantEmail: string): Promise<any> {
+		return new Promise((resolve, reject) => {
+			HttpService.put(
+				`${OfferService.baseURL()}/removeApplicant/${id}`,
+				{
+					applicantEmail: applicantEmail
+				},
+				(data: any) => {
+					resolve(data)
+				},
+				(textStatus: any) => {
 					reject(textStatus)
 				}
 			)
@@ -222,4 +239,5 @@ export interface IReceivedHousingOffer {
 	values: [string]
 	smoking: boolean
 	_id: string
+	applicants: [string]
 }
