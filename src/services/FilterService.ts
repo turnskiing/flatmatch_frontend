@@ -6,7 +6,7 @@ export default class FilterService {
 		return "http://localhost:8080/api/filter"
 	}
 
-	static createFilter(filter: IFilter) {
+	static async createFilter(filter: IFilter): Promise<IRecievedFilter>{
 		return new Promise((resolve, reject) => {
 			HttpService.post(
 				`${FilterService.baseURL()}`,

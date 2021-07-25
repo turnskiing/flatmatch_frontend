@@ -8,7 +8,7 @@ export default class OfferService {
 		return 'http://localhost:8080/api/offers'
 	}
 
-	static createOffer(offer: IHousingOffer) {
+	static async createOffer(offer: IHousingOffer): Promise<IReceivedHousingOffer> {
 		return new Promise<IReceivedHousingOffer>((resolve, reject) => {
 			HttpService.post(`${OfferService.baseURL()}/`, {
 				tenant: UserService.getCurrentUser()._id,  // input as userId from Token
