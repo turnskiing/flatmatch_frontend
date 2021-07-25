@@ -19,6 +19,17 @@ export function FindOfferingBreadCrumb() {
 	)
 }
 
+export function FindRoommateBreadCrumb() {
+	return (
+		<Breadcrumbs maxItems={2} aria-label="breadcrumb">
+			<Link color="inherit" href="/home">
+				Home
+			</Link>
+			<Typography color="textPrimary">FindRoommate</Typography>
+		</Breadcrumbs>
+	)
+}
+
 export function HomeBreadCrumb() {
 	return (
 		<Breadcrumbs maxItems={1} aria-label="breadcrumb">

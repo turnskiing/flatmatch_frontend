@@ -43,7 +43,7 @@ export default function HomeScreenView() {
 	}
 
 	const handleFindRoommates = () => {
-		history.push(AuthRoutes.findApplicant)
+		history.push(AuthRoutes.findRoommate)
 	}
 
 	const handleMyMessages = () => {

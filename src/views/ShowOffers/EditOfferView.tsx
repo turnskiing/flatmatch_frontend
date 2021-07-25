@@ -98,7 +98,7 @@ export default function EditOfferView() {
 				...receivedOffer,
 				images: receivedImages,
 				acceptedTerms: true,
-				_id: receivedOffer._id,
+				_id: receivedOffer._id
 			}
 			offerContext.setOffer(newOffer)
 			window.localStorage.setItem("offerId", offerContext.offer._id)

@@ -44,7 +44,10 @@ export default function OfferCard(
 
 	const findRoomates = () => {
 		offerContext.setOffer(offer)
-		history.push(AuthRoutes.findApplicant)
+		history.push({
+			pathname: AuthRoutes.findRoommate,
+			state: offer._id 
+		})
 	}
 
 	return (
